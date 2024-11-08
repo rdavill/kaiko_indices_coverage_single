@@ -1,7 +1,6 @@
 import requests
 import json
 import csv
-import os
 from datetime import datetime
 
 
@@ -23,11 +22,9 @@ def pull_and_save_data_to_csv(api_url):
             items.append((ticker, quote_short_name, base_short_name, type, dissemination, short_name, inception))
 
         headers = ['Ticker', 'Quote (short name)', 'Base (short name)', 'Type', 'Dissemination', 'Rate Short name', 'Inception']
-        rows = items
-
         sorted_items = sorted(items, key=lambda row: row[2])
 
-        with open("Reference_Rates_Coverage.csv", "w") as csv_file:  # Simplified the path
+        with open("Reference_Rates_Coverage.csv", "w") as csv_file:  # Simplified path
             writer = csv.writer(csv_file)
             writer.writerow(headers)
             writer.writerows(sorted_items)
