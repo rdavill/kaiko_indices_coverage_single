@@ -7,8 +7,12 @@ on:
 jobs:
   update-csv:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Add this line to ensure write permissions
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # Add this line
       
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -29,20 +33,12 @@ jobs:
           pipenv run python Rates_update.py
           echo "Script completed. Checking file:"
           ls -l Reference_Rates_Coverage.csv
-          head -n 5 Reference_Rates_Coverage.csv  # Show first 5 lines of the file
-
-      - name: Debug Git Status
-        run: |
-          echo "Git status:"
-          git status
-          echo "Directory contents:"
-          ls -la
+          head -n 5 Reference_Rates_Coverage.csv
 
       - name: Commit and push changes
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add Reference_Rates_Coverage.csv
-          git status
-          git commit -m "Update Reference_Rates_Coverage.csv" || echo "No changes to commit"
-          git push || echo "No changes to push"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add Reference_Rates_Coverage.csv Pipfile.lock
+          git commit -m "Update Reference_Rates_Coverage.csv"
+          git push
