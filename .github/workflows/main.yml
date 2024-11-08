@@ -15,13 +15,6 @@ jobs:
         with:
           python-version: '3.9'
       
-      - name: Debug Directory
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Directory contents:"
-          ls -la
-          
       - name: Install Pipenv
         run: |
           python3 -m pip install --user pipenv
@@ -33,12 +26,23 @@ jobs:
       - name: Run Python Script
         run: |
           echo "Running Python script..."
-          pipenv run python Rates_update.py  # Removed the ./ prefix
+          pipenv run python Rates_update.py
+          echo "Script completed. Checking file:"
+          ls -l Reference_Rates_Coverage.csv
+          head -n 5 Reference_Rates_Coverage.csv  # Show first 5 lines of the file
+
+      - name: Debug Git Status
+        run: |
+          echo "Git status:"
+          git status
+          echo "Directory contents:"
+          ls -la
 
       - name: Commit and push changes
         run: |
-          git config --local user.email "<EMAIL>"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add Reference_Rates_Coverage.csv
+          git status
           git commit -m "Update Reference_Rates_Coverage.csv" || echo "No changes to commit"
           git push || echo "No changes to push"
