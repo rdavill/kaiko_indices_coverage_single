@@ -1,7 +1,7 @@
 name: "Update Reference Rates Coverage"
 on:
 schedule:
-- cron: '16 * * * *'
+- cron: '18 * * * *'
 jobs:
 update-csv:
 runs-on: ubuntu-latest
@@ -16,9 +16,7 @@ run: |
           pipenv install --dev
 
 - name: Run script
-run: |
-          pipenv run python ./Rates_update.py
-
+run: pipenv run python ./Rates_update.py
 - name: Commit and push changes
 run: |
           git config --local user.email "<robert.davill@kaiko.com>"
