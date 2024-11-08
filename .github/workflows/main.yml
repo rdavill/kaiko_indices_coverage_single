@@ -13,26 +13,35 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.9'
       
       - name: Install Pipenv
         run: |
           python3 -m pip install --user pipenv
-          pipenv --version  # Debug: Check pipenv version
+          echo "Pipenv version:"
+          pipenv --version
 
+      - name: Debug Environment
+        run: |
+          pwd
+          ls -la
+          cat Pipfile
+          
       - name: Install dependencies
         run: |
-          pipenv install --dev --verbose  # Added verbose flag
-          ls -la  # Debug: List files
-          pipenv run python -V  # Debug: Check Python version
+          pipenv install --verbose
+          pipenv graph
+
+      - name: Run Python Script
+        run: |
+          echo "Running Python script..."
           pipenv run python ./Rates_update.py
+        continue-on-error: true  # This will allow the step to complete even if it fails
 
       - name: Commit and push changes
         run: |
           git config --local user.email "<EMAIL>"
           git config --local user.name "GitHub Action"
-          git status  # Debug: Check git status
           git add Reference_Rates_Coverage.csv
-          git status  # Debug: Check git status again
           git commit -m "Update Reference_Rates_Coverage.csv" || echo "No changes to commit"
           git push || echo "No changes to push"
