@@ -1,7 +1,9 @@
 import requests
 import json
 import csv
+import os
 from datetime import datetime
+
 
 def pull_and_save_data_to_csv(api_url):
     response = requests.get(api_url)
@@ -25,7 +27,7 @@ def pull_and_save_data_to_csv(api_url):
 
         sorted_items = sorted(items, key=lambda row: row[2])
 
-        with open(f"{os.environ['GITHUB_WORKSPACE']}/Reference_Rates_Coverage.csv", "w") as csv_file:
+        with open("Reference_Rates_Coverage.csv", "w") as csv_file:  # Simplified the path
             writer = csv.writer(csv_file)
             writer.writerow(headers)
             writer.writerows(sorted_items)
