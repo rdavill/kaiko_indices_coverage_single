@@ -1,7 +1,7 @@
 name: "Update Reference Rates Coverage"
 on:
   schedule:
-    - cron: '5 * * * *'
+    - cron: '09 * * * *'
   workflow_dispatch:
 
 jobs:
