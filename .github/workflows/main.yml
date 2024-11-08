@@ -8,7 +8,7 @@ jobs:
   update-csv:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4  # Updated from v2 to v4
+      - uses: actions/checkout@v4
       
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -18,16 +18,21 @@ jobs:
       - name: Install Pipenv
         run: |
           python3 -m pip install --user pipenv
+          pipenv --version  # Debug: Check pipenv version
 
       - name: Install dependencies
         run: |
-          pipenv install --dev
+          pipenv install --dev --verbose  # Added verbose flag
+          ls -la  # Debug: List files
+          pipenv run python -V  # Debug: Check Python version
           pipenv run python ./Rates_update.py
 
       - name: Commit and push changes
         run: |
           git config --local user.email "<EMAIL>"
           git config --local user.name "GitHub Action"
+          git status  # Debug: Check git status
           git add Reference_Rates_Coverage.csv
+          git status  # Debug: Check git status again
           git commit -m "Update Reference_Rates_Coverage.csv" || echo "No changes to commit"
           git push || echo "No changes to push"
