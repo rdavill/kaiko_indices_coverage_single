@@ -1,24 +1,26 @@
 name: "Update Reference Rates Coverage"
 on:
-schedule:
-- cron: '26 * * * *'
+  schedule:
+    - cron: '10 * * * *'
 jobs:
-update-csv:
-runs-on: ubuntu-latest
-steps:
-- uses: actions/checkout@v2
-- name: Install Pipenv
-run: |
+  update-csv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install Pipenv
+        run: |
           python3 -m pip install --user pipenv
-- name: Install dependencies
-run: |
+
+      - name: Install dependencies
+        run: |
           pipenv install --dev
           pipenv shell
           python ./Rates_update.py
 
-- name: Commit and push changes
-run: |
-          git config --local user.email "<robert.davill@kaiko.com>"
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "<EMAIL>"
           git config --local user.name "GitHub Action"
           git add Reference_Rates_Coverage.csv
           git commit -m "Update Reference_Rates_Coverage.csv"
