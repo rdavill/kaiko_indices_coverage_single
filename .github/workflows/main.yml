@@ -2,13 +2,18 @@ name: "Update Reference Rates Coverage"
 on:
   schedule:
     - cron: '10 * * * *'
-  workflow_dispatch:  # Allows manual triggering of the workflow
+  workflow_dispatch:
 
 jobs:
   update-csv:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4  # Updated from v2 to v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
       
       - name: Install Pipenv
         run: |
@@ -24,5 +29,5 @@ jobs:
           git config --local user.email "<EMAIL>"
           git config --local user.name "GitHub Action"
           git add Reference_Rates_Coverage.csv
-          git commit -m "Update Reference_Rates_Coverage.csv"
-          git push
+          git commit -m "Update Reference_Rates_Coverage.csv" || echo "No changes to commit"
+          git push || echo "No changes to push"
