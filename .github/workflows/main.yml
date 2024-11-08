@@ -1,7 +1,7 @@
 name: "Update Reference Rates Coverage"
 on:
 schedule:
-- cron: '3 * * * *'
+- cron: '7 * * * *'
 jobs:
 update-csv:
 runs-on: ubuntu-latest
