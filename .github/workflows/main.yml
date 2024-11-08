@@ -15,28 +15,25 @@ jobs:
         with:
           python-version: '3.9'
       
+      - name: Debug Directory
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Directory contents:"
+          ls -la
+          
       - name: Install Pipenv
         run: |
           python3 -m pip install --user pipenv
-          echo "Pipenv version:"
-          pipenv --version
 
-      - name: Debug Environment
-        run: |
-          pwd
-          ls -la
-          cat Pipfile
-          
       - name: Install dependencies
         run: |
-          pipenv install --verbose
-          pipenv graph
+          pipenv install
 
       - name: Run Python Script
         run: |
           echo "Running Python script..."
-          pipenv run python ./Rates_update.py
-        continue-on-error: true  # This will allow the step to complete even if it fails
+          pipenv run python Rates_update.py  # Removed the ./ prefix
 
       - name: Commit and push changes
         run: |
