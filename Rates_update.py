@@ -24,7 +24,7 @@ def pull_and_save_data_to_csv(api_url):
             items.append((ticker, brand, quote_short_name, base_short_name, type, dissemination, short_name, launch_date, inception))
 
         headers = ['Ticker','Brand', 'Quote (short name)', 'Base (short name)', 'Type', 'Dissemination', 'Rate Short name', 'Launch Date', 'Inception']
-        sorted_items = sorted(items, key=lambda row: row[2])
+        sorted_items = sorted(items, key=lambda row: row[3])
 
         with open("Reference_Rates_Coverage.csv", "w") as csv_file:
             writer = csv.writer(csv_file)
