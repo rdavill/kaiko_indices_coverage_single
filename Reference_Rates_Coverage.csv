@@ -326,7 +326,7 @@ KK_BRR_DASHUSD_LDN,Kaiko,USD,DASH,Benchmark Reference Rate,Daily Fixing LDN,Kaik
 KK_RFR_DASHUSD_LDN,Kaiko,USD,DASH,Reference Rate,Daily Fixing LDN,Kaiko DASH Reference Rate LDN,"September 20, 2022","September 20, 2022"
 KK_RFR_DASHUSD_SGP,Kaiko,USD,DASH,Reference Rate,Daily Fixing SGP,Kaiko DASH Reference Rate SGP,"September 20, 2022","September 20, 2022"
 KK_BRR_DASHUSD_NYC,Kaiko,USD,DASH,Benchmark Reference Rate,Daily Fixing NYC,Kaiko DASH Benchmark Reference Rate NYC,"September 18, 2023","September 18, 2023"
-kk_RFR_dashusd,kk,USD,DASH,Reference Rate,Real-time (5s),kk DASH Reference Rate ,"September 20, 2022","September 20, 2022"
+kk_RFR_dashusd,Kaiko,USD,DASH,Reference Rate,Real-time (5s),Kaiko DASH Reference Rate ,"September 20, 2022","September 20, 2022"
 KK_RFR_DESOUSD_NYC,Kaiko,USD,DESO,Reference Rate,Daily Fixing NYC,Kaiko DESO Reference Rate NYC,"February 27, 2024","February 27, 2024"
 KK_RFR_DESOUSD,Kaiko,USD,DESO,Reference Rate,Real-time (5s),Kaiko DESO Reference Rate ,"February 27, 2024","February 27, 2024"
 KK_RFR_DESOUSD_SGP,Kaiko,USD,DESO,Reference Rate,Daily Fixing SGP,Kaiko DESO Reference Rate SGP,"February 27, 2024","February 27, 2024"
