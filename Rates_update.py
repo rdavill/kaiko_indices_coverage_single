@@ -18,8 +18,8 @@ def pull_and_save_data_to_csv(api_url):
             type = item['type'].replace('_', ' ')
             dissemination = item['dissemination']
             short_name = item['short_name'].replace('_', ' ')
-            launch_date = datetime.strptime(item['launch_date'], '%Y-%m-%dT%H:%M:%SZ').strftime('%B %d, %Y')
-            inception = datetime.strptime(item['inception_date'], '%Y-%m-%dT%H:%M:%SZ').strftime('%B %d, %Y')
+            launch_date = datetime.strptime(item['launch_date'], '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%B %d, %Y')
+            inception = datetime.strptime(item['inception_date'], '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%B %d, %Y')
 
             items.append((ticker, brand, quote_short_name, base_short_name, type, dissemination, short_name, launch_date, inception))
 
