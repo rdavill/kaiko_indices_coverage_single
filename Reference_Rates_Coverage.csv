@@ -1156,6 +1156,7 @@ KK_RFR_TRUUSD_SGP,Kaiko,USD,TRU,Reference Rate,Daily Fixing SGP,Kaiko TRU Refere
 KK_RFR_TRUUSD_LDN,Kaiko,USD,TRU,Reference Rate,Daily Fixing LDN,Kaiko TRU Reference Rate LDN,"March 07, 2024","March 07, 2024"
 KK_RFR_TRUUSD_NYC,Kaiko,USD,TRU,Reference Rate,Daily Fixing NYC,Kaiko TRU Reference Rate NYC,"March 07, 2024","March 07, 2024"
 KK_RFR_TRUMPUSDT,Kaiko,USDT,TRUMP,Reference Rate,Real-time (5s),Kaiko TRUMP Reference Rate ,"January 20, 2025","January 18, 2025"
+KK_RFR_TRUMPUSD,Kaiko,USD,TRUMP,Reference Rate,Real-time (5s),Kaiko TRUMP Reference Rate ,"January 22, 2025","January 22, 2025"
 KK_RFR_TRXUSD_SGP,Kaiko,USD,TRX,Reference Rate,Daily Fixing SGP,Kaiko TRX Reference Rate SGP,"September 20, 2022","September 20, 2022"
 KK_RFR_TRXUSD,Kaiko,USD,TRX,Reference Rate,Real-time (5s),Kaiko TRX Reference Rate ,"September 20, 2022","September 20, 2022"
 KK_RFR_TRXUSD_NYC,Kaiko,USD,TRX,Reference Rate,Daily Fixing NYC,Kaiko TRX Reference Rate NYC,"September 20, 2022","September 20, 2022"
