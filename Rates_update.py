@@ -19,7 +19,7 @@ def get_existing_fact_sheets():
         with open("Reference_Rates_Coverage.csv", "r", newline='') as csv_file:
             reader = csv.DictReader(csv_file)
             for row in reader:
-                if 'Fact Sheet' in row and row['Fact Sheet']:  # Only store non-empty fact sheet links
+                if 'Fact Sheet' in row and row['Fact Sheet']:
                     fact_sheets[row['Ticker']] = row['Fact Sheet']
     return fact_sheets
 
@@ -40,6 +40,17 @@ def get_fixed_entries():
         ('KT15SGP', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'SGP Fixing', 'Kaiko Top15 Index SGP', 'October 17, 2023', 'December 23, 2019')
     ]
     return fixed_entries
+
+def create_factsheet_only_csv(all_items, headers):
+    """Create a separate CSV containing only rows with fact sheets"""
+    # Filter for rows that have a fact sheet (last column is not empty)
+    factsheet_items = [item for item in all_items if item[-1]]
+    
+    if factsheet_items:  # Only create file if there are items with fact sheets
+        with open("Reference_Rates_With_Factsheets.csv", "w", newline='') as csv_file:
+            writer = csv.writer(csv_file)
+            writer.writerow(headers)
+            writer.writerows(factsheet_items)
 
 def pull_and_save_data_to_csv(api_url):
     # Get existing fact sheet links
@@ -86,10 +97,14 @@ def pull_and_save_data_to_csv(api_url):
                   'Type', 'Dissemination', 'Rate Short name', 'Launch Date', 
                   'Inception', 'Fact Sheet']
         
+        # Save main CSV with all data
         with open("Reference_Rates_Coverage.csv", "w", newline='') as csv_file:
             writer = csv.writer(csv_file)
             writer.writerow(headers)
             writer.writerows(all_items)
+            
+        # Create additional CSV with only fact sheet rows
+        create_factsheet_only_csv(all_items, headers)
     else:
         print(f"Error fetching data: {response.status_code}")
 
