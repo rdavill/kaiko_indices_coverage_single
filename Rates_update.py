@@ -2,6 +2,7 @@ import requests
 import json
 import csv
 from datetime import datetime
+import os
 
 def parse_date(date_string):
     try:
@@ -10,6 +11,17 @@ def parse_date(date_string):
     except ValueError:
         # If that fails, try without milliseconds
         return datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ').strftime('%B %d, %Y')
+
+def get_existing_fact_sheets():
+    """Read existing fact sheet links from the current CSV"""
+    fact_sheets = {}
+    if os.path.exists("Reference_Rates_Coverage.csv"):
+        with open("Reference_Rates_Coverage.csv", "r", newline='') as csv_file:
+            reader = csv.DictReader(csv_file)
+            for row in reader:
+                if 'Fact Sheet' in row and row['Fact Sheet']:  # Only store non-empty fact sheet links
+                    fact_sheets[row['Ticker']] = row['Fact Sheet']
+    return fact_sheets
 
 def get_fixed_entries():
     # Fixed entries that should always appear at the top
@@ -30,6 +42,9 @@ def get_fixed_entries():
     return fixed_entries
 
 def pull_and_save_data_to_csv(api_url):
+    # Get existing fact sheet links
+    existing_fact_sheets = get_existing_fact_sheets()
+    
     # Get fixed entries first
     fixed_items = get_fixed_entries()
     
@@ -52,12 +67,25 @@ def pull_and_save_data_to_csv(api_url):
             short_name = item['short_name'].replace('_', ' ')
             launch_date = parse_date(item['launch_date'])
             inception = parse_date(item['inception_date'])
-            api_items.append((ticker, brand, quote_short_name, base_short_name, type, dissemination, short_name, launch_date, inception))
+            
+            # Get existing fact sheet link or empty string
+            fact_sheet = existing_fact_sheets.get(ticker, '')
+            
+            api_items.append((ticker, brand, quote_short_name, base_short_name, type, 
+                            dissemination, short_name, launch_date, inception, fact_sheet))
+        
+        # Add fact sheets to fixed entries
+        fixed_items_with_fact_sheets = [
+            entry + (existing_fact_sheets.get(entry[0], ''),) for entry in fixed_items
+        ]
         
         # Combine fixed and API items
-        all_items = fixed_items + sorted(api_items, key=lambda row: row[3])
+        all_items = fixed_items_with_fact_sheets + sorted(api_items, key=lambda row: row[3])
         
-        headers = ['Ticker', 'Brand', 'Quote (short name)', 'Base (short name)', 'Type', 'Dissemination', 'Rate Short name', 'Launch Date', 'Inception']
+        headers = ['Ticker', 'Brand', 'Quote (short name)', 'Base (short name)', 
+                  'Type', 'Dissemination', 'Rate Short name', 'Launch Date', 
+                  'Inception', 'Fact Sheet']
+        
         with open("Reference_Rates_Coverage.csv", "w", newline='') as csv_file:
             writer = csv.writer(csv_file)
             writer.writerow(headers)
