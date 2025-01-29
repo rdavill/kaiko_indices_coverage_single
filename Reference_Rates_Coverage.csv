@@ -1,5 +1,5 @@
 Ticker,Brand,Quote (short name),Base (short name),Type,Dissemination,Rate Short name,Launch Date,Inception,Fact Sheet
-KT5,Kaiko,INDEX,INDEX,Blue-Chip,Real-time (5 sec),Kaiko Top5 Index,"October 17, 2023","March 19, 2018",<a href="https://25446524.fs1.hubspotusercontent-eu1.net/hubfs/25446524/Factsheets/Cboe%20Kaiko%20Rates%20Rulebook.pdf" target="_blank" rel="nofollow noopener noreferrer">View Fact Sheet</a>
+KT5,Kaiko,INDEX,INDEX,Blue-Chip,Real-time (5 sec),Kaiko Top5 Index,"October 17, 2023","March 19, 2018",
 KT5NYC,Kaiko,INDEX,INDEX,Blue-Chip,NYC Fixing,Kaiko Top5 Index NYC,"October 17, 2023","March 19, 2018",
 KT5LDN,Kaiko,INDEX,INDEX,Blue-Chip,LDN Fixing,Kaiko Top5 Index LDN,"October 17, 2023","March 19, 2018",
 KT5SGP,Kaiko,INDEX,INDEX,Blue-Chip,SGP Fixing,Kaiko Top5 Index SGP,"October 17, 2023","March 19, 2018",
