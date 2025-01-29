@@ -1,4 +1,5 @@
 name: "Update Reference Rates Coverage"
+
 on:
   schedule:
     - cron: '35 * * * *'
@@ -9,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,21 +29,34 @@ jobs:
         run: |
           pipenv install
           pipenv --version  # Debug: verify pipenv installation
-
+      
       - name: Run Python Script
         run: |
           echo "Running Python script..."
           pipenv run python Rates_update.py
-          echo "Script completed. Checking file:"
-          ls -l Reference_Rates_Coverage.csv
+          echo "Script completed. Checking files:"
+          ls -l Reference_Rates_Coverage.csv Reference_Rates_With_Factsheets.csv || true
+          echo "Preview of main CSV:"
           head -n 5 Reference_Rates_Coverage.csv
-
+          echo "Preview of filtered CSV (if exists):"
+          head -n 5 Reference_Rates_With_Factsheets.csv || true
+      
       - name: Commit and push changes
         run: |
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          git add Reference_Rates_Coverage.csv Pipfile.lock || echo "No changes to add"
-          git status  # Debug: show git status
-          git commit -m "Update Reference_Rates_Coverage.csv" || echo "No changes to commit"
-          git push || echo "No changes to push"
-          git add Reference_Rates_Coverage.csv Reference_Rates_With_Factsheets.csv Pipfile.lock || echo "No changes to add"
+          
+          # Add both CSVs and Pipfile.lock
+          git add Reference_Rates_Coverage.csv Reference_Rates_With_Factsheets.csv Pipfile.lock || echo "Some files not found"
+          
+          # Show status for debugging
+          echo "Git status:"
+          git status
+          
+          # Commit and push if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update Reference_Rates_Coverage.csv and filtered version"
+            git push
+          fi
