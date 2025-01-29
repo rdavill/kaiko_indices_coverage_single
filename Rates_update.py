@@ -3,6 +3,14 @@ import json
 import csv
 from datetime import datetime
 import os
+import logging
+
+# Set up logging to write to a file
+logging.basicConfig(
+    filename='rates_script.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(message)s'
+)
 
 def parse_date(date_string):
     try:
@@ -17,45 +25,68 @@ def get_existing_fact_sheets():
         with open("Reference_Rates_Coverage.csv", "r", newline='') as csv_file:
             reader = csv.DictReader(csv_file)
             for row in reader:
-                if 'Fact Sheet' in row and row['Fact Sheet'].strip():  # Check for non-empty fact sheets
-                    print(f"Found fact sheet for ticker {row['Ticker']}: {row['Fact Sheet']}")
+                if 'Fact Sheet' in row and row['Fact Sheet'].strip():
+                    logging.info(f"Found fact sheet for ticker {row['Ticker']}: {row['Fact Sheet']}")
                     fact_sheets[row['Ticker']] = row['Fact Sheet']
-    print(f"Total fact sheets found: {len(fact_sheets)}")
+    logging.info(f"Total fact sheets found: {len(fact_sheets)}")
     return fact_sheets
 
 def get_fixed_entries():
     # Fixed entries that should always appear at the top
-    return [
+    fixed_entries = [
         ('KT5', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'Real-time (5 sec)', 'Kaiko Top5 Index', 'October 17, 2023', 'March 19, 2018'),
-        # ... [rest of fixed entries remain the same]
+        ('KT5NYC', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'NYC Fixing', 'Kaiko Top5 Index NYC', 'October 17, 2023', 'March 19, 2018'),
+        ('KT5LDN', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'LDN Fixing', 'Kaiko Top5 Index LDN', 'October 17, 2023', 'March 19, 2018'),
+        ('KT5SGP', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'SGP Fixing', 'Kaiko Top5 Index SGP', 'October 17, 2023', 'March 19, 2018'),
+        ('KT10', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'Real-time (5 sec)', 'Kaiko Top10 Index', 'October 17, 2023', 'March 18, 2019'),
+        ('KT10NYC', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'NYC Fixing', 'Kaiko Top10 Index NYC', 'October 17, 2023', 'March 18, 2019'),
+        ('KT10LDN', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'LDN Fixing', 'Kaiko Top10 Index LDN', 'October 17, 2023', 'March 18, 2019'),
+        ('KT10SGP', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'SGP Fixing', 'Kaiko Top10 Index SGP', 'October 17, 2023', 'March 18, 2019'),
+        ('KT15', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'Real-time (5 sec)', 'Kaiko Top15 Index', 'October 17, 2023', 'December 23, 2019'),
+        ('KT15NYC', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'NYC Fixing', 'Kaiko Top15 Index NYC', 'October 17, 2023', 'December 23, 2019'),
+        ('KT15LDN', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'LDN Fixing', 'Kaiko Top15 Index LDN', 'October 17, 2023', 'December 23, 2019'),
+        ('KT15SGP', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'SGP Fixing', 'Kaiko Top15 Index SGP', 'October 17, 2023', 'December 23, 2019')
     ]
+    return fixed_entries
 
 def create_factsheet_only_csv(all_items, headers):
     """Create a separate CSV containing only rows with fact sheets"""
+    # Debug the content we're working with
+    logging.info(f"Total items to check: {len(all_items)}")
+    
     # Filter for rows that have a fact sheet (last column is not empty)
-    factsheet_items = [item for item in all_items if item[-1].strip()]
-    print(f"Found {len(factsheet_items)} items with fact sheets for filtered CSV")
+    factsheet_items = []
+    for item in all_items:
+        if item[-1].strip():  # Check if last column (fact sheet) is non-empty
+            logging.info(f"Found item with fact sheet: {item[0]}")  # Log ticker of item with fact sheet
+            factsheet_items.append(item)
+    
+    logging.info(f"Found {len(factsheet_items)} items with fact sheets for filtered CSV")
     
     if factsheet_items:
-        print("Creating filtered CSV with fact sheet items...")
-        with open("Reference_Rates_With_Factsheets.csv", "w", newline='') as csv_file:
-            writer = csv.writer(csv_file)
-            writer.writerow(headers)
-            writer.writerows(factsheet_items)
-        print(f"Created filtered CSV with {len(factsheet_items)} rows")
+        logging.info("Creating filtered CSV with fact sheet items...")
+        try:
+            with open("Reference_Rates_With_Factsheets.csv", "w", newline='') as csv_file:
+                writer = csv.writer(csv_file)
+                writer.writerow(headers)
+                writer.writerows(factsheet_items)
+            logging.info(f"Successfully created filtered CSV with {len(factsheet_items)} rows")
+        except Exception as e:
+            logging.error(f"Error creating filtered CSV: {str(e)}")
     else:
-        print("No items with fact sheets found - filtered CSV not created")
+        logging.warning("No items with fact sheets found - filtered CSV not created")
 
 def pull_and_save_data_to_csv(api_url):
+    logging.info("Starting data pull and save process")
+    
     # Get existing fact sheet links
-    print("Reading existing fact sheets...")
     existing_fact_sheets = get_existing_fact_sheets()
     
     # Get fixed entries first
     fixed_items = get_fixed_entries()
     
     # Get API data
-    print("Fetching API data...")
+    logging.info("Fetching API data...")
     response = requests.get(api_url)
     if response.status_code == 200:
         data = json.loads(response.text)
@@ -78,7 +109,7 @@ def pull_and_save_data_to_csv(api_url):
             # Get existing fact sheet link or empty string
             fact_sheet = existing_fact_sheets.get(ticker, '')
             if fact_sheet:
-                print(f"Adding fact sheet for {ticker}")
+                logging.info(f"Adding fact sheet for {ticker}")
             
             api_items.append((ticker, brand, quote_short_name, base_short_name, type, 
                             dissemination, short_name, launch_date, inception, fact_sheet))
@@ -95,20 +126,20 @@ def pull_and_save_data_to_csv(api_url):
                   'Type', 'Dissemination', 'Rate Short name', 'Launch Date', 
                   'Inception', 'Fact Sheet']
         
-        print("Saving main CSV...")
+        logging.info("Saving main CSV...")
         # Save main CSV with all data
         with open("Reference_Rates_Coverage.csv", "w", newline='') as csv_file:
             writer = csv.writer(csv_file)
             writer.writerow(headers)
             writer.writerows(all_items)
         
-        print("Creating filtered CSV...")
+        logging.info("Creating filtered CSV...")
         # Create additional CSV with only fact sheet rows
         create_factsheet_only_csv(all_items, headers)
-        print("Process complete")
+        logging.info("Process complete")
     else:
-        print(f"Error fetching data: {response.status_code}")
+        logging.error(f"Error fetching data: {response.status_code}")
 
 # Call the function with the API URL
-print("Starting script execution...")
+logging.info("Starting script execution...")
 pull_and_save_data_to_csv("https://us.market-api.kaiko.io/v2/data/index_reference_data.v1/rates")
