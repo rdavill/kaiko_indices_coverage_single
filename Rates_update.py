@@ -16,7 +16,7 @@ def parse_date(date_string):
         return datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ').strftime('%B %d, %Y')
 
 def get_existing_fact_sheets():
-    """Read existing fact sheet links from the current CSV"""
+    """Read existing factsheet links from the current CSV"""
     fact_sheets = {}
     csv_path = "Reference_Rates_Coverage.csv"
     debug_print(f"Looking for CSV at: {os.path.abspath(csv_path)}")
@@ -25,31 +25,43 @@ def get_existing_fact_sheets():
         debug_print("Found existing CSV file")
         with open(csv_path, "r", newline='') as csv_file:
             reader = csv.DictReader(csv_file)
+            # Check for either column name variant
+            factsheet_column = 'Factsheet' if 'Factsheet' in reader.fieldnames else 'Fact Sheet'  # Check for legacy column name
             for row in reader:
-                if 'Fact Sheet' in row and row['Fact Sheet'].strip():
-                    debug_print(f"Found fact sheet for ticker {row['Ticker']}")
-                    fact_sheets[row['Ticker']] = row['Fact Sheet']
+                if factsheet_column in row and row[factsheet_column].strip():
+                    debug_print(f"Found factsheet for ticker {row['Ticker']}")
+                    fact_sheets[row['Ticker']] = row[factsheet_column]
     
-    debug_print(f"Total fact sheets found: {len(fact_sheets)}")
+    debug_print(f"Total factsheets found: {len(fact_sheets)}")
     return fact_sheets
 
 def get_fixed_entries():
     # Fixed entries that should always appear at the top
     fixed_entries = [
         ('KT5', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'Real-time (5 sec)', 'Kaiko Top5 Index', 'October 17, 2023', 'March 19, 2018'),
-        # ... [rest of fixed entries remain the same]
+        ('KT5NYC', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'NYC Fixing', 'Kaiko Top5 Index NYC', 'October 17, 2023', 'March 19, 2018'),
+        ('KT5LDN', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'LDN Fixing', 'Kaiko Top5 Index LDN', 'October 17, 2023', 'March 19, 2018'),
+        ('KT5SGP', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'SGP Fixing', 'Kaiko Top5 Index SGP', 'October 17, 2023', 'March 19, 2018'),
+        ('KT10', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'Real-time (5 sec)', 'Kaiko Top10 Index', 'October 17, 2023', 'March 18, 2019'),
+        ('KT10NYC', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'NYC Fixing', 'Kaiko Top10 Index NYC', 'October 17, 2023', 'March 18, 2019'),
+        ('KT10LDN', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'LDN Fixing', 'Kaiko Top10 Index LDN', 'October 17, 2023', 'March 18, 2019'),
+        ('KT10SGP', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'SGP Fixing', 'Kaiko Top10 Index SGP', 'October 17, 2023', 'March 18, 2019'),
+        ('KT15', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'Real-time (5 sec)', 'Kaiko Top15 Index', 'October 17, 2023', 'December 23, 2019'),
+        ('KT15NYC', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'NYC Fixing', 'Kaiko Top15 Index NYC', 'October 17, 2023', 'December 23, 2019'),
+        ('KT15LDN', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'LDN Fixing', 'Kaiko Top15 Index LDN', 'October 17, 2023', 'December 23, 2019'),
+        ('KT15SGP', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'SGP Fixing', 'Kaiko Top15 Index SGP', 'October 17, 2023', 'December 23, 2019')
     ]
     return fixed_entries
 
 def create_factsheet_only_csv(all_items, headers):
-    """Create a separate CSV containing only rows with fact sheets"""
+    """Create a separate CSV containing only rows with factsheets"""
     factsheet_items = []
     for item in all_items:
-        if item[-1].strip():  # Check if fact sheet column is non-empty
-            debug_print(f"Including item with fact sheet: {item[0]}")
+        if item[-1].strip():  # Check if factsheet column is non-empty
+            debug_print(f"Including item with factsheet: {item[0]}")
             factsheet_items.append(item)
     
-    debug_print(f"Found {len(factsheet_items)} items with fact sheets")
+    debug_print(f"Found {len(factsheet_items)} items with factsheets")
     
     if factsheet_items:
         output_path = "Reference_Rates_With_Factsheets.csv"
@@ -68,12 +80,12 @@ def create_factsheet_only_csv(all_items, headers):
         except Exception as e:
             debug_print(f"Error creating filtered CSV: {str(e)}")
     else:
-        debug_print("No items with fact sheets found - filtered CSV not created")
+        debug_print("No items with factsheets found - filtered CSV not created")
 
 def pull_and_save_data_to_csv(api_url):
     debug_print("Starting data pull and save process")
     
-    # Get existing fact sheet links
+    # Get existing factsheet links
     existing_fact_sheets = get_existing_fact_sheets()
     
     # Get fixed entries first
@@ -100,15 +112,15 @@ def pull_and_save_data_to_csv(api_url):
             launch_date = parse_date(item['launch_date'])
             inception = parse_date(item['inception_date'])
             
-            # Get existing fact sheet link or empty string
+            # Get existing factsheet link or empty string
             fact_sheet = existing_fact_sheets.get(ticker, '')
             if fact_sheet:
-                debug_print(f"Adding fact sheet for {ticker}")
+                debug_print(f"Adding factsheet for {ticker}")
             
             api_items.append((ticker, brand, quote_short_name, base_short_name, type, 
                             dissemination, short_name, launch_date, inception, fact_sheet))
         
-        # Add fact sheets to fixed entries
+        # Add factsheets to fixed entries
         fixed_items_with_fact_sheets = [
             entry + (existing_fact_sheets.get(entry[0], ''),) for entry in fixed_items
         ]
@@ -118,7 +130,7 @@ def pull_and_save_data_to_csv(api_url):
         
         headers = ['Ticker', 'Brand', 'Quote (short name)', 'Base (short name)', 
                   'Type', 'Dissemination', 'Rate Short name', 'Launch Date', 
-                  'Inception', 'Fact Sheet']
+                  'Inception', 'Factsheet']  # Ensure consistent capitalization
         
         debug_print("Saving main CSV...")
         main_csv_path = "Reference_Rates_Coverage.csv"
