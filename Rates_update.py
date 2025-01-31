@@ -141,12 +141,11 @@ def pull_and_save_data_to_csv(api_url):
             if any(fixed_item[3] == ticker for fixed_item in fixed_items):
                 continue
             
-            type_value = item['type'].replace('_', ' ')
-            # Skip if type matches filter and quote is USDT
-            if (type_value in ['Blue-Chip', 'Thematic', 'Sector', 'Market'] and 
-                item['quote']['short_name'].upper() == 'USDT'):
+            # Skip if quote is USDT - removed type condition
+            if item['quote']['short_name'].upper() == 'USDT':
                 continue
             
+            type_value = item['type'].replace('_', ' ')
             brand = item['brand']
             quote_short_name = item['quote']['short_name'].upper()
             base_short_name = item['base']['short_name'].upper()
