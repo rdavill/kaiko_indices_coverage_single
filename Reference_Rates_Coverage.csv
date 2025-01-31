@@ -1,5 +1,5 @@
 Brand,Type,Name,Ticker,Base,Quote,Dissemination,Launch Date,Inception Date,Factsheet
-Kaiko,Blue-Chip,Kaiko Top5 Index,KT5,N/A,N/A,Real-time (5 sec),"October 17, 2023","March 19, 2018","<a href=""https://marketing.kaiko.com/hubfs/Factsheets%20and%20Methodologies/New%20Benchmark%20Factsheets/Kaiko%20Benchmarks%20-%20Blue-Chip%20family%20factsheet.pdf"" target=""_blank"">View Factsheet</a>",
+Kaiko,Blue-Chip,Kaiko Top5 Index,KT5,N/A,N/A,Real-time (5 sec),"October 17, 2023","March 19, 2018","<a href=""https://marketing.kaiko.com/hubfs/Factsheets%20and%20Methodologies/New%20Benchmark%20Factsheets/Kaiko%20Benchmarks%20-%20Blue-Chip%20family%20factsheet.pdf"" target=""_blank"">View Factsheet</a>"
 Kaiko,Reference Rate,Kaiko SOL Reference Rate LDN,KK_RFR_SOLBTC_LDN,SOL,BTC,Daily Fixing LDN,"February 28, 2024","February 28, 2024",
 Kaiko,Reference Rate,Kaiko SOL Reference Rate NYC,KK_RFR_SOLBTC_NYC,SOL,BTC,Daily Fixing NYC,"February 28, 2024","February 28, 2024",
 Kaiko,Reference Rate,Kaiko BTC Reference Rate LDN,KK_RFR_BTCEUR_LDN,BTC,EUR,Daily Fixing LDN,"December 18, 2023","December 18, 2023",
