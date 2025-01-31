@@ -1,57 +1,18 @@
 Ticker,Brand,Quote (short name),Base (short name),Type,Dissemination,Rate Short name,Launch Date,Inception,Factsheet
-KT5,Kaiko,INDEX,INDEX,Blue-Chip,Real-time (5 sec),Kaiko 5 Index,October 17, 2023,March 19, 2018,
-KT5NYC,Kaiko,INDEX,INDEX,Blue-Chip,NYC Fixing,Kaiko 5 Index NYC,October 17, 2023,March 19, 2018,
-KT5LDN,Kaiko,INDEX,INDEX,Blue-Chip,LDN Fixing,Kaiko 5 Index LDN,October 17, 2023,March 19, 2018,
-KT5SGP,Kaiko,INDEX,INDEX,Blue-Chip,SGP Fixing,Kaiko 5 Index SGP,October 17, 2023,March 19, 2018,
-KT10,Kaiko,INDEX,INDEX,Blue-Chip,Real-time (5 sec),Kaiko 10 Index,October 17, 2023,March 18, 2019,
-KT10NYC,Kaiko,INDEX,INDEX,Blue-Chip,NYC Fixing,Kaiko 10 Index NYC,October 17, 2023,March 18, 2019,
-KT10LDN,Kaiko,INDEX,INDEX,Blue-Chip,LDN Fixing,Kaiko 10 Index LDN,October 17, 2023,March 18, 2019,
-KT10SGP,Kaiko,INDEX,INDEX,Blue-Chip,SGP Fixing,Kaiko 10 Index SGP,October 17, 2023,March 18, 2019,
-KT15,Kaiko,INDEX,INDEX,Blue-Chip,Real-time (5 sec),Kaiko 15 Index,October 17, 2023,December 23, 2019,
-KT15NYC,Kaiko,INDEX,INDEX,Blue-Chip,NYC Fixing,Kaiko 15 Index NYC,October 17, 2023,December 23, 2019,
-KT15LDN,Kaiko,INDEX,INDEX,Blue-Chip,LDN Fixing,Kaiko 15 Index LDN,October 17, 2023,December 23, 2019,
-KT15SGP,Kaiko,INDEX,INDEX,Blue-Chip,SGP Fixing,Kaiko 15 Index SGP,October 17, 2023,December 23, 2019,
-KSTKNZ,Kaiko,INDEX,INDEX,Thematic,Real-time (5 sec),Kaiko Tokenization Index,January 23, 2025,January 3, 2022,
-KSTKNZNYC,Kaiko,INDEX,INDEX,Thematic,NYC Fixing,Kaiko Tokenization Index NYC,January 23, 2025,January 3, 2022,
-KSTKNZLDN,Kaiko,INDEX,INDEX,Thematic,LDN Fixing,Kaiko Tokenization Index LDN,January 23, 2025,January 3, 2022,
-KSTKNZSGP,Kaiko,INDEX,INDEX,Thematic,SGP Fixing,Kaiko Tokenization Index SGP,January 23, 2025,January 3, 2022,
-KSAI,Kaiko,INDEX,INDEX,Thematic,Real-time (5 sec),Kaiko AI Index ,January 23, 2025,October 3, 2022,
-KSAINYC,Kaiko,INDEX,INDEX,Thematic,NYC Fixing,Kaiko AI Index NYC,January 23, 2025,October 3, 2022,
-KSAILDN,Kaiko,INDEX,INDEX,Thematic,LDN Fixing,Kaiko AI Index LDN,January 23, 2025,October 3, 2022,
-KSAISGP,Kaiko,INDEX,INDEX,Thematic,SGP Fixing,Kaiko AI Index SGP,January 23, 2025,October 3, 2022,
-KSMEME,Kaiko,INDEX,INDEX,Sector,Real-time (5 sec),Kaiko Meme Index ,January 22, 2025,April 3, 2023,
-KSMEMENYC,Kaiko,INDEX,INDEX,Sector,NYC Fixing,Kaiko Meme Index NYC,January 22, 2025,April 3, 2023,
-KSMEMELDN,Kaiko,INDEX,INDEX,Sector,LDN Fixing,Kaiko Meme Index LDN,January 22, 2025,April 3, 2023,
-KSMEMESGP,Kaiko,INDEX,INDEX,Sector,SGP Fixing,Kaiko Meme Index SGP,January 22, 2025,April 3, 2023,
-KSDEFI,Kaiko,INDEX,INDEX,Sector,Real-time (5 sec),Kaiko DeFi Index ,January 17, 2025,April 3, 2023,
-KSDEFINYC,Kaiko,INDEX,INDEX,Sector,NYC Fixing,Kaiko DeFi Index NYC,January 17, 2025,April 3, 2023,
-KSDEFILDN,Kaiko,INDEX,INDEX,Sector,LDN Fixing,Kaiko DeFi Index LDN,January 17, 2025,April 3, 2023,
-KSDEFISGP,Kaiko,INDEX,INDEX,Sector,SGP Fixing,Kaiko DeFi Index SGP,January 17, 2025,April 3, 2023,
-KSL2,Kaiko,INDEX,INDEX,Sector,Real-time (5 sec),Kaiko L2 Index ,July 2, 2024,April 3, 2023,
-KSL2NYC,Kaiko,INDEX,INDEX,Sector,NYC Fixing,Kaiko L2 Index NYC,July 2, 2024,April 3, 2023,
-KSL2LDN,Kaiko,INDEX,INDEX,Sector,LDN Fixing,Kaiko L2 Index LDN,July 2, 2024,April 3, 2023,
-KSL2SGP,Kaiko,INDEX,INDEX,Sector,SGP Fixing,Kaiko L2 Index SGP,July 2, 2024,April 3, 2023,
-KMSTA,Kaiko,INDEX,INDEX,Market,Real-time (5 sec),Kaiko Standard Index ,January 23, 2025,April 1, 2014,
-KMSTANYC,Kaiko,INDEX,INDEX,Market,NYC Fixing,Kaiko Standard Index NYC,January 23, 2025,April 1, 2014,
-KMSTALDN,Kaiko,INDEX,INDEX,Market,LDN Fixing,Kaiko Standard Index LDN,January 23, 2025,April 1, 2014,
-KMSTASGP,Kaiko,INDEX,INDEX,Market,SGP Fixing,Kaiko Standard Index SGP,January 23, 2025,April 1, 2014,
-KMSMA,Kaiko,INDEX,INDEX,Market,Real-time (5 sec),Kaiko Small Cap Index ,January 23, 2025,January 2, 2015,
-KMSMANYC,Kaiko,INDEX,INDEX,Market,NYC Fixing,Kaiko Small Cap Index NYC,January 23, 2025,January 2, 2015,
-KMSMALDN,Kaiko,INDEX,INDEX,Market,LDN Fixing,Kaiko Small Cap Index LDN,January 23, 2025,January 2, 2015,
-KMSMASGP,Kaiko,INDEX,INDEX,Market,SGP Fixing,Kaiko Small Cap Index SGP,January 23, 2025,January 2, 2015,
-KMMID,Kaiko,INDEX,INDEX,Market,Real-time (5 sec),Kaiko Mid Cap Index ,January 23, 2025,April 2, 2018,
-KMMIDNYC,Kaiko,INDEX,INDEX,Market,NYC Fixing,Kaiko Mid Cap Index NYC,January 23, 2025,April 2, 2018,
-KMMIDLDN,Kaiko,INDEX,INDEX,Market,LDN Fixing,Kaiko Mid Cap Index LDN,January 23, 2025,April 2, 2018,
-KMMIDSGP,Kaiko,INDEX,INDEX,Market,SGP Fixing,Kaiko Mid Cap Index SGP,January 23, 2025,April 2, 2018,
-KMLAR,Kaiko,INDEX,INDEX,Market,Real-time (5 sec),Kaiko Large Cap Index ,January 23, 2025,April 1, 2014,
-KMLARNYC,Kaiko,INDEX,INDEX,Market,NYC Fixing,Kaiko Large Cap Index NYC,January 23, 2025,April 1, 2014,
-KMLARLDN,Kaiko,INDEX,INDEX,Market,LDN Fixing,Kaiko Large Cap Index LDN,January 23, 2025,April 1, 2014,
-KMLARSGP,Kaiko,INDEX,INDEX,Market,SGP Fixing,Kaiko Large Cap Index SGP,January 23, 2025,April 1, 2014,
-KMINV,Kaiko,INDEX,INDEX,Market,Real-time (5 sec),Kaiko Investable Index ,January 23, 2025,April 1, 2014,
-KMINVNYC,Kaiko,INDEX,INDEX,Market,NYC Fixing,Kaiko Investable Index NYC,January 23, 2025,April 1, 2014,
-KMINVLDN,Kaiko,INDEX,INDEX,Market,LDN Fixing,Kaiko Investable Index LDN,January 23, 2025,April 1, 2014,
-KMINVSGP,Kaiko,INDEX,INDEX,Market,SGP Fixing,Kaiko Investable Index SGP,January 23, 2025,April 1, 2014,
+KT5,Kaiko,INDEX,INDEX,Blue-Chip,Real-time (5 sec),Kaiko Top5 Index,"October 17, 2023","March 19, 2018",March 19
+KT5NYC,Kaiko,INDEX,INDEX,Blue-Chip,NYC Fixing,Kaiko Top5 Index NYC,"October 17, 2023","March 19, 2018",March 19
+KT5LDN,Kaiko,INDEX,INDEX,Blue-Chip,LDN Fixing,Kaiko Top5 Index LDN,"October 17, 2023","March 19, 2018",March 19
+KT5SGP,Kaiko,INDEX,INDEX,Blue-Chip,SGP Fixing,Kaiko Top5 Index SGP,"October 17, 2023","March 19, 2018",March 19
+KT10,Kaiko,INDEX,INDEX,Blue-Chip,Real-time (5 sec),Kaiko Top10 Index,"October 17, 2023","March 18, 2019",March 18
+KT10NYC,Kaiko,INDEX,INDEX,Blue-Chip,NYC Fixing,Kaiko Top10 Index NYC,"October 17, 2023","March 18, 2019",March 18
+KT10LDN,Kaiko,INDEX,INDEX,Blue-Chip,LDN Fixing,Kaiko Top10 Index LDN,"October 17, 2023","March 18, 2019",March 18
+KT10SGP,Kaiko,INDEX,INDEX,Blue-Chip,SGP Fixing,Kaiko Top10 Index SGP,"October 17, 2023","March 18, 2019",March 18
+KT15,Kaiko,INDEX,INDEX,Blue-Chip,Real-time (5 sec),Kaiko Top15 Index,"October 17, 2023","December 23, 2019",December 23
+KT15NYC,Kaiko,INDEX,INDEX,Blue-Chip,NYC Fixing,Kaiko Top15 Index NYC,"October 17, 2023","December 23, 2019",December 23
+KT15LDN,Kaiko,INDEX,INDEX,Blue-Chip,LDN Fixing,Kaiko Top15 Index LDN,"October 17, 2023","December 23, 2019",December 23
+KT15SGP,Kaiko,INDEX,INDEX,Blue-Chip,SGP Fixing,Kaiko Top15 Index SGP,"October 17, 2023","December 23, 2019",December 23
 KK_RFR_00USD,Kaiko,USD,00,Reference Rate,Real-time (5s),Kaiko 00 Reference Rate ,"February 27, 2024","February 27, 2024",
+KK_RFR_00USD_SGP,Kaiko,USD,00,Reference Rate,Daily Fixing SGP,Kaiko 00 Reference Rate SGP,"February 27, 2024","February 27, 2024",
 KK_RFR_00USD_NYC,Kaiko,USD,00,Reference Rate,Daily Fixing NYC,Kaiko 00 Reference Rate NYC,"February 27, 2024","February 27, 2024",
 KK_RFR_00USD_LDN,Kaiko,USD,00,Reference Rate,Daily Fixing LDN,Kaiko 00 Reference Rate LDN,"February 27, 2024","February 27, 2024",
 KK_RFR_1INCHUSD,Kaiko,USD,1INCH,Reference Rate,Real-time (5s),Kaiko 1INCH Reference Rate ,"February 27, 2024","February 27, 2024",
