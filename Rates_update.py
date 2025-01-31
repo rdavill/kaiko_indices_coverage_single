@@ -44,20 +44,19 @@ def process_quote_base(quote_name, base_name, type_value):
 
 def get_fixed_entries():
     # Fixed entries that should always appear at the top
-    # Order: Brand, Type, Name, Ticker, Base, Quote, Dissemination, Launch Date, Inception
     fixed_entries = [
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index', 'KT5', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 19, 2018'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index NYC', 'KT5NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'March 19, 2018'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index LDN', 'KT5LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'March 19, 2018'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index SGP', 'KT5SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'March 19, 2018'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index', 'KT10', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 18, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index NYC', 'KT10NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'March 18, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index LDN', 'KT10LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'March 18, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index SGP', 'KT10SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'March 18, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index', 'KT15', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'December 23, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index NYC', 'KT15NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'December 23, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index LDN', 'KT15LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'December 23, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index SGP', 'KT15SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'December 23, 2019')
+        ('KT5', 'Kaiko', 'N/A', 'N/A', 'Blue-Chip', 'Real-time (5 sec)', 'Kaiko Top5 Index', 'October 17, 2023', 'March 19, 2018'),
+        ('KT5NYC', 'Kaiko', 'N/A', 'N/A', 'Blue-Chip', 'NYC Fixing', 'Kaiko Top5 Index NYC', 'October 17, 2023', 'March 19, 2018'),
+        ('KT5LDN', 'Kaiko', 'N/A', 'N/A', 'Blue-Chip', 'LDN Fixing', 'Kaiko Top5 Index LDN', 'October 17, 2023', 'March 19, 2018'),
+        ('KT5SGP', 'Kaiko', 'N/A', 'N/A', 'Blue-Chip', 'SGP Fixing', 'Kaiko Top5 Index SGP', 'October 17, 2023', 'March 19, 2018'),
+        ('KT10', 'Kaiko', 'N/A', 'N/A', 'Blue-Chip', 'Real-time (5 sec)', 'Kaiko Top10 Index', 'October 17, 2023', 'March 18, 2019'),
+        ('KT10NYC', 'Kaiko', 'N/A', 'N/A', 'Blue-Chip', 'NYC Fixing', 'Kaiko Top10 Index NYC', 'October 17, 2023', 'March 18, 2019'),
+        ('KT10LDN', 'Kaiko', 'N/A', 'N/A', 'Blue-Chip', 'LDN Fixing', 'Kaiko Top10 Index LDN', 'October 17, 2023', 'March 18, 2019'),
+        ('KT10SGP', 'Kaiko', 'N/A', 'N/A', 'Blue-Chip', 'SGP Fixing', 'Kaiko Top10 Index SGP', 'October 17, 2023', 'March 18, 2019'),
+        ('KT15', 'Kaiko', 'N/A', 'N/A', 'Blue-Chip', 'Real-time (5 sec)', 'Kaiko Top15 Index', 'October 17, 2023', 'December 23, 2019'),
+        ('KT15NYC', 'Kaiko', 'N/A', 'N/A', 'Blue-Chip', 'NYC Fixing', 'Kaiko Top15 Index NYC', 'October 17, 2023', 'December 23, 2019'),
+        ('KT15LDN', 'Kaiko', 'N/A', 'N/A', 'Blue-Chip', 'LDN Fixing', 'Kaiko Top15 Index LDN', 'October 17, 2023', 'December 23, 2019'),
+        ('KT15SGP', 'Kaiko', 'N/A', 'N/A', 'Blue-Chip', 'SGP Fixing', 'Kaiko Top15 Index SGP', 'October 17, 2023', 'December 23, 2019')
     ]
     return fixed_entries
 
@@ -102,7 +101,7 @@ def pull_and_save_data_to_csv(api_url):
                 
             ticker = item['ticker']
             # Skip if the ticker is already in fixed entries
-            if any(fixed_item[3] == ticker for fixed_item in fixed_items):  # Updated index to match new order
+            if any(fixed_item[0] == ticker for fixed_item in fixed_items):
                 continue
             
             brand = item['brand']
@@ -124,20 +123,19 @@ def pull_and_save_data_to_csv(api_url):
             if fact_sheet:
                 debug_print(f"Adding factsheet for {ticker}")
             
-            # Order: Brand, Type, Name, Ticker, Base, Quote, Dissemination, Launch Date, Inception, Factsheet
-            api_items.append((brand, type_value, short_name, ticker, base_short_name, 
-                            quote_short_name, dissemination, launch_date, inception, fact_sheet))
+            api_items.append((ticker, brand, quote_short_name, base_short_name, type_value, 
+                            dissemination, short_name, launch_date, inception, fact_sheet))
         
         # Add factsheets to fixed entries
         fixed_items_with_fact_sheets = [
-            entry + (existing_fact_sheets.get(entry[3], ''),) for entry in fixed_items  # Updated index to match new order
+            entry + (existing_fact_sheets.get(entry[0], ''),) for entry in fixed_items
         ]
         
         # Combine fixed and API items
-        all_items = fixed_items_with_fact_sheets + sorted(api_items, key=lambda row: row[2])  # Sort by Name
+        all_items = fixed_items_with_fact_sheets + sorted(api_items, key=lambda row: row[3])
         
-        headers = ['Brand', 'Type', 'Name', 'Ticker', 'Base (short name)', 
-                  'Quote (short name)', 'Dissemination', 'Launch Date', 
+        headers = ['Ticker', 'Brand', 'Quote (short name)', 'Base (short name)', 
+                  'Type', 'Dissemination', 'Rate Short name', 'Launch Date', 
                   'Inception', 'Factsheet']
         
         debug_print("Saving main CSV...")
