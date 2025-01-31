@@ -1,13 +1,13 @@
 Ticker,Brand,Quote (short name),Base (short name),Type,Dissemination,Rate Short name,Launch Date,Inception,Factsheet
-KT5,Kaiko,INDEX,INDEX,Blue-Chip,Real-time (5 sec),Kaiko Top5 Index,"October 17, 2023","March 19, 2018",March 19
-KT5NYC,Kaiko,INDEX,INDEX,Blue-Chip,NYC Fixing,Kaiko Top5 Index NYC,"October 17, 2023","March 19, 2018",March 19
-KT5LDN,Kaiko,INDEX,INDEX,Blue-Chip,LDN Fixing,Kaiko Top5 Index LDN,"October 17, 2023","March 19, 2018",March 19
-KT5SGP,Kaiko,INDEX,INDEX,Blue-Chip,SGP Fixing,Kaiko Top5 Index SGP,"October 17, 2023","March 19, 2018",March 19
-KT10,Kaiko,INDEX,INDEX,Blue-Chip,Real-time (5 sec),Kaiko Top10 Index,"October 17, 2023","March 18, 2019",March 18
-KT10NYC,Kaiko,INDEX,INDEX,Blue-Chip,NYC Fixing,Kaiko Top10 Index NYC,"October 17, 2023","March 18, 2019",March 18
-KT10LDN,Kaiko,INDEX,INDEX,Blue-Chip,LDN Fixing,Kaiko Top10 Index LDN,"October 17, 2023","March 18, 2019",March 18
-KT10SGP,Kaiko,INDEX,INDEX,Blue-Chip,SGP Fixing,Kaiko Top10 Index SGP,"October 17, 2023","March 18, 2019",March 18
-KT15,Kaiko,INDEX,INDEX,Blue-Chip,Real-time (5 sec),Kaiko Top15 Index,"October 17, 2023","December 23, 2019",December 23
-KT15NYC,Kaiko,INDEX,INDEX,Blue-Chip,NYC Fixing,Kaiko Top15 Index NYC,"October 17, 2023","December 23, 2019",December 23
-KT15LDN,Kaiko,INDEX,INDEX,Blue-Chip,LDN Fixing,Kaiko Top15 Index LDN,"October 17, 2023","December 23, 2019",December 23
-KT15SGP,Kaiko,INDEX,INDEX,Blue-Chip,SGP Fixing,Kaiko Top15 Index SGP,"October 17, 2023","December 23, 2019",December 23
+KT5,Kaiko,N/A,N/A,Blue-Chip,Real-time (5 sec),Kaiko Top5 Index,"October 17, 2023","March 19, 2018",March 19
+KT5NYC,Kaiko,N/A,N/A,Blue-Chip,NYC Fixing,Kaiko Top5 Index NYC,"October 17, 2023","March 19, 2018",March 19
+KT5LDN,Kaiko,N/A,N/A,Blue-Chip,LDN Fixing,Kaiko Top5 Index LDN,"October 17, 2023","March 19, 2018",March 19
+KT5SGP,Kaiko,N/A,N/A,Blue-Chip,SGP Fixing,Kaiko Top5 Index SGP,"October 17, 2023","March 19, 2018",March 19
+KT10,Kaiko,N/A,N/A,Blue-Chip,Real-time (5 sec),Kaiko Top10 Index,"October 17, 2023","March 18, 2019",March 18
+KT10NYC,Kaiko,N/A,N/A,Blue-Chip,NYC Fixing,Kaiko Top10 Index NYC,"October 17, 2023","March 18, 2019",March 18
+KT10LDN,Kaiko,N/A,N/A,Blue-Chip,LDN Fixing,Kaiko Top10 Index LDN,"October 17, 2023","March 18, 2019",March 18
+KT10SGP,Kaiko,N/A,N/A,Blue-Chip,SGP Fixing,Kaiko Top10 Index SGP,"October 17, 2023","March 18, 2019",March 18
+KT15,Kaiko,N/A,N/A,Blue-Chip,Real-time (5 sec),Kaiko Top15 Index,"October 17, 2023","December 23, 2019",December 23
+KT15NYC,Kaiko,N/A,N/A,Blue-Chip,NYC Fixing,Kaiko Top15 Index NYC,"October 17, 2023","December 23, 2019",December 23
+KT15LDN,Kaiko,N/A,N/A,Blue-Chip,LDN Fixing,Kaiko Top15 Index LDN,"October 17, 2023","December 23, 2019",December 23
+KT15SGP,Kaiko,N/A,N/A,Blue-Chip,SGP Fixing,Kaiko Top15 Index SGP,"October 17, 2023","December 23, 2019",December 23
