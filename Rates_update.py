@@ -34,36 +34,32 @@ def get_existing_fact_sheets():
     debug_print(f"Total factsheets found: {len(fact_sheets)}")
     return fact_sheets
 
-def process_quote_base(quote_name, base_name, type_value):
-    """Process quote and base names based on type"""
-    type_value = type_value.lower()
-    if type_value in ['blue-chip', 'thematic', 'sector', 'market']:
-        quote_name = 'N/A' if quote_name.upper() == 'INDEX' else quote_name
-        base_name = 'N/A' if base_name.upper() == 'INDEX' else base_name
-    return quote_name, base_name
-
 def get_fixed_entries():
     # Fixed entries that should always appear at the top
-    # Order: Brand, Type, Name, Ticker, Base, Quote, Dissemination, Launch Date, Inception
     fixed_entries = [
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index', 'KT5', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 19, 2018'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index NYC', 'KT5NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'March 19, 2018'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index LDN', 'KT5LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'March 19, 2018'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index SGP', 'KT5SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'March 19, 2018'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index', 'KT10', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 18, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index NYC', 'KT10NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'March 18, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index LDN', 'KT10LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'March 18, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index SGP', 'KT10SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'March 18, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index', 'KT15', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'December 23, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index NYC', 'KT15NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'December 23, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index LDN', 'KT15LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'December 23, 2019'),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index SGP', 'KT15SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'December 23, 2019')
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index', 'KT5', 'INDEX', 'INDEX', 'Real-time (5 sec)', 'October 17, 2023', 'March 19, 2018'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index NYC', 'KT5NYC', 'INDEX', 'INDEX', 'NYC Fixing', 'October 17, 2023', 'March 19, 2018'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index LDN', 'KT5LDN', 'INDEX', 'INDEX', 'LDN Fixing', 'October 17, 2023', 'March 19, 2018'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index SGP', 'KT5SGP', 'INDEX', 'INDEX', 'SGP Fixing', 'October 17, 2023', 'March 19, 2018'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index', 'KT10', 'INDEX', 'INDEX', 'Real-time (5 sec)', 'October 17, 2023', 'March 18, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index NYC', 'KT10NYC', 'INDEX', 'INDEX', 'NYC Fixing', 'October 17, 2023', 'March 18, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index LDN', 'KT10LDN', 'INDEX', 'INDEX', 'LDN Fixing', 'October 17, 2023', 'March 18, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index SGP', 'KT10SGP', 'INDEX', 'INDEX', 'SGP Fixing', 'October 17, 2023', 'March 18, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index', 'KT15', 'INDEX', 'INDEX', 'Real-time (5 sec)', 'October 17, 2023', 'December 23, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index NYC', 'KT15NYC', 'INDEX', 'INDEX', 'NYC Fixing', 'October 17, 2023', 'December 23, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index LDN', 'KT15LDN', 'INDEX', 'INDEX', 'LDN Fixing', 'October 17, 2023', 'December 23, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index SGP', 'KT15SGP', 'INDEX', 'INDEX', 'SGP Fixing', 'October 17, 2023', 'December 23, 2019')
     ]
     return fixed_entries
 
 def create_factsheet_only_csv(all_items, headers):
     """Create a separate CSV containing only rows with factsheets"""
-    factsheet_items = [item for item in all_items if item[-1].strip()]
+    factsheet_items = []
+    for item in all_items:
+        if item[-1].strip():  # Check if factsheet column is non-empty
+            debug_print(f"Including item with factsheet: {item[3]}")  # Updated index to match new order
+            factsheet_items.append(item)
+    
     debug_print(f"Found {len(factsheet_items)} items with factsheets")
     
     if factsheet_items:
@@ -86,59 +82,71 @@ def create_factsheet_only_csv(all_items, headers):
 
 def pull_and_save_data_to_csv(api_url):
     debug_print("Starting data pull and save process")
+    
+    # Get existing factsheet links
     existing_fact_sheets = get_existing_fact_sheets()
+    
+    # Get fixed entries first
     fixed_items = get_fixed_entries()
     
+    # Get API data
     debug_print("Fetching API data...")
     response = requests.get(api_url)
     if response.status_code == 200:
         data = json.loads(response.text)
         api_items = []
         for item in data['data']:
-            # Skip if quote is USDT
-            if item['quote']['short_name'].upper() == 'USDT':
-                debug_print(f"Skipping {item['ticker']} - USDT quote")
-                continue
-                
             ticker = item['ticker']
             # Skip if the ticker is already in fixed entries
-            if any(fixed_item[3] == ticker for fixed_item in fixed_items):  # Updated index to match new order
+            if any(fixed_item[3] == ticker for fixed_item in fixed_items):
+                continue
+            
+            type_value = item['type'].replace('_', ' ')
+            # Skip if type matches filter and quote is USDT
+            if (type_value in ['Blue-Chip', 'Thematic', 'Sector', 'Market'] and 
+                item['quote']['short_name'].upper() == 'USDT'):
                 continue
             
             brand = item['brand']
             quote_short_name = item['quote']['short_name'].upper()
             base_short_name = item['base']['short_name'].upper()
-            type_value = item['type'].replace('_', ' ')
-            
-            # Process quote and base names
-            quote_short_name, base_short_name = process_quote_base(
-                quote_short_name, base_short_name, type_value
-            )
-            
-            dissemination = item['dissemination']
             short_name = item['short_name'].replace('_', ' ')
             launch_date = parse_date(item['launch_date'])
             inception = parse_date(item['inception_date'])
-            fact_sheet = existing_fact_sheets.get(ticker, '')
+            dissemination = item['dissemination']
             
+            # Get existing factsheet link or empty string
+            fact_sheet = existing_fact_sheets.get(ticker, '')
             if fact_sheet:
                 debug_print(f"Adding factsheet for {ticker}")
             
-            # Order: Brand, Type, Name, Ticker, Base, Quote, Dissemination, Launch Date, Inception, Factsheet
-            api_items.append((brand, type_value, short_name, ticker, base_short_name, 
-                            quote_short_name, dissemination, launch_date, inception, fact_sheet))
+            # Reorder columns according to new specification
+            api_items.append((
+                brand,              # Brand
+                type_value,         # Type
+                short_name,         # Name
+                ticker,             # Ticker
+                base_short_name,    # Base
+                quote_short_name,   # Quote
+                dissemination,      # Dissemination
+                launch_date,        # Launch Date
+                inception,          # Inception Date
+                fact_sheet          # Factsheet
+            ))
         
         # Add factsheets to fixed entries
         fixed_items_with_fact_sheets = [
-            entry + (existing_fact_sheets.get(entry[3], ''),) for entry in fixed_items  # Updated index to match new order
+            entry + (existing_fact_sheets.get(entry[3], ''),) for entry in fixed_items
         ]
         
         # Combine fixed and API items
-        all_items = fixed_items_with_fact_sheets + sorted(api_items, key=lambda row: row[2])  # Sort by Name
+        all_items = fixed_items_with_fact_sheets + sorted(api_items, key=lambda row: row[5])  # Sort by Quote
         
-        headers = ['Brand', 'Type', 'Name', 'Ticker', 'Base (short name)', 
-                  'Quote (short name)', 'Dissemination', 'Launch Date', 
-                  'Inception', 'Factsheet']
+        # Updated headers to match new column order
+        headers = [
+            'Brand', 'Type', 'Name', 'Ticker', 'Base', 'Quote',
+            'Dissemination', 'Launch Date', 'Inception Date', 'Factsheet'
+        ]
         
         debug_print("Saving main CSV...")
         main_csv_path = "Reference_Rates_Coverage.csv"
@@ -151,6 +159,7 @@ def pull_and_save_data_to_csv(api_url):
         create_factsheet_only_csv(all_items, headers)
         debug_print("Process complete")
         
+        # List directory contents for debugging
         debug_print("Current directory contents:")
         debug_print("\n".join(os.listdir(".")))
     else:
