@@ -25,8 +25,7 @@ def get_existing_fact_sheets():
         debug_print("Found existing CSV file")
         with open(csv_path, "r", newline='') as csv_file:
             reader = csv.DictReader(csv_file)
-            # Check for either column name variant
-            factsheet_column = 'Factsheet' if 'Factsheet' in reader.fieldnames else 'Fact Sheet'  # Check for legacy column name
+            factsheet_column = 'Factsheet' if 'Factsheet' in reader.fieldnames else 'Fact Sheet'
             for row in reader:
                 if factsheet_column in row and row[factsheet_column].strip():
                     debug_print(f"Found factsheet for ticker {row['Ticker']}")
@@ -35,32 +34,36 @@ def get_existing_fact_sheets():
     debug_print(f"Total factsheets found: {len(fact_sheets)}")
     return fact_sheets
 
+def process_quote_base(quote_name, base_name, type_value):
+    """Process quote and base names based on type"""
+    type_value = type_value.lower()
+    if type_value in ['blue-chip', 'thematic', 'sector', 'market']:
+        quote_name = 'N/A' if quote_name.upper() == 'INDEX' else quote_name
+        base_name = 'N/A' if base_name.upper() == 'INDEX' else base_name
+    return quote_name, base_name
+
 def get_fixed_entries():
     # Fixed entries that should always appear at the top
+    # Order: Brand, Type, Name, Ticker, Base, Quote, Dissemination, Launch Date, Inception
     fixed_entries = [
-        ('KT5', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'Real-time (5 sec)', 'Kaiko Top5 Index', 'October 17, 2023', 'March 19, 2018'),
-        ('KT5NYC', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'NYC Fixing', 'Kaiko Top5 Index NYC', 'October 17, 2023', 'March 19, 2018'),
-        ('KT5LDN', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'LDN Fixing', 'Kaiko Top5 Index LDN', 'October 17, 2023', 'March 19, 2018'),
-        ('KT5SGP', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'SGP Fixing', 'Kaiko Top5 Index SGP', 'October 17, 2023', 'March 19, 2018'),
-        ('KT10', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'Real-time (5 sec)', 'Kaiko Top10 Index', 'October 17, 2023', 'March 18, 2019'),
-        ('KT10NYC', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'NYC Fixing', 'Kaiko Top10 Index NYC', 'October 17, 2023', 'March 18, 2019'),
-        ('KT10LDN', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'LDN Fixing', 'Kaiko Top10 Index LDN', 'October 17, 2023', 'March 18, 2019'),
-        ('KT10SGP', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'SGP Fixing', 'Kaiko Top10 Index SGP', 'October 17, 2023', 'March 18, 2019'),
-        ('KT15', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'Real-time (5 sec)', 'Kaiko Top15 Index', 'October 17, 2023', 'December 23, 2019'),
-        ('KT15NYC', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'NYC Fixing', 'Kaiko Top15 Index NYC', 'October 17, 2023', 'December 23, 2019'),
-        ('KT15LDN', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'LDN Fixing', 'Kaiko Top15 Index LDN', 'October 17, 2023', 'December 23, 2019'),
-        ('KT15SGP', 'Kaiko', 'INDEX', 'INDEX', 'Blue-Chip', 'SGP Fixing', 'Kaiko Top15 Index SGP', 'October 17, 2023', 'December 23, 2019')
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index', 'KT5', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 19, 2018'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index NYC', 'KT5NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'March 19, 2018'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index LDN', 'KT5LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'March 19, 2018'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index SGP', 'KT5SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'March 19, 2018'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index', 'KT10', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 18, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index NYC', 'KT10NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'March 18, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index LDN', 'KT10LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'March 18, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index SGP', 'KT10SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'March 18, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index', 'KT15', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'December 23, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index NYC', 'KT15NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'December 23, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index LDN', 'KT15LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'December 23, 2019'),
+        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index SGP', 'KT15SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'December 23, 2019')
     ]
     return fixed_entries
 
 def create_factsheet_only_csv(all_items, headers):
     """Create a separate CSV containing only rows with factsheets"""
-    factsheet_items = []
-    for item in all_items:
-        if item[-1].strip():  # Check if factsheet column is non-empty
-            debug_print(f"Including item with factsheet: {item[0]}")
-            factsheet_items.append(item)
-    
+    factsheet_items = [item for item in all_items if item[-1].strip()]
     debug_print(f"Found {len(factsheet_items)} items with factsheets")
     
     if factsheet_items:
@@ -72,7 +75,6 @@ def create_factsheet_only_csv(all_items, headers):
                 writer.writerow(headers)
                 writer.writerows(factsheet_items)
             debug_print("Successfully created filtered CSV")
-            # Verify file was created
             if os.path.exists(output_path):
                 debug_print(f"Filtered CSV file exists, size: {os.path.getsize(output_path)} bytes")
             else:
@@ -84,53 +86,59 @@ def create_factsheet_only_csv(all_items, headers):
 
 def pull_and_save_data_to_csv(api_url):
     debug_print("Starting data pull and save process")
-    
-    # Get existing factsheet links
     existing_fact_sheets = get_existing_fact_sheets()
-    
-    # Get fixed entries first
     fixed_items = get_fixed_entries()
     
-    # Get API data
     debug_print("Fetching API data...")
     response = requests.get(api_url)
     if response.status_code == 200:
         data = json.loads(response.text)
         api_items = []
         for item in data['data']:
+            # Skip if quote is USDT
+            if item['quote']['short_name'].upper() == 'USDT':
+                debug_print(f"Skipping {item['ticker']} - USDT quote")
+                continue
+                
             ticker = item['ticker']
             # Skip if the ticker is already in fixed entries
-            if any(fixed_item[0] == ticker for fixed_item in fixed_items):
+            if any(fixed_item[3] == ticker for fixed_item in fixed_items):  # Updated index to match new order
                 continue
             
             brand = item['brand']
             quote_short_name = item['quote']['short_name'].upper()
             base_short_name = item['base']['short_name'].upper()
-            type = item['type'].replace('_', ' ')
+            type_value = item['type'].replace('_', ' ')
+            
+            # Process quote and base names
+            quote_short_name, base_short_name = process_quote_base(
+                quote_short_name, base_short_name, type_value
+            )
+            
             dissemination = item['dissemination']
             short_name = item['short_name'].replace('_', ' ')
             launch_date = parse_date(item['launch_date'])
             inception = parse_date(item['inception_date'])
-            
-            # Get existing factsheet link or empty string
             fact_sheet = existing_fact_sheets.get(ticker, '')
+            
             if fact_sheet:
                 debug_print(f"Adding factsheet for {ticker}")
             
-            api_items.append((ticker, brand, quote_short_name, base_short_name, type, 
-                            dissemination, short_name, launch_date, inception, fact_sheet))
+            # Order: Brand, Type, Name, Ticker, Base, Quote, Dissemination, Launch Date, Inception, Factsheet
+            api_items.append((brand, type_value, short_name, ticker, base_short_name, 
+                            quote_short_name, dissemination, launch_date, inception, fact_sheet))
         
         # Add factsheets to fixed entries
         fixed_items_with_fact_sheets = [
-            entry + (existing_fact_sheets.get(entry[0], ''),) for entry in fixed_items
+            entry + (existing_fact_sheets.get(entry[3], ''),) for entry in fixed_items  # Updated index to match new order
         ]
         
         # Combine fixed and API items
-        all_items = fixed_items_with_fact_sheets + sorted(api_items, key=lambda row: row[3])
+        all_items = fixed_items_with_fact_sheets + sorted(api_items, key=lambda row: row[2])  # Sort by Name
         
-        headers = ['Ticker', 'Brand', 'Quote (short name)', 'Base (short name)', 
-                  'Type', 'Dissemination', 'Rate Short name', 'Launch Date', 
-                  'Inception', 'Factsheet']  # Ensure consistent capitalization
+        headers = ['Brand', 'Type', 'Name', 'Ticker', 'Base (short name)', 
+                  'Quote (short name)', 'Dissemination', 'Launch Date', 
+                  'Inception', 'Factsheet']
         
         debug_print("Saving main CSV...")
         main_csv_path = "Reference_Rates_Coverage.csv"
@@ -143,7 +151,6 @@ def pull_and_save_data_to_csv(api_url):
         create_factsheet_only_csv(all_items, headers)
         debug_print("Process complete")
         
-        # List directory contents for debugging
         debug_print("Current directory contents:")
         debug_print("\n".join(os.listdir(".")))
     else:
