@@ -25,20 +25,47 @@ def get_existing_fact_sheets():
         debug_print("Found existing CSV file")
         with open(csv_path, "r", newline='') as csv_file:
             reader = csv.DictReader(csv_file)
-            factsheet_column = 'Factsheet' if 'Factsheet' in reader.fieldnames else 'Fact Sheet'
+            
+            # Flexible column name detection
+            factsheet_column = None
+            for column in ['Factsheet', 'Fact Sheet', 'fact_sheet']:
+                if column in reader.fieldnames:
+                    factsheet_column = column
+                    break
+            
+            if not factsheet_column:
+                debug_print("No factsheet column found")
+                return fact_sheets
+            
+            debug_print(f"Using factsheet column: {factsheet_column}")
+            
+            # Try to get Ticker column
+            ticker_column = None
+            for column in ['Ticker', 'ticker']:
+                if column in reader.fieldnames:
+                    ticker_column = column
+                    break
+            
+            if not ticker_column:
+                debug_print("No ticker column found")
+                return fact_sheets
+            
+            debug_print(f"Using ticker column: {ticker_column}")
+            
             for row in reader:
-                if factsheet_column in row and row[factsheet_column].strip():
-                    debug_print(f"Found factsheet for ticker {row['Ticker']}")
-                    fact_sheets[row['Ticker']] = row[factsheet_column]
+                if (row[ticker_column] and row[factsheet_column] and 
+                    row[factsheet_column].strip()):
+                    debug_print(f"Found factsheet for ticker {row[ticker_column]}")
+                    fact_sheets[row[ticker_column]] = row[factsheet_column]
     
     debug_print(f"Total factsheets found: {len(fact_sheets)}")
     return fact_sheets
 
 def get_fixed_entries():
-    # Updated fixed entries with new Benchmark Family column
+    # Updated fixed entries to include 10 fields
     fixed_entries = [
         ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index', 'KT5', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 19, 2018', ''),
-        # ... (rest of the fixed entries remain the same, just ensure 10 columns)
+        # Include other existing fixed entries...
     ]
     return fixed_entries
 
