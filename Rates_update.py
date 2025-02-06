@@ -127,6 +127,8 @@ def pull_and_save_data_to_csv(api_url):
                 benchmark_family = "Single asset"
             elif type_value == "Benchmark Reference Rate":
                 benchmark_family = "Single asset (BMR compliant)"
+            elif type_value == "Custom Rate":
+                benchmark_family = "Single asset (Custom)"
             
             brand = item['brand']
             quote_short_name = item['quote']['short_name'].upper()
