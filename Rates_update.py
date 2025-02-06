@@ -15,9 +15,28 @@ def parse_date(date_string):
     except ValueError:
         return datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ').strftime('%B %d, %Y')
 
+def get_existing_fact_sheets():
+    """Read existing factsheet links from the current CSV"""
+    fact_sheets = {}
+    csv_path = "Reference_Rates_Coverage.csv"
+    debug_print(f"Looking for CSV at: {os.path.abspath(csv_path)}")
+    
+    if os.path.exists(csv_path):
+        debug_print("Found existing CSV file")
+        with open(csv_path, "r", newline='') as csv_file:
+            reader = csv.DictReader(csv_file)
+            factsheet_column = 'Factsheet' if 'Factsheet' in reader.fieldnames else 'Fact Sheet'
+            for row in reader:
+                if factsheet_column in row and row[factsheet_column].strip():
+                    debug_print(f"Found factsheet for ticker {row['Ticker']}")
+                    fact_sheets[row['Ticker']] = row[factsheet_column]
+    
+    debug_print(f"Total factsheets found: {len(fact_sheets)}")
+    return fact_sheets
+
 def get_fixed_entries():
     # Fixed entries that should always appear at the top
-    return [
+     return [
          ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index', 'KT5', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 19, 2018'),
         ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index NYC', 'KT5NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'March 19, 2018'),
         ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index LDN', 'KT5LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'March 19, 2018'),
@@ -72,10 +91,25 @@ def get_fixed_entries():
         ('Kaiko', 'Market', 'Kaiko Investable Index SGP', 'KMINVSGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'April 1, 2014')
     ]
 
+def create_factsheet_only_csv(all_items, headers):
+    """Create a separate CSV containing only rows with factsheets"""
+    factsheet_items = [item for item in all_items if item[-1].strip()]
+    
+    debug_print(f"Found {len(factsheet_items)} items with factsheets")
+    
+    if factsheet_items:
+        output_path = "Reference_Rates_With_Factsheets.csv"
+        debug_print(f"Creating filtered CSV at: {os.path.abspath(output_path)}")
+        with open(output_path, "w", newline='') as csv_file:
+            writer = csv.writer(csv_file)
+            writer.writerow(headers)
+            writer.writerows(factsheet_items)
+        debug_print("Successfully created filtered CSV")
+
 def pull_and_save_data_to_csv(api_url):
     debug_print("Starting data pull and save process")
     
-    # Get fixed entries
+    existing_fact_sheets = get_existing_fact_sheets()
     fixed_items = get_fixed_entries()
     
     debug_print("Fetching API data...")
@@ -88,10 +122,7 @@ def pull_and_save_data_to_csv(api_url):
             ticker = item['ticker']
             type_value = item['type'].replace('_', ' ')
             
-            # Rename the column from "Type" to "Benchmark Family"
             benchmark_family = type_value
-            
-            # Modify type values accordingly
             if type_value == "Reference Rate":
                 benchmark_family = "Single asset"
             elif type_value == "Benchmark Reference Rate":
@@ -104,26 +135,19 @@ def pull_and_save_data_to_csv(api_url):
             launch_date = parse_date(item['launch_date'])
             inception = parse_date(item['inception_date'])
             dissemination = item['dissemination']
+            fact_sheet = existing_fact_sheets.get(ticker, '')
             
             api_items.append((
-                brand,              # Brand
-                benchmark_family,   # Benchmark Family (formerly Type)
-                short_name,         # Name
-                ticker,             # Ticker
-                base_short_name,    # Base
-                quote_short_name,   # Quote
-                dissemination,      # Dissemination
-                launch_date,        # Launch Date
-                inception           # Inception Date
+                brand, benchmark_family, short_name, ticker, base_short_name, quote_short_name,
+                dissemination, launch_date, inception, fact_sheet
             ))
         
-        # Combine fixed and API items
-        all_items = fixed_items + sorted(api_items, key=lambda row: row[5])  # Sort by Quote
+        fixed_items_with_fact_sheets = [entry + (existing_fact_sheets.get(entry[3], ''),) for entry in fixed_items]
+        all_items = fixed_items_with_fact_sheets + sorted(api_items, key=lambda row: row[5])
         
-        # Define updated headers
         headers = [
             'Brand', 'Benchmark Family', 'Name', 'Ticker', 'Base', 'Quote',
-            'Dissemination', 'Launch Date', 'Inception Date'
+            'Dissemination', 'Launch Date', 'Inception Date', 'Factsheet'
         ]
         
         debug_print("Saving main CSV...")
@@ -133,10 +157,11 @@ def pull_and_save_data_to_csv(api_url):
             writer.writerow(headers)
             writer.writerows(all_items)
         
+        debug_print("Creating filtered CSV...")
+        create_factsheet_only_csv(all_items, headers)
         debug_print("Process complete")
     else:
         debug_print(f"Error fetching data: {response.status_code}")
 
-# Call the function with the API URL
 debug_print("Starting script execution...")
 pull_and_save_data_to_csv("https://us.market-api.kaiko.io/v2/data/index_reference_data.v1/rates")
