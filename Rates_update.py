@@ -98,9 +98,9 @@ def pull_and_save_data_to_csv(api_url):
             # Modify type based on new requirements
             orig_type = item['type'].replace('_', ' ')
             if orig_type == 'Reference Rate':
-                benchmark_family = 'Single-Asset Benchmark'
+                benchmark_family = 'Single-asset'
             elif orig_type == 'Benchmark Reference Rate':
-                benchmark_family = 'Single-Asset Benchmark (BMR-Compliant)'
+                benchmark_family = 'Single-asset (BMR-compliant)'
             else:
                 benchmark_family = orig_type.replace('_', ' ')
             
