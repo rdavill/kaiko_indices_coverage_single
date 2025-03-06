@@ -254,8 +254,14 @@ def pull_and_save_data_to_csv(api_url, api_key):
         debug_print(f"Error fetching data: {response.status_code}")
 
 debug_print("Starting script execution...")
-api_key = os.environ.get('KAIKO_API_KEY')
+
+# Try to get the API key from either environment variable
+api_key = os.environ.get('KAIKO_API_KEY') or os.environ.get('API_KEY')
+
+# Check if API key is still missing
 if not api_key:
-    debug_print("Error: KAIKO_API_KEY environment variable not set")
+    debug_print("Error: API key is missing! Check your environment variables.")
     sys.exit(1)
+
+# Proceed with the script if API key is found
 pull_and_save_data_to_csv("https://us.market-api.kaiko.io/v2/data/index_reference_data.v1/rates", api_key)
