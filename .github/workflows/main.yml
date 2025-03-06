@@ -30,7 +30,7 @@ jobs:
           pipenv install
           pipenv --version  # Debug: verify pipenv installation
       
-      - name: Run Python Script
+     - name: Run Python Script
         run: |
           echo "Running Python script..."
           pipenv run python Rates_update.py
@@ -40,6 +40,8 @@ jobs:
           head -n 5 Reference_Rates_Coverage.csv
           echo "Preview of filtered CSV (if exists):"
           head -n 5 Reference_Rates_With_Factsheets.csv || true
+        env:
+          KAIKO_API_KEY: ${{ secrets.KAIKO_API_KEY }}
       
       - name: Commit and push changes
         run: |
