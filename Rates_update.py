@@ -16,6 +16,22 @@ def parse_date(date_string):
     except ValueError:
         return datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ').strftime('%B %d, %Y')
 
+def get_normalized_family(family_type):
+    """
+    Normalize the benchmark family according to desired grouping:
+    - Thematic -> "Sector & Thematic"
+    - Sector -> "Sector & Thematic"
+    - Custom_Rate -> "Single-Asset"
+    - Benchmark_Reference_Rate -> "Single-Asset"
+    - Reference_Rate -> "Single-Asset"
+    """
+    if family_type in ["Thematic", "Sector"]:
+        return "Sector & Thematic"
+    elif family_type in ["Custom_Rate", "Benchmark_Reference_Rate", "Reference_Rate"]:
+        return "Single-Asset"
+    else:
+        return family_type
+
 def get_existing_fact_sheets():
     """Read existing factsheet links from the current CSV."""
     fact_sheets = {}
@@ -117,27 +133,6 @@ def get_fixed_entries():
         ('Kaiko', 'Market', 'Kaiko Investable Index NYC', 'KMINVNYC', 'N/A', 'N/A', 'NYC Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
         ('Kaiko', 'Market', 'Kaiko Investable Index LDN', 'KMINVLDN', 'N/A', 'N/A', 'LDN Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
         ('Kaiko', 'Market', 'Kaiko Investable Index SGP', 'KMINVSGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market)
-    ]Based Variants
-        ('Kaiko', 'Market', 'Kaiko Standard Index', 'KMSTA', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Standard Index NYC', 'KMSTANYC', 'N/A', 'N/A', 'NYC Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Standard Index LDN', 'KMSTALDN', 'N/A', 'N/A', 'LDN Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Standard Index SGP', 'KMSTASGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Small Cap Index', 'KMSMA', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 23, 2025', 'January 2, 2015', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Small Cap Index NYC', 'KMSMANYC', 'N/A', 'N/A', 'NYC Fixing', 'January 23, 2025', 'January 2, 2015', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Small Cap Index LDN', 'KMSMALDN', 'N/A', 'N/A', 'LDN Fixing', 'January 23, 2025', 'January 2, 2015', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Small Cap Index SGP', 'KMSMASGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'January 2, 2015', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Mid Cap Index', 'KMMID', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 23, 2025', 'April 2, 2018', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Mid Cap Index NYC', 'KMMIDNYC', 'N/A', 'N/A', 'NYC Fixing', 'January 23, 2025', 'April 2, 2018', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Mid Cap Index LDN', 'KMMIDLDN', 'N/A', 'N/A', 'LDN Fixing', 'January 23, 2025', 'April 2, 2018', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Mid Cap Index SGP', 'KMMIDSGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'April 2, 2018', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Large Cap Index', 'KMLAR', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Large Cap Index NYC', 'KMLARNYC', 'N/A', 'N/A', 'NYC Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Large Cap Index LDN', 'KMLARLDN', 'N/A', 'N/A', 'LDN Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Large Cap Index SGP', 'KMLARSGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Investable Index', 'KMINV', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Investable Index NYC', 'KMINVNYC', 'N/A', 'N/A', 'NYC Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Investable Index LDN', 'KMINVLDN', 'N/A', 'N/A', 'LDN Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Investable Index SGP', 'KMINVSGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market)
     ]
 
 def fetch_historical_prices_data(ticker, asset_type, api_key):
@@ -212,22 +207,6 @@ def write_filtered_csv(items, headers):
     # Log the families for debugging
     families = set(item[1] for item in items)
     debug_print(f"Benchmark families in the data: {families}")
-
-def get_normalized_family(family_type):
-    """
-    Normalize the benchmark family according to desired grouping:
-    - Thematic -> "Sector & Thematic"
-    - Sector -> "Sector & Thematic"
-    - Custom_Rate -> "Single-Asset"
-    - Benchmark_Reference_Rate -> "Single-Asset"
-    - Reference_Rate -> "Single-Asset"
-    """
-    if family_type in ["Thematic", "Sector"]:
-        return "Sector & Thematic"
-    elif family_type in ["Custom_Rate", "Benchmark_Reference_Rate", "Reference_Rate"]:
-        return "Single-Asset"
-    else:
-        return family_type
 
 def pull_and_save_data_to_csv(api_url, api_key):
     """Fetch reference rates and save them to CSV."""
