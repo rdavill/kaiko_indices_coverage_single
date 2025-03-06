@@ -1,7 +1,7 @@
 import requests
 import json
 import csv
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 import sys
 
@@ -93,6 +93,68 @@ def get_fixed_entries():
         ('Kaiko', 'Market', 'Kaiko Investable Index SGP', 'KMINVSGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-')
     ]
 
+def fetch_historical_prices_data(ticker, api_key):
+    """
+    Fetch data from the historical prices endpoint for a specific ticker.
+    
+    Args:
+        ticker (str): The ticker code (index_code) for the reference rate
+        api_key (str): API key for authentication
+    
+    Returns:
+        tuple: (exchanges_list, calc_window) or (None, None) if data couldn't be retrieved
+    """
+    debug_print(f"Fetching historical prices data for ticker: {ticker}")
+    
+    # Only attempt to fetch for single asset rates (not for indices)
+    if not ticker.startswith('KK_') and not ticker.startswith('CBOE-KAIKO_'):
+        debug_print(f"Skipping non-reference rate ticker: {ticker}")
+        return '-', '-'
+    
+    try:
+        # Construct the API URL for the historical prices endpoint
+        url = f"https://us.marketapi.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}"
+        
+        # Set up parameters - we just need a small time range to get the metadata
+        current_time = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.000Z')
+        # Set end_time to now and start_time to 1 hour ago
+        params = {
+            'start_time': (datetime.now() - timedelta(hours=1)).strftime('%Y-%m-%dT%H:%M:%S.000Z'),
+            'end_time': current_time,
+            'parameters': 'true'  # This will return the exchanges and calculation window
+        }
+        
+        # Set up headers with API key
+        headers = {
+            'X-API-KEY': api_key,
+            'Accept': 'application/json'
+        }
+        
+        # Make the API request
+        response = requests.get(url, params=params, headers=headers)
+        
+        if response.status_code == 200:
+            data = response.json()
+            
+            # Extract exchanges and calculation window from the response
+            if 'data' in data and len(data['data']) > 0:
+                first_item = data['data'][0]
+                if 'parameters' in first_item:
+                    params_data = first_item['parameters']
+                    exchanges = params_data.get('exchanges', [])
+                    exchanges_str = ', '.join(exchanges) if exchanges else '-'
+                    calc_window = str(params_data.get('calc_window', '-'))
+                    
+                    debug_print(f"Found data for {ticker}: exchanges={exchanges_str}, calc_window={calc_window}")
+                    return exchanges_str, calc_window
+        
+        debug_print(f"Failed to get data for {ticker}, status code: {response.status_code}")
+        return '-', '-'
+    
+    except Exception as e:
+        debug_print(f"Error fetching historical prices for {ticker}: {str(e)}")
+        return '-', '-'
+
 def create_factsheet_only_csv(all_items, headers):
     """Create a separate CSV containing only rows with factsheets"""
     factsheet_items = [item for item in all_items if item[-1].strip()]
@@ -102,17 +164,36 @@ def create_factsheet_only_csv(all_items, headers):
     if factsheet_items:
         output_path = "Reference_Rates_With_Factsheets.csv"
         debug_print(f"Creating filtered CSV at: {os.path.abspath(output_path)}")
+        
+        # For the factsheet CSV, we don't want the Exchanges and Calculation Window columns
+        # So we need to create new rows without those columns
+        factsheet_csv_items = []
+        for item in factsheet_items:
+            # Create a new item without the Exchanges and Calculation Window columns
+            new_item = item[:9] + (item[-1],)  # Take first 9 columns and the last column (factsheet)
+            factsheet_csv_items.append(new_item)
+        
+        factsheet_headers = [
+            'Brand', 'Benchmark Family', 'Name', 'Ticker', 'Base', 'Quote',
+            'Dissemination', 'Launch Date', 'Inception Date', 'Factsheet'
+        ]
+        
         with open(output_path, "w", newline='') as csv_file:
             writer = csv.writer(csv_file)
-            writer.writerow(headers)
-            writer.writerows(factsheet_items)
+            writer.writerow(factsheet_headers)
+            writer.writerows(factsheet_csv_items)
         debug_print("Successfully created filtered CSV")
 
-def pull_and_save_data_to_csv(api_url):
+def pull_and_save_data_to_csv(api_url, api_key):
     debug_print("Starting data pull and save process")
     
     existing_fact_sheets = get_existing_fact_sheets()
     fixed_items = get_fixed_entries()
+    
+    headers = [
+        'Brand', 'Benchmark Family', 'Name', 'Ticker', 'Base', 'Quote',
+        'Dissemination', 'Launch Date', 'Inception Date', 'Exchanges', 'Calculation Window', 'Factsheet'
+    ]
     
     debug_print("Fetching API data...")
     response = requests.get(api_url)
@@ -141,18 +222,17 @@ def pull_and_save_data_to_csv(api_url):
             dissemination = item['dissemination']
             fact_sheet = existing_fact_sheets.get(ticker, '')
             
+            # Fetch exchanges and calculation window data
+            exchanges, calc_window = fetch_historical_prices_data(ticker, api_key)
+            
             api_items.append((
                 brand, benchmark_family, short_name, ticker, base_short_name, quote_short_name,
-                dissemination, launch_date, inception, fact_sheet
+                dissemination, launch_date, inception, exchanges, calc_window, fact_sheet
             ))
         
+        # Add factsheet column to fixed_items (they already have exchanges and calc_window as '-')
         fixed_items_with_fact_sheets = [entry + (existing_fact_sheets.get(entry[3], ''),) for entry in fixed_items]
         all_items = fixed_items_with_fact_sheets + sorted(api_items, key=lambda row: row[5])
-        
-        headers = [
-    'Brand', 'Benchmark Family', 'Name', 'Ticker', 'Base', 'Quote',
-    'Dissemination', 'Launch Date', 'Inception Date', 'Exchanges', 'Calculation Window', 'Factsheet'
-]
         
         debug_print("Saving main CSV...")
         main_csv_path = "Reference_Rates_Coverage.csv"
@@ -168,4 +248,8 @@ def pull_and_save_data_to_csv(api_url):
         debug_print(f"Error fetching data: {response.status_code}")
 
 debug_print("Starting script execution...")
-pull_and_save_data_to_csv("https://us.market-api.kaiko.io/v2/data/index_reference_data.v1/rates")
+api_key = os.environ.get('KAIKO_API_KEY')
+if not api_key:
+    debug_print("Error: KAIKO_API_KEY environment variable not set")
+    sys.exit(1)
+pull_and_save_data_to_csv("https://us.market-api.kaiko.io/v2/data/index_reference_data.v1/rates", api_key)
