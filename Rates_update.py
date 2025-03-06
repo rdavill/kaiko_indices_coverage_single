@@ -220,7 +220,7 @@ def pull_and_save_data_to_csv(api_url, api_key):
         'Dissemination', 'Launch Date', 'Inception Date', 'Exchanges', 'Calculation Window', 'Factsheet'
     ]
 
-    # Use the URL as-is since it already includes the quote=usd filter
+    # Use the URL as-is
     debug_print(f"Fetching API data from: {api_url}")
     
     # Don't need API key for reference data
@@ -230,7 +230,16 @@ def pull_and_save_data_to_csv(api_url, api_key):
         data = json.loads(response.text)
         api_items = []
 
+        # Filter for USD quote items only
+        usd_items = []
         for item in data['data']:
+            quote_short_name = item['quote']['short_name'].upper()
+            if quote_short_name == 'USD':
+                usd_items.append(item)
+        
+        debug_print(f"Filtered {len(data['data'])} items to {len(usd_items)} USD quote items")
+
+        for item in usd_items:
             ticker = item['ticker']
             asset_type = item['type']  # ✅ Check type instead of guessing
             # Normalize the benchmark family
@@ -300,5 +309,5 @@ if __name__ == "__main__":
         debug_print("⚠️ Warning: API key is missing! Exchanges and Calculation Window columns will show '-'.")
         api_key = ""  # Use empty string instead of None to avoid errors
     
-    # URL with quote=usd parameter already included
-    pull_and_save_data_to_csv("https://us.market-api.kaiko.io/v2/data/index_reference_data.v1/rates?quote=usd", api_key)
+    # Remove the quote=usd parameter since we're now filtering in the code
+    pull_and_save_data_to_csv("https://us.market-api.kaiko.io/v2/data/index_reference_data.v1/rates", api_key)
