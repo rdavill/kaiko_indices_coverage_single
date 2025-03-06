@@ -99,67 +99,42 @@ def get_fixed_entries():
         ('Kaiko', 'Market', 'Kaiko Investable Index SGP', 'KMINVSGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-')
     ]
 
-def fetch_historical_prices_data(ticker, api_key):
-    """
-    Fetch data from the historical prices endpoint for a specific ticker.
-    
-    Args:
-        ticker (str): The ticker code (index_code) for the reference rate
-        api_key (str): API key for authentication
-    
-    Returns:
-        tuple: (exchanges_list, calc_window) or (None, None) if data couldn't be retrieved
-    """
+def fetch_historical_prices_data(ticker, api_key, retries=3, delay=5):
+    """Fetch historical price data without time parameters (fetch latest)."""
     debug_print(f"Fetching historical prices data for ticker: {ticker}")
-    
-    # Only attempt to fetch for single asset rates (not for indices)
+
     if not ticker.startswith('KK_') and not ticker.startswith('CBOE-KAIKO_'):
         debug_print(f"Skipping non-reference rate ticker: {ticker}")
         return '-', '-'
-    
-    try:
-        # Construct the API URL for the historical prices endpoint
-        url = f"https://us.marketapi.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}"
-        
-        # Set up parameters - we just need a small time range to get the metadata
-        current_time = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.000Z')
-        # Set end_time to now and start_time to 1 hour ago
-        params = {
-            'start_time': (datetime.now() - timedelta(hours=1)).strftime('%Y-%m-%dT%H:%M:%S.000Z'),
-            'end_time': current_time,
-            'parameters': 'true'  # This will return the exchanges and calculation window
-        }
-        
-        # Set up headers with API key
-        headers = {
-            'X-API-KEY': api_key,
-            'Accept': 'application/json'
-        }
-        
-        # Make the API request
-        response = requests.get(url, params=params, headers=headers)
-        
-        if response.status_code == 200:
-            data = response.json()
+
+    url = f"https://us.marketapi.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?parameters=true"
+    headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
+
+    for attempt in range(retries):
+        try:
+            debug_print(f"Attempt {attempt + 1} - Requesting {url}")
+            response = requests.get(url, headers=headers, timeout=10)
             
-            # Extract exchanges and calculation window from the response
-            if 'data' in data and len(data['data']) > 0:
-                first_item = data['data'][0]
-                if 'parameters' in first_item:
-                    params_data = first_item['parameters']
-                    exchanges = params_data.get('exchanges', [])
-                    exchanges_str = ', '.join(exchanges) if exchanges else '-'
+            if response.status_code == 200:
+                data = response.json()
+                if 'data' in data and data['data']:
+                    first_item = data['data'][0]
+                    params_data = first_item.get('parameters', {})
+                    exchanges = ', '.join(params_data.get('exchanges', [])) or '-'
                     calc_window = str(params_data.get('calc_window', '-'))
-                    
-                    debug_print(f"Found data for {ticker}: exchanges={exchanges_str}, calc_window={calc_window}")
-                    return exchanges_str, calc_window
-        
-        debug_print(f"Failed to get data for {ticker}, status code: {response.status_code}")
-        return '-', '-'
-    
-    except Exception as e:
-        debug_print(f"Error fetching historical prices for {ticker}: {str(e)}")
-        return '-', '-'
+
+                    debug_print(f"Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
+                    return exchanges, calc_window
+
+            debug_print(f"Error fetching {ticker}, status {response.status_code}, retrying in {delay} seconds...")
+            time.sleep(delay)
+
+        except requests.exceptions.RequestException as e:
+            debug_print(f"RequestException on attempt {attempt + 1}: {e}, retrying in {delay} seconds...")
+            time.sleep(delay)
+
+    debug_print(f"Failed after {retries} attempts for {ticker}")
+    return '-', '-'
 
 def create_factsheet_only_csv(all_items, headers):
     """Create a separate CSV containing only rows with factsheets"""
