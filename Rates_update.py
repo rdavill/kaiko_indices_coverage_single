@@ -29,7 +29,7 @@ def get_existing_fact_sheets():
             factsheet_column = 'Factsheet' if 'Factsheet' in reader.fieldnames else 'Fact Sheet'
 
             for row_num, row in enumerate(reader, start=1):  # Track line numbers
-                value = row.get(factsheet_column, "").strip()
+                value = (row.get(factsheet_column, "") or "").strip()
                 if value:
                     debug_print(f"Found factsheet for ticker {row.get('Ticker', 'Unknown')} at row {row_num}")
                     fact_sheets[row['Ticker']] = value
