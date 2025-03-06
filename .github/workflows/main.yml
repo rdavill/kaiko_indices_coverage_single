@@ -15,6 +15,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
       
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -30,7 +31,7 @@ jobs:
           pipenv install
           pipenv --version  # Debug: verify pipenv installation
       
-     - name: Run Python Script
+      - name: Run Python Script
         run: |
           echo "Running Python script..."
           pipenv run python Rates_update.py
@@ -47,6 +48,9 @@ jobs:
         run: |
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
+          
+          # Pull latest changes with rebase to avoid merge commits
+          git pull --rebase origin main
           
           # Add both CSVs and Pipfile.lock
           git add Reference_Rates_Coverage.csv Reference_Rates_With_Factsheets.csv Pipfile.lock || echo "Some files not found"
