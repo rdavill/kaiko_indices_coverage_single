@@ -49,10 +49,19 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           
-          # Pull latest changes with rebase to avoid merge commits
-          git pull --rebase origin main
+          # Ensure we have the latest changes
+          git fetch --all
           
-          # Add both CSVs and Pipfile.lock
+          # Stash any uncommitted changes
+          git stash
+          
+          # Reset to match remote
+          git reset --hard origin/main
+          
+          # Pop any stashed changes
+          git stash pop || true
+          
+          # Add the changed files
           git add Reference_Rates_Coverage.csv Reference_Rates_With_Factsheets.csv Pipfile.lock || echo "Some files not found"
           
           # Show status for debugging
@@ -64,5 +73,6 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Update Reference_Rates_Coverage.csv and filtered version"
-            git push
+            # Force push with lease for safety
+            git push --force-with-lease
           fi
