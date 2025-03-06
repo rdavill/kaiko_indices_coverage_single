@@ -169,7 +169,9 @@ def write_filtered_csv(items, headers):
     for item in items:
         if item[-1] and item[-1] != '-' and item[-1] != '':
             # Take only the columns we need (exclude Exchanges and Calculation Window)
-            filtered_item = item[:10] + [item[-1]]
+            # Convert to list first to avoid tuple/list concatenation issue
+            item_list = list(item)
+            filtered_item = item_list[:10] + [item_list[-1]]
             filtered_items.append(filtered_item)
     
     debug_print(f"Writing filtered CSV with {len(filtered_items)} entries")
