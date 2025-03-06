@@ -29,10 +29,21 @@ def get_existing_fact_sheets():
             factsheet_column = 'Factsheet' if 'Factsheet' in reader.fieldnames else 'Fact Sheet'
 
             for row_num, row in enumerate(reader, start=1):  # Track line numbers
-                value = (row.get(factsheet_column, "") or "").strip()
-                if value:
-                    debug_print(f"Found factsheet for ticker {row.get('Ticker', 'Unknown')} at row {row_num}")
-                    fact_sheets[row['Ticker']] = value
+                if factsheet_column in row:
+                    value = row.get(factsheet_column, "").strip()
+                    # Remove any trailing commas from factsheet values
+                    if value.endswith(','):
+                        value = value[:-1]
+                    
+                    if value:
+                        ticker = row.get('Ticker', 'Unknown')
+                        debug_print(f"Found factsheet for ticker {ticker} at row {row_num}")
+                        
+                        # Fix double href tags if present
+                        if '<a href="<a href="' in value:
+                            value = value.replace('<a href="<a href="', '<a href="')
+                        
+                        fact_sheets[ticker] = value
 
     debug_print(f"Total factsheets found: {len(fact_sheets)}")
     return fact_sheets
@@ -148,6 +159,28 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         debug_print(f"🚨 RequestException: {e}")
         return '-', '-'
 
+def write_filtered_csv(items, headers):
+    """Write a filtered CSV with only the entries that have factsheets."""
+    filtered_csv_path = "Reference_Rates_With_Factsheets.csv"
+    filtered_headers = headers[:10] + [headers[-1]]  # Keep all headers except Exchanges and Calculation Window
+    
+    # Filter items that have factsheets
+    filtered_items = []
+    for item in items:
+        if item[-1] and item[-1] != '-' and item[-1] != '':
+            # Take only the columns we need (exclude Exchanges and Calculation Window)
+            filtered_item = item[:10] + [item[-1]]
+            filtered_items.append(filtered_item)
+    
+    debug_print(f"Writing filtered CSV with {len(filtered_items)} entries")
+    
+    with open(filtered_csv_path, "w", newline='') as csv_file:
+        writer = csv.writer(csv_file, quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(filtered_headers)
+        writer.writerows(filtered_items)
+    
+    debug_print(f"Filtered CSV saved to {filtered_csv_path}")
+
 def pull_and_save_data_to_csv(api_url, api_key):
     """Fetch reference rates and save them to CSV."""
     debug_print("Starting data pull and save process")
@@ -177,7 +210,13 @@ def pull_and_save_data_to_csv(api_url, api_key):
             launch_date = parse_date(item['launch_date'])
             inception = parse_date(item['inception_date'])
             dissemination = item['dissemination']
+            
+            # Get factsheet from existing data or use empty string (not dash)
             fact_sheet = existing_fact_sheets.get(ticker, '')
+            
+            # Remove any trailing commas from factsheet
+            if fact_sheet.endswith(','):
+                fact_sheet = fact_sheet[:-1]
 
             # ✅ Fetch exchanges & calculation window
             exchanges, calc_window = fetch_historical_prices_data(ticker, asset_type, api_key)
@@ -187,8 +226,20 @@ def pull_and_save_data_to_csv(api_url, api_key):
                 dissemination, launch_date, inception, exchanges, calc_window, fact_sheet
             ))
 
-        # ✅ Add fixed entries with fact sheets
-        fixed_items_with_fact_sheets = [entry + (existing_fact_sheets.get(entry[3], ''),) for entry in fixed_items]
+        # Combine fixed items and API items
+        # Make sure fixed items get their factsheets from existing data if available
+        fixed_items_with_fact_sheets = []
+        for entry in fixed_items:
+            ticker = entry[3]
+            # Use either the factsheet from fixed data or from existing CSV, with no trailing comma
+            factsheet = entry[11]
+            if ticker in existing_fact_sheets and existing_fact_sheets[ticker]:
+                factsheet = existing_fact_sheets[ticker]
+                if factsheet.endswith(','):
+                    factsheet = factsheet[:-1]
+            
+            fixed_items_with_fact_sheets.append(entry[:11] + (factsheet,))
+        
         all_items = fixed_items_with_fact_sheets + sorted(api_items, key=lambda row: row[3])
 
         # ✅ Save to CSV
@@ -196,22 +247,26 @@ def pull_and_save_data_to_csv(api_url, api_key):
         debug_print(f"Saving main CSV to {os.path.abspath(main_csv_path)}")
 
         with open(main_csv_path, "w", newline='') as csv_file:
-            writer = csv.writer(csv_file)
+            writer = csv.writer(csv_file, quoting=csv.QUOTE_MINIMAL)
             writer.writerow(headers)
             writer.writerows(all_items)
+        
+        # Write the filtered CSV with only entries that have factsheets
+        write_filtered_csv(all_items, headers)
 
         debug_print("Process complete")
     else:
         debug_print(f"❌ Error fetching API data: {response.status_code}")
 
 # 🚀 Main Execution
-debug_print("Starting script execution...")
+if __name__ == "__main__":
+    debug_print("Starting script execution...")
 
-# ✅ Retrieve API key from environment
-api_key = os.environ.get('KAIKO_API_KEY') or os.environ.get('API_KEY')
-if not api_key:
-    debug_print("🚨 Error: API key is missing! Check your environment variables.")
-    sys.exit(1)
+    # ✅ Retrieve API key from environment
+    api_key = os.environ.get('KAIKO_API_KEY') or os.environ.get('API_KEY')
+    if not api_key:
+        debug_print("🚨 Error: API key is missing! Check your environment variables.")
+        sys.exit(1)
 
-# ✅ Run the data fetch process
-pull_and_save_data_to_csv("https://us.market-api.kaiko.io/v2/data/index_reference_data.v1/rates", api_key)
+    # ✅ Run the data fetch process
+    pull_and_save_data_to_csv("https://us.market-api.kaiko.io/v2/data/index_reference_data.v1/rates", api_key)
