@@ -20,17 +20,23 @@ def get_existing_fact_sheets():
     fact_sheets = {}
     csv_path = "Reference_Rates_Coverage.csv"
     debug_print(f"Looking for CSV at: {os.path.abspath(csv_path)}")
-    
+
     if os.path.exists(csv_path):
         debug_print("Found existing CSV file")
         with open(csv_path, "r", newline='') as csv_file:
             reader = csv.DictReader(csv_file)
             factsheet_column = 'Factsheet' if 'Factsheet' in reader.fieldnames else 'Fact Sheet'
-            for row in reader:
-                if factsheet_column in row and row[factsheet_column].strip():
-                    debug_print(f"Found factsheet for ticker {row['Ticker']}")
-                    fact_sheets[row['Ticker']] = row[factsheet_column]
-    
+
+            for row_num, row in enumerate(reader, start=1):  # Track line numbers
+                debug_print(f"Processing row {row_num}: {row}")  # Print full row for debugging
+
+                value = row.get(factsheet_column)  # Safely get the value
+                debug_print(f"Row {row_num} - '{factsheet_column}' value: {value}")  # Print the value
+
+                if value and isinstance(value, str) and value.strip():
+                    debug_print(f"Found factsheet for ticker {row.get('Ticker', 'Unknown')} at row {row_num}")
+                    fact_sheets[row['Ticker']] = value
+
     debug_print(f"Total factsheets found: {len(fact_sheets)}")
     return fact_sheets
 
