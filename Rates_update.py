@@ -150,9 +150,9 @@ def pull_and_save_data_to_csv(api_url):
         all_items = fixed_items_with_fact_sheets + sorted(api_items, key=lambda row: row[5])
         
         headers = [
-            'Brand', 'Benchmark Family', 'Name', 'Ticker', 'Base', 'Quote',
-            'Dissemination', 'Launch Date', 'Inception Date', 'Factsheet'
-        ]
+    'Brand', 'Benchmark Family', 'Name', 'Ticker', 'Base', 'Quote',
+    'Dissemination', 'Launch Date', 'Inception Date', 'Exchanges', 'Calculation Window', 'Factsheet'
+]
         
         debug_print("Saving main CSV...")
         main_csv_path = "Reference_Rates_Coverage.csv"
