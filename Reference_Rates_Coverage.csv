@@ -1027,7 +1027,7 @@ Kaiko,Single-Asset,Kaiko SGB Reference Rate ,KK_RFR_SGBUSD,SGB,USD,Real-time (5s
 Kaiko,Single-Asset,Kaiko SGB Reference Rate LDN,KK_RFR_SGBUSD_LDN,SGB,USD,Daily Fixing LDN,"March 07, 2024","March 07, 2024",cexi,3600,
 Kaiko,Single-Asset,Kaiko SGB Reference Rate NYC,KK_RFR_SGBUSD_NYC,SGB,USD,Daily Fixing NYC,"March 07, 2024","March 07, 2024",cexi,3600,
 Kaiko,Single-Asset,Kaiko SGB Reference Rate SGP,KK_RFR_SGBUSD_SGP,SGB,USD,Daily Fixing SGP,"March 07, 2024","March 07, 2024",cexi,3600,
-Kaiko,Single-Asset,Kaiko SHDW Reference Rate ,KK_RFR_SHDWUSD,SHDW,USD,Real-time (5s),"June 24, 2024","June 24, 2024",cbse,300,
+Kaiko,Single-Asset,Kaiko SHDW Reference Rate ,KK_RFR_SHDWUSD,SHDW,USD,Real-time (5s),"June 24, 2024","June 24, 2024",-,-,
 Kaiko,Single-Asset,Kaiko SHDW Reference Rate LDN,KK_RFR_SHDWUSD_LDN,SHDW,USD,Daily Fixing LDN,"June 24, 2024","June 24, 2024",cbse,3600,
 Kaiko,Single-Asset,Kaiko SHDW Reference Rate NYC,KK_RFR_SHDWUSD_NYC,SHDW,USD,Daily Fixing NYC,"June 24, 2024","June 24, 2024",cbse,3600,
 Kaiko,Single-Asset,Kaiko SHDW Reference Rate SGP,KK_RFR_SHDWUSD_SGP,SHDW,USD,Daily Fixing SGP,"June 24, 2024","June 24, 2024",cbse,3600,
