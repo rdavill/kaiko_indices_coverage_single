@@ -783,7 +783,7 @@ Kaiko,Single-Asset,Kaiko MASK Reference Rate LDN,KK_RFR_MASKUSD_LDN,MASK,USD,Dai
 Kaiko,Single-Asset,Kaiko MASK Reference Rate NYC,KK_RFR_MASKUSD_NYC,MASK,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024",cbse,3600,
 Kaiko,Single-Asset,Kaiko MASK Reference Rate SGP,KK_RFR_MASKUSD_SGP,MASK,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024",cbse,3600,
 Kaiko,Single-Asset,Kaiko MATH Reference Rate ,KK_RFR_MATHUSD,MATH,USD,Real-time (5s),"March 04, 2024","March 04, 2024",ftxx,300,
-Kaiko,Single-Asset,Kaiko MATH Reference Rate LDN,KK_RFR_MATHUSD_LDN,MATH,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024",-,-,
+Kaiko,Single-Asset,Kaiko MATH Reference Rate LDN,KK_RFR_MATHUSD_LDN,MATH,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024",ftxx,3600,
 Kaiko,Single-Asset,Kaiko MATH Reference Rate NYC,KK_RFR_MATHUSD_NYC,MATH,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024",ftxx,3600,
 Kaiko,Single-Asset,Kaiko MATH Reference Rate SGP,KK_RFR_MATHUSD_SGP,MATH,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024",ftxx,3600,
 Kaiko,Single-Asset,Kaiko MATIC Reference Rate ,KK_RFR_MATICUSD,MATIC,USD,Real-time (5s),"September 20, 2022","September 20, 2022",cexi,300,
