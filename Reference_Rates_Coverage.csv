@@ -168,7 +168,7 @@ Kaiko,Single-Asset,Kaiko LINK Benchmark Reference Rate NYC,KK_BRR_LINKUSD_NYC,LI
 Kaiko,Single-Asset,Kaiko LINK Benchmark Reference Rate SGP,KK_BRR_LINKUSD_SGP,LINK,USD,Daily Fixing SGP,"January 17, 2023","January 17, 2023","cbse, gmni, krkn",300,
 Kaiko,Single-Asset,Kaiko LTC Benchmark Reference Rate ,KK_BRR_LTCUSD,LTC,USD,Real-time (5s),"January 17, 2023","January 17, 2023","cbse, krkn, okcn",60,
 Kaiko,Single-Asset,Kaiko LTC Benchmark Reference Rate LDN,KK_BRR_LTCUSD_LDN,LTC,USD,Daily Fixing LDN,"January 17, 2023","January 17, 2023","cbse, krkn, okcn",300,
-Kaiko,Single-Asset,Kaiko LTC Benchmark Reference Rate NYC,KK_BRR_LTCUSD_NYC,LTC,USD,Daily Fixing NYC,"January 17, 2023","January 17, 2023",-,-,
+Kaiko,Single-Asset,Kaiko LTC Benchmark Reference Rate NYC,KK_BRR_LTCUSD_NYC,LTC,USD,Daily Fixing NYC,"January 17, 2023","January 17, 2023","cbse, krkn, okcn",300,
 Kaiko,Single-Asset,Kaiko LTC Benchmark Reference Rate SGP,KK_BRR_LTCUSD_SGP,LTC,USD,Daily Fixing SGP,"January 17, 2023","January 17, 2023","cbse, krkn, okcn",300,
 Kaiko,Single-Asset,Kaiko MATIC Benchmark Reference Rate ,KK_BRR_MATICUSD,MATIC,USD,Real-time (5s),"June 19, 2023","June 19, 2023","cbse, cexi, gmni",120,
 Kaiko,Single-Asset,Kaiko MATIC Benchmark Reference Rate LDN,KK_BRR_MATICUSD_LDN,MATIC,USD,Daily Fixing LDN,"June 19, 2023","June 19, 2023","cbse, cexi, gmni",300,
