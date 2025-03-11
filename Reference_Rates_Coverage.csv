@@ -358,7 +358,7 @@ Kaiko,Single-Asset,Kaiko AUCTION Reference Rate LDN,KK_RFR_AUCTIONUSD_LDN,AUCTIO
 Kaiko,Single-Asset,Kaiko AUCTION Reference Rate NYC,KK_RFR_AUCTIONUSD_NYC,AUCTION,USD,Daily Fixing NYC,"February 27, 2024","February 27, 2024",cbse,3600,
 Kaiko,Single-Asset,Kaiko AUCTION Reference Rate SGP,KK_RFR_AUCTIONUSD_SGP,AUCTION,USD,Daily Fixing SGP,"February 27, 2024","February 27, 2024",cbse,3600,
 Kaiko,Single-Asset,Kaiko AUDIO Reference Rate ,KK_RFR_AUDIOUSD,AUDIO,USD,Real-time (5s),"February 27, 2024","February 27, 2024",ftxx,300,
-Kaiko,Single-Asset,Kaiko AUDIO Reference Rate LDN,KK_RFR_AUDIOUSD_LDN,AUDIO,USD,Daily Fixing LDN,"February 27, 2024","February 27, 2024",-,-,
+Kaiko,Single-Asset,Kaiko AUDIO Reference Rate LDN,KK_RFR_AUDIOUSD_LDN,AUDIO,USD,Daily Fixing LDN,"February 27, 2024","February 27, 2024",ftxx,3600,
 Kaiko,Single-Asset,Kaiko AUDIO Reference Rate NYC,KK_RFR_AUDIOUSD_NYC,AUDIO,USD,Daily Fixing NYC,"February 27, 2024","February 27, 2024",ftxx,3600,
 Kaiko,Single-Asset,Kaiko AUDIO Reference Rate SGP,KK_RFR_AUDIOUSD_SGP,AUDIO,USD,Daily Fixing SGP,"February 27, 2024","February 27, 2024",ftxx,3600,
 Kaiko,Single-Asset,Kaiko AURORA Reference Rate ,KK_RFR_AURORAUSD,AURORA,USD,Real-time (5s),"February 27, 2024","February 27, 2024",cbse,300,
