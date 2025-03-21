@@ -661,7 +661,7 @@ Kaiko,Single-Asset,Kaiko HIGH Reference Rate ,KK_RFR_HIGHUSD,HIGH,USD,Real-time 
 Kaiko,Single-Asset,Kaiko HIGH Reference Rate LDN,KK_RFR_HIGHUSD_LDN,HIGH,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024",-,-,
 Kaiko,Single-Asset,Kaiko HIGH Reference Rate NYC,KK_RFR_HIGHUSD_NYC,HIGH,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024",-,-,
 Kaiko,Single-Asset,Kaiko HIGH Reference Rate SGP,KK_RFR_HIGHUSD_SGP,HIGH,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024",-,-,
-Kaiko,Single-Asset,Kaiko HNT Reference Rate ,KK_RFR_HNTUSD,HNT,USD,Real-time (5s),"March 04, 2024","March 04, 2024","cbse, crco, krkn",300,
+Kaiko,Single-Asset,Kaiko HNT Reference Rate ,KK_RFR_HNTUSD,HNT,USD,Real-time (5s),"March 04, 2024","March 04, 2024",-,-,
 Kaiko,Single-Asset,Kaiko HNT Reference Rate LDN,KK_RFR_HNTUSD_LDN,HNT,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024",-,-,
 Kaiko,Single-Asset,Kaiko HNT Reference Rate NYC,KK_RFR_HNTUSD_NYC,HNT,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024",-,-,
 Kaiko,Single-Asset,Kaiko HNT Reference Rate SGP,KK_RFR_HNTUSD_SGP,HNT,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024",-,-,
