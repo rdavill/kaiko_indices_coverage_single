@@ -1182,7 +1182,7 @@ Kaiko,Single-Asset,Kaiko WAXL Reference Rate ,KK_RFR_WAXLUSD,WAXL,USD,Real-time 
 Kaiko,Single-Asset,Kaiko WAXL Reference Rate LDN,KK_RFR_WAXLUSD_LDN,WAXL,USD,Daily Fixing LDN,"March 07, 2024","March 07, 2024",-,-,
 Kaiko,Single-Asset,Kaiko WAXL Reference Rate NYC,KK_RFR_WAXLUSD_NYC,WAXL,USD,Daily Fixing NYC,"March 07, 2024","March 07, 2024",-,-,
 Kaiko,Single-Asset,Kaiko WAXL Reference Rate SGP,KK_RFR_WAXLUSD_SGP,WAXL,USD,Daily Fixing SGP,"March 07, 2024","March 07, 2024",-,-,
-Kaiko,Single-Asset,Kaiko WBTC Reference Rate ,KK_RFR_WBTCUSD,WBTC,USD,Real-time (5s),"July 17, 2024","September 20, 2022",-,-,
+Kaiko,Single-Asset,Kaiko WBTC Reference Rate ,KK_RFR_WBTCUSD,WBTC,USD,Real-time (5s),"July 17, 2024","September 20, 2022","cbse, crco, krkn",300,
 Kaiko,Single-Asset,Kaiko WBTC Reference Rate LDN,KK_RFR_WBTCUSD_LDN,WBTC,USD,Daily Fixing LDN,"September 20, 2022","September 20, 2022",-,-,
 Kaiko,Single-Asset,Kaiko WBTC Reference Rate NYC,KK_RFR_WBTCUSD_NYC,WBTC,USD,Daily Fixing NYC,"September 20, 2022","September 20, 2022",-,-,
 Kaiko,Single-Asset,Kaiko WBTC Reference Rate SGP,KK_RFR_WBTCUSD_SGP,WBTC,USD,Daily Fixing SGP,"September 20, 2022","September 20, 2022",-,-,
