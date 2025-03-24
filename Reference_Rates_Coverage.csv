@@ -309,7 +309,7 @@ Kaiko,Single-Asset,Kaiko ALGO Reference Rate ,KK_RFR_ALGOUSD,ALGO,USD,Real-time 
 Kaiko,Single-Asset,Kaiko ALGO Reference Rate LDN,KK_RFR_ALGOUSD_LDN,ALGO,USD,Daily Fixing LDN,"September 20, 2022","September 20, 2022",-,-,
 Kaiko,Single-Asset,Kaiko ALGO Reference Rate NYC,KK_RFR_ALGOUSD_NYC,ALGO,USD,Daily Fixing NYC,"September 20, 2022","September 20, 2022",-,-,
 Kaiko,Single-Asset,Kaiko ALGO Reference Rate SGP,KK_RFR_ALGOUSD_SGP,ALGO,USD,Daily Fixing SGP,"September 20, 2022","September 20, 2022",-,-,
-Kaiko,Single-Asset,Kaiko ALICE Reference Rate ,KK_RFR_ALICEUSD,ALICE,USD,Real-time (5s),"February 27, 2024","February 27, 2024","cbse, crco, krkn",300,
+Kaiko,Single-Asset,Kaiko ALICE Reference Rate ,KK_RFR_ALICEUSD,ALICE,USD,Real-time (5s),"February 27, 2024","February 27, 2024",-,-,
 Kaiko,Single-Asset,Kaiko ALICE Reference Rate LDN,KK_RFR_ALICEUSD_LDN,ALICE,USD,Daily Fixing LDN,"February 27, 2024","February 27, 2024",-,-,
 Kaiko,Single-Asset,Kaiko ALICE Reference Rate NYC,KK_RFR_ALICEUSD_NYC,ALICE,USD,Daily Fixing NYC,"February 27, 2024","February 27, 2024",-,-,
 Kaiko,Single-Asset,Kaiko ALICE Reference Rate SGP,KK_RFR_ALICEUSD_SGP,ALICE,USD,Daily Fixing SGP,"February 27, 2024","February 27, 2024",-,-,
