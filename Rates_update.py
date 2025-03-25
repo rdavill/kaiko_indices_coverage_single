@@ -158,7 +158,7 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
     start_time_str = start_time.strftime('%Y-%m-%dT%H:%M:%S.000Z')
     
     # Update URL with time parameters
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?parameters=true&start_time={start_time_str}&end_time={end_time_str}"
+    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&start_time={start_time_str}&end_time={end_time_str}"
     
     headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
 
