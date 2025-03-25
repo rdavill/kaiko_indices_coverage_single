@@ -151,7 +151,8 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
 
     # Calculate time range for the most recent 30 minutes
     end_time = datetime.utcnow()
-    start_time = end_time - timedelta(minutes=30)
+    # Use fully qualified import - this is the key change
+    start_time = end_time - datetime.timedelta(minutes=30)
     
     # Format times in ISO 8601 format
     end_time_str = end_time.strftime('%Y-%m-%dT%H:%M:%S.000Z')
