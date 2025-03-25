@@ -3,7 +3,7 @@ import json
 import csv
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 
 def debug_print(message):
     """Print debug messages that will show up in GitHub Actions logs."""
@@ -162,11 +162,33 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
     
     headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
 
-    # Rest of your function remains the same
     try:
         debug_print(f"Making API request to: {url}")
         response = requests.get(url, headers=headers, timeout=10)
-        # ... rest of the function
+
+        debug_print(f"Response Status Code: {response.status_code}")
+
+        if response.status_code == 200:
+            data = response.json()
+            debug_print(f"Response JSON: {json.dumps(data, indent=2)[:500]}")  # Print first 500 characters
+
+            if 'data' in data and data['data']:
+                first_item = data['data'][0]
+                params_data = first_item.get('parameters', {})
+                exchanges = ', '.join(params_data.get('exchanges', [])) or '-'
+                calc_window = str(params_data.get('calc_window', '-'))
+
+                debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
+                return exchanges, calc_window
+            else:
+                debug_print(f"⚠️ No 'data' key or empty response for ticker: {ticker}")
+
+        debug_print(f"❌ API call failed with status {response.status_code}: {response.text}")
+        return '-', '-'
+
+    except requests.exceptions.RequestException as e:
+        debug_print(f"🚨 RequestException: {e}")
+        return '-', '-'
 
 def write_filtered_csv(items, headers):
     """Write a filtered CSV with only the entries that have factsheets."""
