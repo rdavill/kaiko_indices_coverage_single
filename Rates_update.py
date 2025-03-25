@@ -3,7 +3,7 @@ import json
 import csv
 import os
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def debug_print(message):
     """Print debug messages that will show up in GitHub Actions logs."""
@@ -151,8 +151,7 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
 
     # Calculate time range for the most recent 30 minutes
     end_time = datetime.utcnow()
-    # Use fully qualified import - this is the key change
-    start_time = end_time - datetime.timedelta(minutes=30)
+    start_time = end_time - timedelta(minutes=30)
     
     # Format times in ISO 8601 format
     end_time_str = end_time.strftime('%Y-%m-%dT%H:%M:%S.000Z')
