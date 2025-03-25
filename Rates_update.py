@@ -149,17 +149,13 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         debug_print(f"Skipping ticker {ticker} (type: {asset_type}) - Not a reference rate.")
         return '-', '-'
 
-    # Calculate time range for the most recent 30 minutes
-    end_time = datetime.utcnow()
-    start_time = end_time - timedelta(hours=24)
-    
-    # Format times in ISO 8601 format
-    end_time_str = end_time.strftime('%Y-%m-%dT%H:%M:%S.000Z')
-    start_time_str = start_time.strftime('%Y-%m-%dT%H:%M:%S.000Z')
-    
-    # Update URL with time parameters
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&start_time={start_time_str}&end_time={end_time_str}"
-    
+    # Define time window
+    now = datetime.utcnow()
+    start_time = (now - timedelta(hours=24, minutes=15)).isoformat() + "Z"
+    end_time = (now - timedelta(minutes=15)).isoformat() + "Z"
+
+    # Construct the URL
+    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&start_time={start_time}&end_time={end_time}"
     headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
 
     try:
