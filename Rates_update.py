@@ -3,7 +3,7 @@ import json
 import csv
 import os
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def debug_print(message):
     """Print debug messages that will show up in GitHub Actions logs."""
@@ -144,41 +144,29 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         debug_print(f"No API key provided, skipping historical data fetch for {ticker}")
         return '-', '-'
 
-    # ✅ Only process 'Reference_Rate' and 'Benchmark_Reference_Rate'
+    # Only process 'Reference_Rate' and 'Benchmark_Reference_Rate'
     if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Single-Asset']:
         debug_print(f"Skipping ticker {ticker} (type: {asset_type}) - Not a reference rate.")
         return '-', '-'
 
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?parameters=true&sort=desc"
+    # Calculate time range for the most recent 30 minutes
+    end_time = datetime.utcnow()
+    start_time = end_time - datetime.timedelta(minutes=30)
+    
+    # Format times in ISO 8601 format
+    end_time_str = end_time.strftime('%Y-%m-%dT%H:%M:%S.000Z')
+    start_time_str = start_time.strftime('%Y-%m-%dT%H:%M:%S.000Z')
+    
+    # Update URL with time parameters
+    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?parameters=true&sort=desc&start_time={start_time_str}&end_time={end_time_str}"
+    
     headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
 
+    # Rest of your function remains the same
     try:
         debug_print(f"Making API request to: {url}")
         response = requests.get(url, headers=headers, timeout=10)
-
-        debug_print(f"Response Status Code: {response.status_code}")
-
-        if response.status_code == 200:
-            data = response.json()
-            debug_print(f"Response JSON: {json.dumps(data, indent=2)[:500]}")  # Print first 500 characters
-
-            if 'data' in data and data['data']:
-                first_item = data['data'][0]
-                params_data = first_item.get('parameters', {})
-                exchanges = ', '.join(params_data.get('exchanges', [])) or '-'
-                calc_window = str(params_data.get('calc_window', '-'))
-
-                debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
-                return exchanges, calc_window
-            else:
-                debug_print(f"⚠️ No 'data' key or empty response for ticker: {ticker}")
-
-        debug_print(f"❌ API call failed with status {response.status_code}: {response.text}")
-        return '-', '-'
-
-    except requests.exceptions.RequestException as e:
-        debug_print(f"🚨 RequestException: {e}")
-        return '-', '-'
+        # ... rest of the function
 
 def write_filtered_csv(items, headers):
     """Write a filtered CSV with only the entries that have factsheets."""
