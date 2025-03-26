@@ -145,16 +145,16 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         return '-', '-'
     
     # Only process certain types
-    if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Single-Asset', 'Custom_Rate']:
+    if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Single-Asset']:
         debug_print(f"Skipping ticker {ticker} (type: {asset_type}) - Not a reference rate.")
         return '-', '-'
 
-    # Calculate today's date at midnight
-    yesterday_midnight = (datetime.now() - timedelta(days=2)).replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%dT%H:%M:%SZ')
+    # Calculate yesterday's date at midnight
+    yesterday_midnight = (datetime.now() - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%dT%H:%M:%SZ')
     debug_print(f"Using start_time: {yesterday_midnight} (yesterday's midnight)")
     
-    # Build URL with start_time at today's midnight
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&start_time={yesterday_midnight}"
+    # Build URL with start_time at yesterday's midnight and parameters=true flag
+    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&start_time={yesterday_midnight}&parameters=true"
     
     headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
     
@@ -180,8 +180,7 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         is_complete = (
             'interval_start' in first_interval and 
             'interval_end' in first_interval and 
-            'detail' in first_interval and 
-            len(first_interval['detail']) > 0
+            'parameters' in first_interval
         )
         
         if is_complete:
@@ -217,27 +216,41 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
             is_complete = (
                 'interval_start' in interval_to_use and 
                 'interval_end' in interval_to_use and 
-                'detail' in interval_to_use and 
-                len(interval_to_use['detail']) > 0
+                'parameters' in interval_to_use
             )
             
             if not is_complete:
                 debug_print(f"❌ Interval from continuation token is still incomplete")
                 return '-', '-'
         
-        # Extract exchanges from detail.underlying_trade.exchange
-        exchanges_set = set()
+        # Extract exchanges directly from parameters
+        exchanges = '-'
+        calc_window = '-'
         
-        if 'detail' in interval_to_use:
+        if 'parameters' in interval_to_use:
+            params = interval_to_use['parameters']
+            
+            # Get exchanges
+            if 'exchanges' in params and params['exchanges']:
+                exchanges_list = params['exchanges']
+                exchanges = ', '.join(sorted(exchanges_list))
+            
+            # Get calculation window
+            if 'calc_window' in params:
+                calc_window = f"{params['calc_window']}s"
+        
+        # Fallback to the old method if parameters doesn't have what we need
+        if exchanges == '-' and 'detail' in interval_to_use:
+            exchanges_set = set()
             for detail in interval_to_use['detail']:
                 if 'underlying_trade' in detail and 'exchange' in detail['underlying_trade']:
                     exchanges_set.add(detail['underlying_trade']['exchange'])
+            
+            if exchanges_set:
+                exchanges = ', '.join(sorted(exchanges_set))
         
-        exchanges = ', '.join(sorted(exchanges_set)) if exchanges_set else '-'
-        
-        # Calculate window from interval_start to interval_end
-        calc_window = '-'
-        if 'interval_start' in interval_to_use and 'interval_end' in interval_to_use:
+        # Fallback for calc_window
+        if calc_window == '-' and 'interval_start' in interval_to_use and 'interval_end' in interval_to_use:
             try:
                 start = datetime.strptime(interval_to_use['interval_start'], '%Y-%m-%dT%H:%M:%SZ')
                 end = datetime.strptime(interval_to_use['interval_end'], '%Y-%m-%dT%H:%M:%SZ')
