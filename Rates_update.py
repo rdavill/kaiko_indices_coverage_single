@@ -3,7 +3,7 @@ import json
 import csv
 import os
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def debug_print(message):
     """Print debug messages that will show up in GitHub Actions logs."""
@@ -155,26 +155,41 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         debug_print(f"Skipping ticker {ticker} (type: {asset_type}) - Not a reference rate.")
         return '-', '-'
 
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&page_size=1&sort=desc"
+    # Calculate yesterday's date for start_time parameter
+    yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
+    
+    # Build URL without page_size to get all recent data
+    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&sort=desc&start_time={yesterday}T00:00:00Z"
     headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
 
     try:
         debug_print(f"Making API request to: {url}")
-        response = requests.get(url, headers=headers, timeout=10)
+        response = requests.get(url, headers=headers, timeout=15)  # Extended timeout
 
         debug_print(f"Response Status Code: {response.status_code}")
 
         if response.status_code == 200:
             data = response.json()
             
-            # Log full response for debugging (first 2000 chars only for log size)
+            # Log truncated response for debugging
             full_response = json.dumps(data, indent=2)
-            debug_print(f"Full response (first 2000 chars):\n{full_response[:2000]}")
+            debug_print(f"Response truncated: {full_response[:1000]}...")
             
             if 'data' in data and data['data']:
-                first_item = data['data'][0]
+                # Find the first complete interval (has both start and end)
+                complete_interval = None
+                for interval in data['data']:
+                    if 'interval_start' in interval and 'interval_end' in interval:
+                        complete_interval = interval
+                        break
                 
-                # NEW APPROACH: Extract exchanges from detail.underlying_trade.exchange
+                if not complete_interval:
+                    debug_print(f"No complete intervals found for {ticker}")
+                    return '-', '-'
+                
+                first_item = complete_interval
+                
+                # Extract exchanges from detail.underlying_trade.exchange
                 exchanges_set = set()
                 
                 if 'detail' in first_item:
@@ -184,8 +199,7 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
                 
                 exchanges = ', '.join(sorted(exchanges_set)) if exchanges_set else '-'
                 
-                # Calculate window: For now, use time difference between interval_start and interval_end
-                # This is a fallback approach since the real calc_window param isn't visible
+                # Calculate window from interval_start to interval_end
                 calc_window = '-'
                 if 'interval_start' in first_item and 'interval_end' in first_item:
                     try:
@@ -195,6 +209,28 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
                         calc_window = f"{seconds_diff}s"
                     except (ValueError, TypeError) as e:
                         debug_print(f"Error calculating time window: {e}")
+                
+                # Convert exchange codes to full names if desired
+                exchange_mapping = {
+                    'cbse': 'Coinbase',
+                    'bfnx': 'Bitfinex',
+                    'krkn': 'Kraken',
+                    'bmex': 'BitMEX',
+                    'bnce': 'Binance',
+                    'gmni': 'Gemini',
+                    'huob': 'Huobi',
+                    'ftxx': 'FTX',
+                    'polo': 'Poloniex',
+                    'hitb': 'Hitbtc',
+                    'btst': 'Bitstamp',
+                    'okex': 'OKEx'
+                }
+                
+                # Optional: Convert exchange codes to full names
+                # readable_exchanges = []
+                # for ex in exchanges_set:
+                #     readable_exchanges.append(exchange_mapping.get(ex, ex))
+                # exchanges = ', '.join(sorted(readable_exchanges)) if readable_exchanges else '-'
                 
                 debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
                 return exchanges, calc_window
