@@ -150,7 +150,7 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         return '-', '-'
 
     # Calculate yesterday's date at midnight
-    yesterday_midnight = (datetime.now() - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%dT%H:%M:%SZ')
+    yesterday_midnight = (datetime.now() - timedelta(days=2)).replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%dT%H:%M:%SZ')
     debug_print(f"Using start_time: {yesterday_midnight} (yesterday's midnight)")
     
     # Build URL with start_time at yesterday's midnight and parameters=true flag (no detail=true)
