@@ -158,91 +158,112 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
     # Calculate yesterday's date for start_time parameter
     yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
     
-    # Build URL without page_size to get all recent data
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&sort=desc&start_time={yesterday}T00:00:00Z"
+    # Build URL without sort=desc
+    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&start_time={yesterday}T00:00:00Z"
+    
+    # Initialize variables to track across pagination
+    all_intervals = []
     headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
-
+    
     try:
-        debug_print(f"Making API request to: {url}")
-        response = requests.get(url, headers=headers, timeout=15)  # Extended timeout
+        # Process all pages using the continuation token
+        while url:
+            debug_print(f"Making API request to: {url}")
+            response = requests.get(url, headers=headers, timeout=15)  # Extended timeout
 
-        debug_print(f"Response Status Code: {response.status_code}")
+            debug_print(f"Response Status Code: {response.status_code}")
 
-        if response.status_code == 200:
+            if response.status_code != 200:
+                debug_print(f"❌ API call failed with status {response.status_code}: {response.text}")
+                break
+                
             data = response.json()
             
             # Log truncated response for debugging
             full_response = json.dumps(data, indent=2)
             debug_print(f"Response truncated: {full_response[:1000]}...")
             
+            # Add intervals to our collection
             if 'data' in data and data['data']:
-                # Find the first complete interval (has both start and end)
-                complete_interval = None
-                for interval in data['data']:
-                    if 'interval_start' in interval and 'interval_end' in interval:
-                        complete_interval = interval
-                        break
-                
-                if not complete_interval:
-                    debug_print(f"No complete intervals found for {ticker}")
-                    return '-', '-'
-                
-                first_item = complete_interval
-                
-                # Extract exchanges from detail.underlying_trade.exchange
-                exchanges_set = set()
-                
-                if 'detail' in first_item:
-                    for detail in first_item['detail']:
-                        if 'underlying_trade' in detail and 'exchange' in detail['underlying_trade']:
-                            exchanges_set.add(detail['underlying_trade']['exchange'])
-                
-                exchanges = ', '.join(sorted(exchanges_set)) if exchanges_set else '-'
-                
-                # Calculate window from interval_start to interval_end
-                calc_window = '-'
-                if 'interval_start' in first_item and 'interval_end' in first_item:
-                    try:
-                        start = datetime.strptime(first_item['interval_start'], '%Y-%m-%dT%H:%M:%SZ')
-                        end = datetime.strptime(first_item['interval_end'], '%Y-%m-%dT%H:%M:%SZ')
-                        seconds_diff = int((end - start).total_seconds())
-                        calc_window = f"{seconds_diff}s"
-                    except (ValueError, TypeError) as e:
-                        debug_print(f"Error calculating time window: {e}")
-                
-                # Convert exchange codes to full names if desired
-                exchange_mapping = {
-                    'cbse': 'Coinbase',
-                    'bfnx': 'Bitfinex',
-                    'krkn': 'Kraken',
-                    'bmex': 'BitMEX',
-                    'bnce': 'Binance',
-                    'gmni': 'Gemini',
-                    'huob': 'Huobi',
-                    'ftxx': 'FTX',
-                    'polo': 'Poloniex',
-                    'hitb': 'Hitbtc',
-                    'btst': 'Bitstamp',
-                    'okex': 'OKEx'
-                }
-                
-                # Optional: Convert exchange codes to full names
-                # readable_exchanges = []
-                # for ex in exchanges_set:
-                #     readable_exchanges.append(exchange_mapping.get(ex, ex))
-                # exchanges = ', '.join(sorted(readable_exchanges)) if readable_exchanges else '-'
-                
-                debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
-                return exchanges, calc_window
+                all_intervals.extend(data['data'])
+            
+            # Check for continuation token
+            if 'next_url' in data and data['next_url']:
+                url = data['next_url']
+                debug_print(f"Found continuation token, next URL: {url}")
             else:
-                debug_print(f"⚠️ No 'data' key or empty response for ticker: {ticker}")
+                url = None  # Exit the loop if no more pages
+        
+        # Process all collected intervals
+        if all_intervals:
+            # Sort intervals by timestamp (newest first)
+            sorted_intervals = sorted(
+                all_intervals, 
+                key=lambda x: datetime.strptime(x.get('interval_start', '1970-01-01T00:00:00Z'), '%Y-%m-%dT%H:%M:%SZ'),
+                reverse=True
+            )
+            
+            # Find the first complete interval (most recent with both start and end)
+            complete_interval = None
+            for interval in sorted_intervals:
+                if 'interval_start' in interval and 'interval_end' in interval:
+                    complete_interval = interval
+                    break
+            
+            if not complete_interval:
+                debug_print(f"No complete intervals found for {ticker}")
                 return '-', '-'
-
-        debug_print(f"❌ API call failed with status {response.status_code}: {response.text}")
-        return '-', '-'
+            
+            debug_print(f"Found complete interval: {complete_interval['interval_start']} to {complete_interval['interval_end']}")
+            
+            # Extract exchanges from detail.underlying_trade.exchange
+            exchanges_set = set()
+            
+            if 'detail' in complete_interval:
+                for detail in complete_interval['detail']:
+                    if 'underlying_trade' in detail and 'exchange' in detail['underlying_trade']:
+                        exchanges_set.add(detail['underlying_trade']['exchange'])
+            
+            exchanges = ', '.join(sorted(exchanges_set)) if exchanges_set else '-'
+            
+            # Calculate window from interval_start to interval_end
+            calc_window = '-'
+            if 'interval_start' in complete_interval and 'interval_end' in complete_interval:
+                try:
+                    start = datetime.strptime(complete_interval['interval_start'], '%Y-%m-%dT%H:%M:%SZ')
+                    end = datetime.strptime(complete_interval['interval_end'], '%Y-%m-%dT%H:%M:%SZ')
+                    seconds_diff = int((end - start).total_seconds())
+                    calc_window = f"{seconds_diff}s"
+                except (ValueError, TypeError) as e:
+                    debug_print(f"Error calculating time window: {e}")
+            
+            # Exchange mapping for readable names (commented out by default)
+            exchange_mapping = {
+                'cbse': 'Coinbase',
+                'bfnx': 'Bitfinex',
+                'krkn': 'Kraken',
+                'bmex': 'BitMEX',
+                'bnce': 'Binance',
+                'gmni': 'Gemini',
+                'huob': 'Huobi',
+                'ftxx': 'FTX',
+                'polo': 'Poloniex',
+                'hitb': 'Hitbtc',
+                'btst': 'Bitstamp',
+                'okex': 'OKEx'
+            }
+            
+            debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
+            return exchanges, calc_window
+        else:
+            debug_print(f"⚠️ No data found for ticker: {ticker}")
+            return '-', '-'
 
     except requests.exceptions.RequestException as e:
         debug_print(f"🚨 RequestException: {e}")
+        return '-', '-'
+    except Exception as e:
+        debug_print(f"🚨 Unexpected error processing {ticker}: {str(e)}")
         return '-', '-'
 
 def write_filtered_csv(items, headers):
