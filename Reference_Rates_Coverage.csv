@@ -53,10 +53,10 @@ Kaiko,Market,Kaiko Investable Index,KMINV,N/A,N/A,Real-time (5 sec),"January 23,
 Kaiko,Market,Kaiko Investable Index NYC,KMINVNYC,N/A,N/A,NYC Fixing,"January 23, 2025","April 1, 2014",-,-,"<a href=""https://marketing.kaiko.com/hubfs/Factsheets%20and%20Methodologies/New%20Benchmark%20Factsheets/Kaiko%20Benchmarks%20-%20Market%20family%20factsheet.pdf"" target=""_blank"">View Factsheet</a>"
 Kaiko,Market,Kaiko Investable Index LDN,KMINVLDN,N/A,N/A,LDN Fixing,"January 23, 2025","April 1, 2014",-,-,"<a href=""https://marketing.kaiko.com/hubfs/Factsheets%20and%20Methodologies/New%20Benchmark%20Factsheets/Kaiko%20Benchmarks%20-%20Market%20family%20factsheet.pdf"" target=""_blank"">View Factsheet</a>"
 Kaiko,Market,Kaiko Investable Index SGP,KMINVSGP,N/A,N/A,SGP Fixing,"January 23, 2025","April 1, 2014",-,-,"<a href=""https://marketing.kaiko.com/hubfs/Factsheets%20and%20Methodologies/New%20Benchmark%20Factsheets/Kaiko%20Benchmarks%20-%20Market%20family%20factsheet.pdf"" target=""_blank"">View Factsheet</a>"
-CBOE-KAIKO,Single-Asset,CBOE-KAIKO BTC Custom Rate ,CBOE-KAIKO_BTCUSD,BTC,USD,Daily Fixing Custom,"November 02, 2023","November 02, 2023",-,-,
-CBOE-KAIKO,Single-Asset,CBOE-KAIKO BTC Custom Rate ,CBOE-KAIKO_BTCUSD_RT,BTC,USD,Real-time (5s),"January 22, 2024","January 22, 2024",-,-,
-CBOE-KAIKO,Single-Asset,CBOE-KAIKO ETH Custom Rate ,CBOE-KAIKO_ETHUSD,ETH,USD,Daily Fixing Custom,"November 02, 2023","November 02, 2023",-,-,
-CBOE-KAIKO,Single-Asset,CBOE-KAIKO ETH Custom Rate ,CBOE-KAIKO_ETHUSD_RT,ETH,USD,Real-time (5s),"January 22, 2024","January 22, 2024",-,-,
+CBOE-KAIKO,Single-Asset,CBOE-KAIKO BTC Custom Rate ,CBOE-KAIKO_BTCUSD,BTC,USD,Daily Fixing Custom,"November 02, 2023","November 02, 2023","itbi, lmax, stmp",3600s,
+CBOE-KAIKO,Single-Asset,CBOE-KAIKO BTC Custom Rate ,CBOE-KAIKO_BTCUSD_RT,BTC,USD,Real-time (5s),"January 22, 2024","January 22, 2024","itbi, lmax, stmp",10s,
+CBOE-KAIKO,Single-Asset,CBOE-KAIKO ETH Custom Rate ,CBOE-KAIKO_ETHUSD,ETH,USD,Daily Fixing Custom,"November 02, 2023","November 02, 2023","itbi, lmax, stmp",3600s,
+CBOE-KAIKO,Single-Asset,CBOE-KAIKO ETH Custom Rate ,CBOE-KAIKO_ETHUSD_RT,ETH,USD,Real-time (5s),"January 22, 2024","January 22, 2024","itbi, lmax, stmp",10s,
 Kaiko,Single-Asset,Kaiko AAVE Benchmark Reference Rate ,KK_BRR_AAVEUSD,AAVE,USD,Real-time (5s),"January 17, 2023","January 17, 2023","cbse, crco, krkn, stmp",60s,
 Kaiko,Single-Asset,Kaiko AAVE Benchmark Reference Rate LDN,KK_BRR_AAVEUSD_LDN,AAVE,USD,Daily Fixing LDN,"January 17, 2023","January 17, 2023","cbse, crco, krkn, stmp",300s,
 Kaiko,Single-Asset,Kaiko AAVE Benchmark Reference Rate NYC,KK_BRR_AAVEUSD_NYC,AAVE,USD,Daily Fixing NYC,"January 17, 2023","January 17, 2023","cbse, crco, krkn, stmp",300s,
@@ -711,7 +711,7 @@ Kaiko,Single-Asset,Kaiko FORT Reference Rate LDN,KK_RFR_FORTUSD_LDN,FORT,USD,Dai
 Kaiko,Single-Asset,Kaiko FORT Reference Rate NYC,KK_RFR_FORTUSD_NYC,FORT,USD,Daily Fixing NYC,"February 27, 2024","February 27, 2024",cbse,3600s,
 Kaiko,Single-Asset,Kaiko FORT Reference Rate SGP,KK_RFR_FORTUSD_SGP,FORT,USD,Daily Fixing SGP,"February 27, 2024","February 27, 2024",cbse,3600s,
 Kaiko,Single-Asset,Kaiko FOX Reference Rate ,KK_RFR_FOXUSD,FOX,USD,Real-time (5s),"March 04, 2024","March 04, 2024",cbse,300s,
-Kaiko,Single-Asset,Kaiko FOX Reference Rate LDN,KK_RFR_FOXUSD_LDN,FOX,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024",cbse,3600s,
+Kaiko,Single-Asset,Kaiko FOX Reference Rate LDN,KK_RFR_FOXUSD_LDN,FOX,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024",-,-,
 Kaiko,Single-Asset,Kaiko FOX Reference Rate NYC,KK_RFR_FOXUSD_NYC,FOX,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024",cbse,3600s,
 Kaiko,Single-Asset,Kaiko FOX Reference Rate SGP,KK_RFR_FOXUSD_SGP,FOX,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024",cbse,3600s,
 Kaiko,Single-Asset,Kaiko FTM Reference Rate ,KK_RFR_FTMUSD,FTM,USD,Real-time (5s),"September 20, 2022","September 20, 2022","bfnx, btso, crco, gmni, krkn",300s,
