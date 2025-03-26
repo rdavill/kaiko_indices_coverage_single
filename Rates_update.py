@@ -145,7 +145,7 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         return '-', '-'
     
     # Only process certain types
-    if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Single-Asset']:
+    if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Single-Asset', 'Custom_Rate']:
         debug_print(f"Skipping ticker {ticker} (type: {asset_type}) - Not a reference rate.")
         return '-', '-'
 
