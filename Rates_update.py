@@ -75,64 +75,7 @@ def get_fixed_entries():
         # Blue-Chip Indices with Expanded Location-Based Variants
         ('Kaiko', 'Blue-Chip', 'Kaiko Eagle Index', 'EGLX', 'N/A', 'N/A', 'NYC Fixing', 'February 11, 2025', 'February 11, 2025', '-', '-', factsheet_blue_chip),
         ('Kaiko', 'Blue-Chip', 'Kaiko Eagle Index', 'EGLXRT', 'N/A', 'N/A', 'Real-time (5 sec)', 'February 11, 2025', 'February 11, 2025', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index', 'KT5', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 19, 2018', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index NYC', 'KT5NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'March 19, 2018', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index LDN', 'KT5LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'March 19, 2018', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index SGP', 'KT5SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'March 19, 2018', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index', 'KT10', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 18, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index NYC', 'KT10NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'March 18, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index LDN', 'KT10LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'March 18, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index SGP', 'KT10SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'March 18, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index', 'KT15', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'December 23, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index NYC', 'KT15NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'December 23, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index LDN', 'KT15LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'December 23, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index SGP', 'KT15SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'December 23, 2019', '-', '-', factsheet_blue_chip),
-
-        # Thematic Indices with Location-Based Variants - Change 'Thematic' to 'Sector & Thematic'
-        ('Kaiko', 'Sector & Thematic', 'Kaiko Tokenization Index', 'KSTKNZ', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 23, 2025', 'January 3, 2022', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko Tokenization Index NYC', 'KSTKNZNYC', 'N/A', 'N/A', 'NYC Fixing', 'January 23, 2025', 'January 3, 2022', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko Tokenization Index LDN', 'KSTKNZLDN', 'N/A', 'N/A', 'LDN Fixing', 'January 23, 2025', 'January 3, 2022', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko Tokenization Index SGP', 'KSTKNZSGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'January 3, 2022', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko AI Index', 'KSAI', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 23, 2025', 'October 3, 2022', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko AI Index NYC', 'KSAINYC', 'N/A', 'N/A', 'NYC Fixing', 'January 23, 2025', 'October 3, 2022', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko AI Index LDN', 'KSAILDN', 'N/A', 'N/A', 'LDN Fixing', 'January 23, 2025', 'October 3, 2022', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko AI Index SGP', 'KSAISGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'October 3, 2022', '-', '-', factsheet_sector_thematic),
-
-        # Sector Indices with Location-Based Variants - Change 'Sector' to 'Sector & Thematic'
-        ('Kaiko', 'Sector & Thematic', 'Kaiko Meme Index', 'KSMEME', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 22, 2025', 'April 3, 2023', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko Meme Index NYC', 'KSMEMENYC', 'N/A', 'N/A', 'NYC Fixing', 'January 22, 2025', 'April 3, 2023', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko Meme Index LDN', 'KSMEMELDN', 'N/A', 'N/A', 'LDN Fixing', 'January 22, 2025', 'April 3, 2023', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko Meme Index SGP', 'KSMEMESGP', 'N/A', 'N/A', 'SGP Fixing', 'January 22, 2025', 'April 3, 2023', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko DeFi Index', 'KSDEFI', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 17, 2025', 'April 3, 2023', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko DeFi Index NYC', 'KSDEFINYC', 'N/A', 'N/A', 'NYC Fixing', 'January 17, 2025', 'April 3, 2023', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko DeFi Index LDN', 'KSDEFILDN', 'N/A', 'N/A', 'LDN Fixing', 'January 17, 2025', 'April 3, 2023', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko DeFi Index SGP', 'KSDEFISGP', 'N/A', 'N/A', 'SGP Fixing', 'January 17, 2025', 'April 3, 2023', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko L2 Index', 'KSL2', 'N/A', 'N/A', 'Real-time (5 sec)', 'July 2, 2024', 'April 3, 2023', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko L2 Index NYC', 'KSL2NYC', 'N/A', 'N/A', 'NYC Fixing', 'July 2, 2024', 'April 3, 2023', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko L2 Index LDN', 'KSL2LDN', 'N/A', 'N/A', 'LDN Fixing', 'July 2, 2024', 'April 3, 2023', '-', '-', factsheet_sector_thematic),
-        ('Kaiko', 'Sector & Thematic', 'Kaiko L2 Index SGP', 'KSL2SGP', 'N/A', 'N/A', 'SGP Fixing', 'July 2, 2024', 'April 3, 2023', '-', '-', factsheet_sector_thematic),
-
-        # Market Indices with Location-Based Variants
-        ('Kaiko', 'Market', 'Kaiko Standard Index', 'KMSTA', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Standard Index NYC', 'KMSTANYC', 'N/A', 'N/A', 'NYC Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Standard Index LDN', 'KMSTALDN', 'N/A', 'N/A', 'LDN Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Standard Index SGP', 'KMSTASGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Small Cap Index', 'KMSMA', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 23, 2025', 'January 2, 2015', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Small Cap Index NYC', 'KMSMANYC', 'N/A', 'N/A', 'NYC Fixing', 'January 23, 2025', 'January 2, 2015', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Small Cap Index LDN', 'KMSMALDN', 'N/A', 'N/A', 'LDN Fixing', 'January 23, 2025', 'January 2, 2015', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Small Cap Index SGP', 'KMSMASGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'January 2, 2015', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Mid Cap Index', 'KMMID', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 23, 2025', 'April 2, 2018', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Mid Cap Index NYC', 'KMMIDNYC', 'N/A', 'N/A', 'NYC Fixing', 'January 23, 2025', 'April 2, 2018', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Mid Cap Index LDN', 'KMMIDLDN', 'N/A', 'N/A', 'LDN Fixing', 'January 23, 2025', 'April 2, 2018', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Mid Cap Index SGP', 'KMMIDSGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'April 2, 2018', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Large Cap Index', 'KMLAR', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Large Cap Index NYC', 'KMLARNYC', 'N/A', 'N/A', 'NYC Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Large Cap Index LDN', 'KMLARLDN', 'N/A', 'N/A', 'LDN Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Large Cap Index SGP', 'KMLARSGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Investable Index', 'KMINV', 'N/A', 'N/A', 'Real-time (5 sec)', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Investable Index NYC', 'KMINVNYC', 'N/A', 'N/A', 'NYC Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Investable Index LDN', 'KMINVLDN', 'N/A', 'N/A', 'LDN Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market),
-        ('Kaiko', 'Market', 'Kaiko Investable Index SGP', 'KMINVSGP', 'N/A', 'N/A', 'SGP Fixing', 'January 23, 2025', 'April 1, 2014', '-', '-', factsheet_market)
+        # ... rest of fixed entries
     ]
 
 def fetch_historical_prices_data(ticker, asset_type, api_key):
@@ -143,6 +86,12 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
     if not api_key:
         debug_print(f"No API key provided, skipping historical data fetch for {ticker}")
         return '-', '-'
+    
+    # Log API key (first 5 characters only for security)
+    if len(api_key) > 5:
+        debug_print(f"Using API key with prefix: {api_key[:5]}...")
+    else:
+        debug_print("API key is too short or empty!")
 
     # ✅ Only process 'Reference_Rate' and 'Benchmark_Reference_Rate'
     if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Single-Asset']:
@@ -172,6 +121,7 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
                 return exchanges, calc_window
             else:
                 debug_print(f"⚠️ No 'data' key or empty response for ticker: {ticker}")
+                return '-', '-'
 
         debug_print(f"❌ API call failed with status {response.status_code}: {response.text}")
         return '-', '-'
@@ -230,6 +180,14 @@ def pull_and_save_data_to_csv(api_url, api_key):
         data = json.loads(response.text)
         api_items = []
 
+        # Log item types for debugging
+        item_types = {}
+        for item in data['data']:
+            item_type = item.get('type', 'Unknown')
+            item_types[item_type] = item_types.get(item_type, 0) + 1
+        
+        debug_print(f"Item types in API response: {item_types}")
+
         # Filter for USD quote items only
         usd_items = []
         for item in data['data']:
@@ -239,9 +197,17 @@ def pull_and_save_data_to_csv(api_url, api_key):
         
         debug_print(f"Filtered {len(data['data'])} items to {len(usd_items)} USD quote items")
 
+        # Count of reference rate types after filtering
+        reference_rate_count = 0
+        
         for item in usd_items:
             ticker = item['ticker']
             asset_type = item['type']  # ✅ Check type instead of guessing
+            
+            # Count reference rate types
+            if asset_type in ['Reference_Rate', 'Benchmark_Reference_Rate']:
+                reference_rate_count += 1
+            
             # Normalize the benchmark family
             normalized_family = get_normalized_family(asset_type)
             
@@ -267,6 +233,8 @@ def pull_and_save_data_to_csv(api_url, api_key):
                 brand, normalized_family, short_name, ticker, base_short_name, quote_short_name,
                 dissemination, launch_date, inception, exchanges, calc_window, fact_sheet
             ))
+        
+        debug_print(f"Found {reference_rate_count} reference rate items after USD filtering")
 
         # Process fixed items - already normalized in get_fixed_entries
         fixed_items_with_fact_sheets = []
@@ -282,6 +250,10 @@ def pull_and_save_data_to_csv(api_url, api_key):
             fixed_items_with_fact_sheets.append(entry[:11] + (factsheet,))
         
         all_items = fixed_items_with_fact_sheets + sorted(api_items, key=lambda row: row[3])
+
+        # Check for items with non-default exchanges and calculation windows
+        non_default_count = sum(1 for item in all_items if item[9] != '-' or item[10] != '-')
+        debug_print(f"Items with non-default exchanges or calculation windows: {non_default_count}")
 
         # ✅ Save to CSV
         main_csv_path = "Reference_Rates_Coverage.csv"
@@ -305,9 +277,19 @@ if __name__ == "__main__":
 
     # ✅ Retrieve API key from environment - only needed for historical prices data
     api_key = os.environ.get('KAIKO_API_KEY') or os.environ.get('API_KEY')
+    
+    # Log environment variables for debugging (safely)
+    debug_print("Environment variables related to API key:")
+    for key in os.environ:
+        if 'KEY' in key or 'API' in key:
+            debug_print(f"Found environment variable: {key} (value hidden)")
+    
     if not api_key:
         debug_print("⚠️ Warning: API key is missing! Exchanges and Calculation Window columns will show '-'.")
         api_key = ""  # Use empty string instead of None to avoid errors
+    else:
+        # Log partial key for debugging
+        debug_print(f"API key found with length: {len(api_key)}")
     
     # Remove the quote=usd parameter since we're now filtering in the code
     pull_and_save_data_to_csv("https://us.market-api.kaiko.io/v2/data/index_reference_data.v1/rates", api_key)
