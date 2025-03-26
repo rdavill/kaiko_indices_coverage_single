@@ -144,120 +144,110 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         debug_print(f"No API key provided, skipping historical data fetch for {ticker}")
         return '-', '-'
     
-    # Log API key prefix (safely)
-    if len(api_key) > 5:
-        debug_print(f"Using API key with prefix: {api_key[:5]}...")
-    else:
-        debug_print("API key is too short or empty!")
-
     # Only process certain types
     if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Single-Asset']:
         debug_print(f"Skipping ticker {ticker} (type: {asset_type}) - Not a reference rate.")
         return '-', '-'
 
-    # Calculate yesterday's date for start_time parameter
-    yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
+    # Calculate today's date at midnight
+    today_midnight = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%dT%H:%M:%SZ')
+    debug_print(f"Using start_time: {today_midnight}")
     
-    # Build URL without sort=desc
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&start_time={yesterday}T00:00:00Z"
+    # Build URL with start_time at today's midnight
+    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&start_time={today_midnight}"
     
-    # Initialize variables to track across pagination
-    all_intervals = []
     headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
     
     try:
-        # Process all pages using the continuation token
-        while url:
-            debug_print(f"Making API request to: {url}")
-            response = requests.get(url, headers=headers, timeout=15)  # Extended timeout
+        debug_print(f"Making API request to: {url}")
+        response = requests.get(url, headers=headers, timeout=15)
 
-            debug_print(f"Response Status Code: {response.status_code}")
+        debug_print(f"Response Status Code: {response.status_code}")
 
-            if response.status_code != 200:
-                debug_print(f"❌ API call failed with status {response.status_code}: {response.text}")
-                break
-                
-            data = response.json()
+        if response.status_code != 200:
+            debug_print(f"❌ API call failed with status {response.status_code}: {response.text}")
+            return '-', '-'
             
-            # Log truncated response for debugging
-            full_response = json.dumps(data, indent=2)
-            debug_print(f"Response truncated: {full_response[:1000]}...")
-            
-            # Add intervals to our collection
-            if 'data' in data and data['data']:
-                all_intervals.extend(data['data'])
-            
-            # Check for continuation token
-            if 'next_url' in data and data['next_url']:
-                url = data['next_url']
-                debug_print(f"Found continuation token, next URL: {url}")
-            else:
-                url = None  # Exit the loop if no more pages
+        data = response.json()
         
-        # Process all collected intervals
-        if all_intervals:
-            # Sort intervals by timestamp (newest first)
-            sorted_intervals = sorted(
-                all_intervals, 
-                key=lambda x: datetime.strptime(x.get('interval_start', '1970-01-01T00:00:00Z'), '%Y-%m-%dT%H:%M:%SZ'),
-                reverse=True
-            )
-            
-            # Find the first complete interval (most recent with both start and end)
-            complete_interval = None
-            for interval in sorted_intervals:
-                if 'interval_start' in interval and 'interval_end' in interval:
-                    complete_interval = interval
-                    break
-            
-            if not complete_interval:
-                debug_print(f"No complete intervals found for {ticker}")
-                return '-', '-'
-            
-            debug_print(f"Found complete interval: {complete_interval['interval_start']} to {complete_interval['interval_end']}")
-            
-            # Extract exchanges from detail.underlying_trade.exchange
-            exchanges_set = set()
-            
-            if 'detail' in complete_interval:
-                for detail in complete_interval['detail']:
-                    if 'underlying_trade' in detail and 'exchange' in detail['underlying_trade']:
-                        exchanges_set.add(detail['underlying_trade']['exchange'])
-            
-            exchanges = ', '.join(sorted(exchanges_set)) if exchanges_set else '-'
-            
-            # Calculate window from interval_start to interval_end
-            calc_window = '-'
-            if 'interval_start' in complete_interval and 'interval_end' in complete_interval:
-                try:
-                    start = datetime.strptime(complete_interval['interval_start'], '%Y-%m-%dT%H:%M:%SZ')
-                    end = datetime.strptime(complete_interval['interval_end'], '%Y-%m-%dT%H:%M:%SZ')
-                    seconds_diff = int((end - start).total_seconds())
-                    calc_window = f"{seconds_diff}s"
-                except (ValueError, TypeError) as e:
-                    debug_print(f"Error calculating time window: {e}")
-            
-            # Exchange mapping for readable names (commented out by default)
-            exchange_mapping = {
-                'cbse': 'Coinbase',
-                'bfnx': 'Bitfinex',
-                'krkn': 'Kraken',
-                'bmex': 'BitMEX',
-                'bnce': 'Binance',
-                'gmni': 'Gemini',
-                'huob': 'Huobi',
-                'ftxx': 'FTX',
-                'polo': 'Poloniex',
-                'hitb': 'Hitbtc',
-                'btst': 'Bitstamp',
-                'okex': 'OKEx'
-            }
-            
-            debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
-            return exchanges, calc_window
-        else:
+        # Check if we have data
+        if not data.get('data') or len(data['data']) == 0:
             debug_print(f"⚠️ No data found for ticker: {ticker}")
             return '-', '-'
+        
+        # Check if first interval is complete
+        first_interval = data['data'][0]
+        is_complete = (
+            'interval_start' in first_interval and 
+            'interval_end' in first_interval and 
+            'detail' in first_interval and 
+            len(first_interval['detail']) > 0
+        )
+        
+        if is_complete:
+            debug_print(f"✅ First interval is complete for {ticker}, no continuation token needed")
+            interval_to_use = first_interval
+        else:
+            # Need to follow continuation token to get a complete interval
+            debug_print(f"⚠️ First interval is incomplete for {ticker}, following continuation token")
+            
+            # Check for continuation token
+            if 'next_url' not in data or not data['next_url']:
+                debug_print(f"❌ No continuation token available but first interval is incomplete")
+                return '-', '-'
+            
+            # Get next page
+            url = data['next_url']
+            debug_print(f"Following continuation token: {url}")
+            
+            response = requests.get(url, headers=headers, timeout=15)
+            if response.status_code != 200:
+                debug_print(f"❌ Failed to follow continuation token: {response.status_code}")
+                return '-', '-'
+            
+            cont_data = response.json()
+            if not cont_data.get('data') or len(cont_data['data']) == 0:
+                debug_print(f"❌ No data in continuation response")
+                return '-', '-'
+            
+            # Use first interval from continuation response
+            interval_to_use = cont_data['data'][0]
+            
+            # Verify it's complete
+            is_complete = (
+                'interval_start' in interval_to_use and 
+                'interval_end' in interval_to_use and 
+                'detail' in interval_to_use and 
+                len(interval_to_use['detail']) > 0
+            )
+            
+            if not is_complete:
+                debug_print(f"❌ Interval from continuation token is still incomplete")
+                return '-', '-'
+        
+        # Extract exchanges from detail.underlying_trade.exchange
+        exchanges_set = set()
+        
+        if 'detail' in interval_to_use:
+            for detail in interval_to_use['detail']:
+                if 'underlying_trade' in detail and 'exchange' in detail['underlying_trade']:
+                    exchanges_set.add(detail['underlying_trade']['exchange'])
+        
+        exchanges = ', '.join(sorted(exchanges_set)) if exchanges_set else '-'
+        
+        # Calculate window from interval_start to interval_end
+        calc_window = '-'
+        if 'interval_start' in interval_to_use and 'interval_end' in interval_to_use:
+            try:
+                start = datetime.strptime(interval_to_use['interval_start'], '%Y-%m-%dT%H:%M:%SZ')
+                end = datetime.strptime(interval_to_use['interval_end'], '%Y-%m-%dT%H:%M:%SZ')
+                seconds_diff = int((end - start).total_seconds())
+                calc_window = f"{seconds_diff}s"
+            except (ValueError, TypeError) as e:
+                debug_print(f"Error calculating time window: {e}")
+        
+        debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
+        return exchanges, calc_window
 
     except requests.exceptions.RequestException as e:
         debug_print(f"🚨 RequestException: {e}")
