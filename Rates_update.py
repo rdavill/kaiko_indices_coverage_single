@@ -3,7 +3,7 @@ import json
 import csv
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 
 def debug_print(message):
     """Print debug messages that will show up in GitHub Actions logs."""
@@ -144,18 +144,12 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         debug_print(f"No API key provided, skipping historical data fetch for {ticker}")
         return '-', '-'
 
-    # Only process 'Reference_Rate' and 'Benchmark_Reference_Rate'
+    # ✅ Only process 'Reference_Rate' and 'Benchmark_Reference_Rate'
     if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Single-Asset']:
         debug_print(f"Skipping ticker {ticker} (type: {asset_type}) - Not a reference rate.")
         return '-', '-'
 
-    # Define time window
-    now = datetime.utcnow()
-    start_time = (now - timedelta(hours=24, minutes=15)).isoformat() + "Z"
-    end_time = (now - timedelta(minutes=15)).isoformat() + "Z"
-
-    # Construct the URL
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&start_time={start_time}&end_time={end_time}"
+    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?parameters=true&sort=desc"
     headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
 
     try:
