@@ -144,13 +144,13 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         debug_print(f"No API key provided, skipping historical data fetch for {ticker}")
         return '-', '-'
     
-    # Log API key (first 5 characters only for security)
+    # Log API key prefix (safely)
     if len(api_key) > 5:
         debug_print(f"Using API key with prefix: {api_key[:5]}...")
     else:
         debug_print("API key is too short or empty!")
 
-    # ✅ Only process 'Reference_Rate' and 'Benchmark_Reference_Rate'
+    # Only process certain types
     if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Single-Asset']:
         debug_print(f"Skipping ticker {ticker} (type: {asset_type}) - Not a reference rate.")
         return '-', '-'
@@ -166,14 +166,36 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
 
         if response.status_code == 200:
             data = response.json()
-            debug_print(f"Response JSON: {json.dumps(data, indent=2)[:500]}")  # Print first 500 characters
-
+            
+            # Log full response for debugging (first 2000 chars only for log size)
+            full_response = json.dumps(data, indent=2)
+            debug_print(f"Full response (first 2000 chars):\n{full_response[:2000]}")
+            
             if 'data' in data and data['data']:
                 first_item = data['data'][0]
-                params_data = first_item.get('parameters', {})
-                exchanges = ', '.join(params_data.get('exchanges', [])) or '-'
-                calc_window = str(params_data.get('calc_window', '-'))
-
+                
+                # NEW APPROACH: Extract exchanges from detail.underlying_trade.exchange
+                exchanges_set = set()
+                
+                if 'detail' in first_item:
+                    for detail in first_item['detail']:
+                        if 'underlying_trade' in detail and 'exchange' in detail['underlying_trade']:
+                            exchanges_set.add(detail['underlying_trade']['exchange'])
+                
+                exchanges = ', '.join(sorted(exchanges_set)) if exchanges_set else '-'
+                
+                # Calculate window: For now, use time difference between interval_start and interval_end
+                # This is a fallback approach since the real calc_window param isn't visible
+                calc_window = '-'
+                if 'interval_start' in first_item and 'interval_end' in first_item:
+                    try:
+                        start = datetime.strptime(first_item['interval_start'], '%Y-%m-%dT%H:%M:%SZ')
+                        end = datetime.strptime(first_item['interval_end'], '%Y-%m-%dT%H:%M:%SZ')
+                        seconds_diff = int((end - start).total_seconds())
+                        calc_window = f"{seconds_diff}s"
+                    except (ValueError, TypeError) as e:
+                        debug_print(f"Error calculating time window: {e}")
+                
                 debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
                 return exchanges, calc_window
             else:
