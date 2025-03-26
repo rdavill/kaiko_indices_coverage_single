@@ -153,8 +153,8 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
     yesterday_midnight = (datetime.now() - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%dT%H:%M:%SZ')
     debug_print(f"Using start_time: {yesterday_midnight} (yesterday's midnight)")
     
-    # Build URL with start_time at yesterday's midnight and parameters=true flag
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&start_time={yesterday_midnight}&parameters=true"
+    # Build URL with start_time at yesterday's midnight and parameters=true flag (no detail=true)
+    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?parameters=true&start_time={yesterday_midnight}"
     
     headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
     
@@ -175,60 +175,15 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
             debug_print(f"⚠️ No data found for ticker: {ticker}")
             return '-', '-'
         
-        # Check if first interval is complete
+        # Get the first interval
         first_interval = data['data'][0]
-        is_complete = (
-            'interval_start' in first_interval and 
-            'interval_end' in first_interval and 
-            'parameters' in first_interval
-        )
         
-        if is_complete:
-            debug_print(f"✅ First interval is complete for {ticker}, no continuation token needed")
-            interval_to_use = first_interval
-        else:
-            # Need to follow continuation token to get a complete interval
-            debug_print(f"⚠️ First interval is incomplete for {ticker}, following continuation token")
-            
-            # Check for continuation token
-            if 'next_url' not in data or not data['next_url']:
-                debug_print(f"❌ No continuation token available but first interval is incomplete")
-                return '-', '-'
-            
-            # Get next page
-            url = data['next_url']
-            debug_print(f"Following continuation token: {url}")
-            
-            response = requests.get(url, headers=headers, timeout=15)
-            if response.status_code != 200:
-                debug_print(f"❌ Failed to follow continuation token: {response.status_code}")
-                return '-', '-'
-            
-            cont_data = response.json()
-            if not cont_data.get('data') or len(cont_data['data']) == 0:
-                debug_print(f"❌ No data in continuation response")
-                return '-', '-'
-            
-            # Use first interval from continuation response
-            interval_to_use = cont_data['data'][0]
-            
-            # Verify it's complete
-            is_complete = (
-                'interval_start' in interval_to_use and 
-                'interval_end' in interval_to_use and 
-                'parameters' in interval_to_use
-            )
-            
-            if not is_complete:
-                debug_print(f"❌ Interval from continuation token is still incomplete")
-                return '-', '-'
-        
-        # Extract exchanges directly from parameters
+        # Extract exchanges and calc_window directly from parameters
         exchanges = '-'
         calc_window = '-'
         
-        if 'parameters' in interval_to_use:
-            params = interval_to_use['parameters']
+        if 'parameters' in first_interval:
+            params = first_interval['parameters']
             
             # Get exchanges
             if 'exchanges' in params and params['exchanges']:
@@ -238,26 +193,6 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
             # Get calculation window
             if 'calc_window' in params:
                 calc_window = f"{params['calc_window']}s"
-        
-        # Fallback to the old method if parameters doesn't have what we need
-        if exchanges == '-' and 'detail' in interval_to_use:
-            exchanges_set = set()
-            for detail in interval_to_use['detail']:
-                if 'underlying_trade' in detail and 'exchange' in detail['underlying_trade']:
-                    exchanges_set.add(detail['underlying_trade']['exchange'])
-            
-            if exchanges_set:
-                exchanges = ', '.join(sorted(exchanges_set))
-        
-        # Fallback for calc_window
-        if calc_window == '-' and 'interval_start' in interval_to_use and 'interval_end' in interval_to_use:
-            try:
-                start = datetime.strptime(interval_to_use['interval_start'], '%Y-%m-%dT%H:%M:%SZ')
-                end = datetime.strptime(interval_to_use['interval_end'], '%Y-%m-%dT%H:%M:%SZ')
-                seconds_diff = int((end - start).total_seconds())
-                calc_window = f"{seconds_diff}s"
-            except (ValueError, TypeError) as e:
-                debug_print(f"Error calculating time window: {e}")
         
         debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
         return exchanges, calc_window
