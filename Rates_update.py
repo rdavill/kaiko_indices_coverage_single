@@ -149,7 +149,7 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         debug_print(f"Skipping ticker {ticker} (type: {asset_type}) - Not a reference rate.")
         return '-', '-'
 
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&sort=desc"
+    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&page_size=1&sort=desc"
     headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
 
     try:
