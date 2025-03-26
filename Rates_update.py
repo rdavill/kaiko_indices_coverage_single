@@ -150,11 +150,11 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         return '-', '-'
 
     # Calculate today's date at midnight
-    today_midnight = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%dT%H:%M:%SZ')
-    debug_print(f"Using start_time: {today_midnight}")
+    yesterday_midnight = (datetime.now() - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%dT%H:%M:%SZ')
+    debug_print(f"Using start_time: {yesterday_midnight} (yesterday's midnight)")
     
     # Build URL with start_time at today's midnight
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&start_time={today_midnight}"
+    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?detail=true&start_time={yesterday_midnight}"
     
     headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
     
