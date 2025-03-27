@@ -842,7 +842,7 @@ Kaiko,Single-Asset,Kaiko IOTX Reference Rate LDN,KK_RFR_IOTXUSD_LDN,IOTX,USD,Dai
 Kaiko,Single-Asset,Kaiko IOTX Reference Rate NYC,KK_RFR_IOTXUSD_NYC,IOTX,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024","cbse, crco",3600s,
 Kaiko,Single-Asset,Kaiko IOTX Reference Rate SGP,KK_RFR_IOTXUSD_SGP,IOTX,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","cbse, crco",3600s,
 Kaiko,Single-Asset,Kaiko IO Reference Rate ,KK_RFR_IOUSD,IO,USD,Real-time (5s),"November 26, 2024","November 26, 2024","cbse, crco",300s,
-Kaiko,Single-Asset,Kaiko IO Reference Rate LDN,KK_RFR_IOUSD_LDN,IO,USD,Daily Fixing LDN,"December 24, 2024","December 24, 2024",-,-,
+Kaiko,Single-Asset,Kaiko IO Reference Rate LDN,KK_RFR_IOUSD_LDN,IO,USD,Daily Fixing LDN,"December 24, 2024","December 24, 2024","cbse, crco",3600s,
 Kaiko,Single-Asset,Kaiko IO Reference Rate NYC,KK_RFR_IOUSD_NYC,IO,USD,Daily Fixing NYC,"December 24, 2024","December 24, 2024","cbse, crco",3600s,
 Kaiko,Single-Asset,Kaiko IO Reference Rate SGP,KK_RFR_IOUSD_SGP,IO,USD,Daily Fixing SGP,"December 24, 2024","December 24, 2024","cbse, crco",3600s,
 Kaiko,Single-Asset,Kaiko JASMY Reference Rate ,KK_RFR_JASMYUSD,JASMY,USD,Real-time (5s),"March 04, 2024","March 04, 2024","cbse, crco, krkn",300s,
