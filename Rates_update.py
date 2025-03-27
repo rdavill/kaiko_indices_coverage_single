@@ -75,20 +75,20 @@ def get_fixed_entries():
         # Blue-Chip Indices with Expanded Location-Based Variants
         ('Kaiko', 'Blue-Chip', 'Kaiko Eagle Index', 'EGLX', 'N/A', 'N/A', 'NYC Fixing', 'February 11, 2025', 'February 11, 2025', '-', '-', factsheet_blue_chip),
         ('Kaiko', 'Blue-Chip', 'Kaiko Eagle Index', 'EGLXRT', 'N/A', 'N/A', 'Real-time (5 sec)', 'February 11, 2025', 'February 11, 2025', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index', 'KT5', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 19, 2018', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index NYC', 'KT5NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'March 19, 2018', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index LDN', 'KT5LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'March 19, 2018', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top5 Index SGP', 'KT5SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'March 19, 2018', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index', 'KT10', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 18, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index NYC', 'KT10NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'March 18, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index LDN', 'KT10LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'March 18, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top10 Index SGP', 'KT10SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'March 18, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index', 'KT15', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'December 23, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index NYC', 'KT15NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'December 23, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index LDN', 'KT15LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'December 23, 2019', '-', '-', factsheet_blue_chip),
-        ('Kaiko', 'Blue-Chip', 'Kaiko Top15 Index SGP', 'KT15SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'December 23, 2019', '-', '-', factsheet_blue_chip),
+        ('Kaiko', 'Blue-Chip', 'Kaiko 5 Index', 'KT5', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 19, 2018', '-', '-', factsheet_blue_chip),
+        ('Kaiko', 'Blue-Chip', 'Kaiko 5 Index NYC', 'KT5NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'March 19, 2018', '-', '-', factsheet_blue_chip),
+        ('Kaiko', 'Blue-Chip', 'Kaiko 5 Index LDN', 'KT5LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'March 19, 2018', '-', '-', factsheet_blue_chip),
+        ('Kaiko', 'Blue-Chip', 'Kaiko 5 Index SGP', 'KT5SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'March 19, 2018', '-', '-', factsheet_blue_chip),
+        ('Kaiko', 'Blue-Chip', 'Kaiko 10 Index', 'KT10', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'March 18, 2019', '-', '-', factsheet_blue_chip),
+        ('Kaiko', 'Blue-Chip', 'Kaiko 10 Index NYC', 'KT10NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'March 18, 2019', '-', '-', factsheet_blue_chip),
+        ('Kaiko', 'Blue-Chip', 'Kaiko 10 Index LDN', 'KT10LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'March 18, 2019', '-', '-', factsheet_blue_chip),
+        ('Kaiko', 'Blue-Chip', 'Kaiko 10 Index SGP', 'KT10SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'March 18, 2019', '-', '-', factsheet_blue_chip),
+        ('Kaiko', 'Blue-Chip', 'Kaiko 15 Index', 'KT15', 'N/A', 'N/A', 'Real-time (5 sec)', 'October 17, 2023', 'December 23, 2019', '-', '-', factsheet_blue_chip),
+        ('Kaiko', 'Blue-Chip', 'Kaiko 15 Index NYC', 'KT15NYC', 'N/A', 'N/A', 'NYC Fixing', 'October 17, 2023', 'December 23, 2019', '-', '-', factsheet_blue_chip),
+        ('Kaiko', 'Blue-Chip', 'Kaiko 15 Index LDN', 'KT15LDN', 'N/A', 'N/A', 'LDN Fixing', 'October 17, 2023', 'December 23, 2019', '-', '-', factsheet_blue_chip),
+        ('Kaiko', 'Blue-Chip', 'Kaiko 15 Index SGP', 'KT15SGP', 'N/A', 'N/A', 'SGP Fixing', 'October 17, 2023', 'December 23, 2019', '-', '-', factsheet_blue_chip),
         ('Kaiko', 'Blue-Chip', 'Vinter 21Shares Crypto Basket Equal Weight Index ', 'HODLV', 'N/A', 'N/A', 'LDN Fixing', 'September 29, 2021', 'January 01, 2021', '-', '-', '<a href="https://marketing.kaiko.com/hubfs/Factsheets%20and%20Methodologies/multi-asset_hodlv_end=2025-03-12&start=2020-12-31.pdf" target="_blank">View Factsheet</a>'),
-        ('Kaiko', 'Blue-Chip', 'Vinter 21Shares Crypto Basket 10 Index', 'HODLX', 'N/A', 'N/A', 'LDN Fixing', 'September 29, 2021', 'January 01, 2021', '-', '-', '-'),
+        ('Kaiko', 'Blue-Chip', 'Vinter 21Shares Crypto Basket 10 Index', 'HODLX', 'N/A', 'N/A', 'LDN Fixing', 'September 29, 2021', 'January 01, 2021', '-', '-', ''),
         ('Kaiko', 'Blue-Chip', 'Vinter Valour Digital Asset Basket 10 Index', 'VDAB10', 'N/A', 'N/A', 'LDN Fixing', 'July 21, 2022', 'January 01, 2021', '-', '-', '<a href="https://marketing.kaiko.com/hubfs/Factsheets%20and%20Methodologies/VDAB10%20-%20Fact%20Sheet%20-%20multi-asset_vdab10_end=2025-03-12&start=2020-12-31.pdf" target="_blank">View Factsheet</a>'),
         ('Kaiko', 'Blue-Chip', 'Vinter Pando Crypto Basket 6 Index ', 'PANDO6', 'N/A', 'N/A', '17:00 CET Fixing', 'July 21, 2022', 'January 01, 2021', '-', '-', '<a href="https://marketing.kaiko.com/hubfs/Factsheets%20and%20Methodologies/PANDO6%20-%20Fact%20Sheet%20-%20multi-asset_pando6_end=2025-03-12&start=2020-12-31.pdf" target="_blank">View Factsheet</a>'),
         ('Kaiko', 'Blue-Chip', 'Virtune Vinter Crypto Top 10 Index', 'VVT10', 'N/A', 'N/A', '17:00 CET Fixing', 'March 31, 2023', 'January 01, 2021', '-', '-', '<a href="https://marketing.kaiko.com/hubfs/Factsheets%20and%20Methodologies/VVT10%20-%20Fact%20Sheet%20-%20multi-asset_vvt10_end=2025-03-12&start=2020-12-31.pdf" target="_blank">View Factsheet</a>'),
@@ -147,7 +147,7 @@ def get_fixed_entries():
         ('Kaiko', 'Market', 'Vinter CF Crypto Momentum Index', 'VCFMOM', 'N/A', 'N/A', 'LDN Fixing', 'May 15, 2023', 'January 01, 2021', '-', '-', '<a href="https://marketing.kaiko.com/hubfs/Factsheets%20and%20Methodologies/VCFMOM%20-%20Fact%20Sheet%20-multi-asset_vcfmom_end=2025-03-12&start=2020-12-31.pdf" target="_blank">View Factsheet</a>'),
         ('Kaiko', 'Market', 'Vinter Diffuse Digital 30 Index', 'DDV', 'N/A', 'N/A', 'LDN Fixing', 'July 02, 2022', 'January 01, 2021', '-', '-', '<a href="https://marketing.kaiko.com/hubfs/Factsheets%20and%20Methodologies/DDV%20-%20Fact%20Sheet%20-%20multi-asset_ddv_end=2025-03-12&start=2020-12-31.pdf" target="_blank">View Factsheet</a>'),
         ('Kaiko', 'Market', 'Vinter Hashdex Risk Parity Momentum Crypto Index', 'VHASHMOM', 'N/A', 'N/A', '17:00 CET Fixing', 'September 05, 2022', 'January 01, 2021', '-', '-', '<a href="https://marketing.kaiko.com/hubfs/VHASHMOM%20Kaiko%20Factsheet.pdf" target="_blank">View Factsheet</a>'),
-        ('Kaiko', 'Market', 'Vinter Bytetree BOLD1 Inverse Volatility Index', 'BOLD1', 'N/A', 'N/A', 'LDN Fixing', 'November 10, 2023', 'January 01, 2020', '-', '-', '-')
+        ('Kaiko', 'Market', 'Vinter Bytetree BOLD1 Inverse Volatility Index', 'BOLD1', 'N/A', 'N/A', 'LDN Fixing', 'November 10, 2023', 'January 01, 2020', '-', '-', '')
     ]
 
 def get_exchange_name_mappings():
