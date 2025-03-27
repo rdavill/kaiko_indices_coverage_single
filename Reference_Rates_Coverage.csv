@@ -1210,7 +1210,7 @@ Kaiko,Single-Asset,Kaiko RPL Reference Rate ,KK_RFR_RPLUSD,RPL,USD,Real-time (5s
 Kaiko,Single-Asset,Kaiko RPL Reference Rate LDN,KK_RFR_RPLUSD_LDN,RPL,USD,Daily Fixing LDN,"March 07, 2024","March 07, 2024","Coinbase, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko RPL Reference Rate NYC,KK_RFR_RPLUSD_NYC,RPL,USD,Daily Fixing NYC,"March 07, 2024","March 07, 2024","Coinbase, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko RPL Reference Rate SGP,KK_RFR_RPLUSD_SGP,RPL,USD,Daily Fixing SGP,"March 07, 2024","March 07, 2024","Coinbase, Kraken",3600s,
-Kaiko,Single-Asset,Kaiko RUNE Reference Rate ,KK_RFR_RUNEUSD,RUNE,USD,Real-time (5s),"March 07, 2024","March 07, 2024",-,-,
+Kaiko,Single-Asset,Kaiko RUNE Reference Rate ,KK_RFR_RUNEUSD,RUNE,USD,Real-time (5s),"March 07, 2024","March 07, 2024","Crypto.com, Kraken",300s,
 Kaiko,Single-Asset,Kaiko RUNE Reference Rate LDN,KK_RFR_RUNEUSD_LDN,RUNE,USD,Daily Fixing LDN,"March 07, 2024","March 07, 2024","Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko RUNE Reference Rate NYC,KK_RFR_RUNEUSD_NYC,RUNE,USD,Daily Fixing NYC,"March 07, 2024","March 07, 2024","Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko RUNE Reference Rate SGP,KK_RFR_RUNEUSD_SGP,RUNE,USD,Daily Fixing SGP,"March 07, 2024","March 07, 2024","Crypto.com, Kraken",3600s,
