@@ -32,6 +32,43 @@ def get_normalized_family(family_type):
     else:
         return family_type
 
+def get_exchange_name_mappings():
+    """
+    Fetch exchange codes and names from the reference API and create a mapping.
+    Returns a dictionary with exchange codes as keys and exchange names as values.
+    """
+    debug_print("Fetching exchange name mappings from reference API")
+    url = "https://reference-data-api.kaiko.io/v1/exchanges"
+    
+    try:
+        response = requests.get(url, timeout=15)
+        
+        if response.status_code != 200:
+            debug_print(f"❌ Failed to fetch exchange mappings: {response.status_code}")
+            return {}
+            
+        data = response.json()
+        
+        # Create mapping of code -> name
+        mappings = {}
+        for exchange in data:
+            if 'code' in exchange and 'name' in exchange:
+                code = exchange['code']
+                name = exchange['name']
+                
+                # Special case for CRCO
+                if code == 'CRCO':
+                    mappings[code] = 'Crypto.com'
+                else:
+                    mappings[code] = name
+        
+        debug_print(f"✅ Successfully fetched {len(mappings)} exchange mappings")
+        return mappings
+        
+    except Exception as e:
+        debug_print(f"❌ Error fetching exchange mappings: {str(e)}")
+        return {}
+
 def get_existing_fact_sheets():
     """Read existing factsheet links from the current CSV."""
     fact_sheets = {}
@@ -150,71 +187,17 @@ def get_fixed_entries():
         ('Kaiko', 'Market', 'Vinter Bytetree BOLD1 Inverse Volatility Index', 'BOLD1', 'N/A', 'N/A', 'LDN Fixing', 'November 10, 2023', 'January 01, 2020', '-', '-', '-')
     ]
 
-def fetch_historical_prices_data(ticker, asset_type, api_key):
-    """Fetch historical price data only for Reference_Rate and Benchmark_Reference_Rate."""
+def fetch_historical_prices_data(ticker, asset_type, api_key, exchange_mappings=None):
+    """
+    Fetch historical price data only for Reference_Rate and Benchmark_Reference_Rate.
+    Uses exchange_mappings to convert exchange codes to full names.
+    """
     debug_print(f"Fetching historical prices data for ticker: {ticker}, Type: {asset_type}")
 
-    # If no API key provided, return default values
-    if not api_key:
-        debug_print(f"No API key provided, skipping historical data fetch for {ticker}")
-        return '-', '-'
-    
-    # Only process certain types
-    if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Single-Asset']:
-        debug_print(f"Skipping ticker {ticker} (type: {asset_type}) - Not a reference rate.")
-        return '-', '-'
-    
-    # Build URL with page_size=1, sort=desc and parameters=true - this gets the most recent data point efficiently
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?page_size=1&parameters=true&sort=desc"
-    
-    headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
-    
-    try:
-        debug_print(f"Making API request to: {url}")
-        response = requests.get(url, headers=headers, timeout=15)
-
-        debug_print(f"Response Status Code: {response.status_code}")
-
-        if response.status_code != 200:
-            debug_print(f"❌ API call failed with status {response.status_code}: {response.text}")
-            return '-', '-'
-            
-        data = response.json()
-        
-        # Check if we have data
-        if not data.get('data') or len(data['data']) == 0:
-            debug_print(f"⚠️ No data found for ticker: {ticker}")
-            return '-', '-'
-        
-        # Get the first interval (should be the most recent one due to sort=desc)
-        first_interval = data['data'][0]
-        
-        # Extract exchanges and calc_window directly from parameters
-        exchanges = '-'
-        calc_window = '-'
-        
-        if 'parameters' in first_interval:
-            params = first_interval['parameters']
-            
-            # Get exchanges
-            if 'exchanges' in params and params['exchanges']:
-                exchanges_list = params['exchanges']
-                exchanges = ', '.join(sorted(exchanges_list))
-            
-            # Get calculation window
-            if 'calc_window' in params:
-                calc_window = f"{params['calc_window']}s"
-        
-        debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
-        return exchanges, calc_window
-
-    except requests.exceptions.RequestException as e:
-        debug_print(f"🚨 RequestException: {e}")
-        return '-', '-'
-    except Exception as e:
-        debug_print(f"🚨 Unexpected error processing {ticker}: {str(e)}")
-        return '-', '-'    """Fetch historical price data only for Reference_Rate and Benchmark_Reference_Rate."""
-    debug_print(f"Fetching historical prices data for ticker: {ticker}, Type: {asset_type}")
+    # Load exchange mappings if not provided
+    if exchange_mappings is None:
+        exchange_mappings = get_exchange_name_mappings()
+        debug_print(f"Loaded {len(exchange_mappings)} exchange mappings on demand")
 
     # If no API key provided, return default values
     if not api_key:
@@ -223,72 +206,6 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
     
     # Only process certain types
     if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Single-Asset', 'Custom_Rate']:
-        debug_print(f"Skipping ticker {ticker} (type: {asset_type}) - Not a reference rate.")
-        return '-', '-'
-
-    # Calculate yesterday's date at midnight
-    yesterday_midnight = (datetime.now() - timedelta(days=2)).replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%dT%H:%M:%SZ')
-    debug_print(f"Using start_time: {yesterday_midnight} (yesterday's midnight)")
-    
-    # Build URL with start_time at yesterday's midnight and parameters=true flag (no detail=true)
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?parameters=true&start_time={yesterday_midnight}"
-    
-    headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
-    
-    try:
-        debug_print(f"Making API request to: {url}")
-        response = requests.get(url, headers=headers, timeout=15)
-
-        debug_print(f"Response Status Code: {response.status_code}")
-
-        if response.status_code != 200:
-            debug_print(f"❌ API call failed with status {response.status_code}: {response.text}")
-            return '-', '-'
-            
-        data = response.json()
-        
-        # Check if we have data
-        if not data.get('data') or len(data['data']) == 0:
-            debug_print(f"⚠️ No data found for ticker: {ticker}")
-            return '-', '-'
-        
-        # Get the first interval
-        first_interval = data['data'][0]
-        
-        # Extract exchanges and calc_window directly from parameters
-        exchanges = '-'
-        calc_window = '-'
-        
-        if 'parameters' in first_interval:
-            params = first_interval['parameters']
-            
-            # Get exchanges
-            if 'exchanges' in params and params['exchanges']:
-                exchanges_list = params['exchanges']
-                exchanges = ', '.join(sorted(exchanges_list))
-            
-            # Get calculation window
-            if 'calc_window' in params:
-                calc_window = f"{params['calc_window']}s"
-        
-        debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
-        return exchanges, calc_window
-
-    except requests.exceptions.RequestException as e:
-        debug_print(f"🚨 RequestException: {e}")
-        return '-', '-'
-    except Exception as e:
-        debug_print(f"🚨 Unexpected error processing {ticker}: {str(e)}")
-        return '-', '-'    """Fetch historical price data only for Reference_Rate and Benchmark_Reference_Rate."""
-    debug_print(f"Fetching historical prices data for ticker: {ticker}, Type: {asset_type}")
-
-    # If no API key provided, return default values
-    if not api_key:
-        debug_print(f"No API key provided, skipping historical data fetch for {ticker}")
-        return '-', '-'
-    
-    # Only process certain types
-    if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Single-Asset']:
         debug_print(f"Skipping ticker {ticker} (type: {asset_type}) - Not a reference rate.")
         return '-', '-'
 
@@ -376,7 +293,18 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
             # Get exchanges
             if 'exchanges' in params and params['exchanges']:
                 exchanges_list = params['exchanges']
-                exchanges = ', '.join(sorted(exchanges_list))
+                
+                # Map exchange codes to full names using our mappings
+                mapped_exchanges = []
+                for exchange_code in sorted(exchanges_list):
+                    # Map exchange code to full name, with special case for CRCO
+                    if exchange_code in exchange_mappings:
+                        mapped_exchanges.append(exchange_mappings[exchange_code])
+                    else:
+                        # If no mapping exists, use the code as is
+                        mapped_exchanges.append(exchange_code)
+                
+                exchanges = ', '.join(mapped_exchanges)
             
             # Get calculation window
             if 'calc_window' in params:
@@ -384,13 +312,23 @@ def fetch_historical_prices_data(ticker, asset_type, api_key):
         
         # Fallback to the old method if parameters doesn't have what we need
         if exchanges == '-' and 'detail' in interval_to_use:
-            exchanges_set = set()
+            exchange_codes_set = set()
             for detail in interval_to_use['detail']:
                 if 'underlying_trade' in detail and 'exchange' in detail['underlying_trade']:
-                    exchanges_set.add(detail['underlying_trade']['exchange'])
+                    exchange_codes_set.add(detail['underlying_trade']['exchange'])
             
-            if exchanges_set:
-                exchanges = ', '.join(sorted(exchanges_set))
+            if exchange_codes_set:
+                # Map exchange codes to full names
+                mapped_exchanges = []
+                for exchange_code in sorted(exchange_codes_set):
+                    # Map exchange code to full name, with special case for CRCO
+                    if exchange_code in exchange_mappings:
+                        mapped_exchanges.append(exchange_mappings[exchange_code])
+                    else:
+                        # If no mapping exists, use the code as is
+                        mapped_exchanges.append(exchange_code)
+                
+                exchanges = ', '.join(mapped_exchanges)
         
         # Fallback for calc_window
         if calc_window == '-' and 'interval_start' in interval_to_use and 'interval_end' in interval_to_use:
@@ -447,6 +385,10 @@ def pull_and_save_data_to_csv(api_url, api_key):
     existing_fact_sheets = get_existing_fact_sheets()
     fixed_items = get_fixed_entries()
 
+    # Get exchange name mappings upfront to reuse for all API calls
+    exchange_mappings = get_exchange_name_mappings()
+    debug_print(f"Loaded {len(exchange_mappings)} exchange mappings")
+
     headers = [
         'Brand', 'Benchmark Family', 'Name', 'Ticker', 'Base', 'Quote',
         'Dissemination', 'Launch Date', 'Inception Date', 'Exchanges', 'Calculation Window', 'Factsheet'
@@ -484,7 +426,7 @@ def pull_and_save_data_to_csv(api_url, api_key):
         
         for item in usd_items:
             ticker = item['ticker']
-            asset_type = item['type']  # ✅ Check type instead of guessing
+            asset_type = item['type']
             
             # Count reference rate types
             if asset_type in ['Reference_Rate', 'Benchmark_Reference_Rate']:
@@ -501,15 +443,15 @@ def pull_and_save_data_to_csv(api_url, api_key):
             inception = parse_date(item['inception_date'])
             dissemination = item['dissemination']
             
-            # Get factsheet from existing data or use empty string (not dash)
+            # Get factsheet from existing data or use empty string
             fact_sheet = existing_fact_sheets.get(ticker, '')
             
             # Remove any trailing commas from factsheet
             if fact_sheet.endswith(','):
                 fact_sheet = fact_sheet[:-1]
 
-            # ✅ Fetch exchanges & calculation window - this part still needs the API key
-            exchanges, calc_window = fetch_historical_prices_data(ticker, asset_type, api_key)
+            # Fetch exchanges & calculation window using the exchange mappings
+            exchanges, calc_window = fetch_historical_prices_data(ticker, asset_type, api_key, exchange_mappings)
 
             api_items.append((
                 brand, normalized_family, short_name, ticker, base_short_name, quote_short_name,
@@ -537,7 +479,7 @@ def pull_and_save_data_to_csv(api_url, api_key):
         non_default_count = sum(1 for item in all_items if item[9] != '-' or item[10] != '-')
         debug_print(f"Items with non-default exchanges or calculation windows: {non_default_count}")
 
-        # ✅ Save to CSV
+        # Save to CSV
         main_csv_path = "Reference_Rates_Coverage.csv"
         debug_print(f"Saving main CSV to {os.path.abspath(main_csv_path)}")
 
@@ -557,7 +499,7 @@ def pull_and_save_data_to_csv(api_url, api_key):
 if __name__ == "__main__":
     debug_print("Starting script execution...")
 
-    # ✅ Retrieve API key from environment - only needed for historical prices data
+    # Retrieve API key from environment - only needed for historical prices data
     api_key = os.environ.get('KAIKO_API_KEY') or os.environ.get('API_KEY')
     
     # Log environment variables for debugging (safely)
@@ -573,5 +515,4 @@ if __name__ == "__main__":
         # Log partial key for debugging
         debug_print(f"API key found with length: {len(api_key)}")
     
-    # Remove the quote=usd parameter since we're now filtering in the code
     pull_and_save_data_to_csv("https://us.market-api.kaiko.io/v2/data/index_reference_data.v1/rates", api_key)
