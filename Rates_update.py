@@ -32,43 +32,6 @@ def get_normalized_family(family_type):
     else:
         return family_type
 
-def get_exchange_name_mappings():
-    """
-    Fetch exchange codes and names from the reference API and create a mapping.
-    Returns a dictionary with exchange codes as keys and exchange names as values.
-    """
-    debug_print("Fetching exchange name mappings from reference API")
-    url = "https://reference-data-api.kaiko.io/v1/exchanges"
-    
-    try:
-        response = requests.get(url, timeout=15)
-        
-        if response.status_code != 200:
-            debug_print(f"❌ Failed to fetch exchange mappings: {response.status_code}")
-            return {}
-            
-        data = response.json()
-        
-        # Create mapping of code -> name
-        mappings = {}
-        for exchange in data:
-            if 'code' in exchange and 'name' in exchange:
-                code = exchange['code']
-                name = exchange['name']
-                
-                # Special case for CRCO
-                if code == 'CRCO':
-                    mappings[code] = 'Crypto.com'
-                else:
-                    mappings[code] = name
-        
-        debug_print(f"✅ Successfully fetched {len(mappings)} exchange mappings")
-        return mappings
-        
-    except Exception as e:
-        debug_print(f"❌ Error fetching exchange mappings: {str(e)}")
-        return {}
-
 def get_existing_fact_sheets():
     """Read existing factsheet links from the current CSV."""
     fact_sheets = {}
@@ -196,38 +159,62 @@ def get_exchange_name_mappings():
     url = "https://reference-data-api.kaiko.io/v1/exchanges"
     
     try:
+        debug_print(f"Making GET request to: {url}")
         response = requests.get(url, timeout=15)
+        
+        debug_print(f"Exchange API response status code: {response.status_code}")
         
         if response.status_code != 200:
             debug_print(f"❌ Failed to fetch exchange mappings: {response.status_code}")
+            debug_print(f"Response content: {response.text[:200]}...")  # Log partial response
             return {}
             
-        data = response.json()
-        debug_print(f"Exchange API response received with {len(data)} items")
+        response_json = response.json()
+        
+        # Check for proper response structure
+        if "result" not in response_json or response_json["result"] != "success":
+            debug_print(f"❌ API returned unsuccessful result: {response_json.get('result', 'N/A')}")
+            return {}
+            
+        # Access the "data" field which contains the exchange list
+        if "data" not in response_json or not isinstance(response_json["data"], list):
+            debug_print(f"❌ API response missing 'data' field or not a list: {list(response_json.keys())}")
+            return {}
+            
+        exchange_list = response_json["data"]
+        debug_print(f"Exchange API response contains {len(exchange_list)} exchanges")
         
         # Sample some data for debugging
-        if len(data) > 0:
-            debug_print(f"Sample exchange data: {data[0:2]}")
+        if len(exchange_list) > 0:
+            debug_print(f"Sample exchange data: {exchange_list[0:2]}")
         
         # Create mapping of code -> name
         mappings = {}
-        for exchange in data:
+        for exchange in exchange_list:
             if 'code' in exchange and 'name' in exchange:
-                code = exchange['code']
+                code = exchange['code'].lower()  # Normalize to lowercase
                 name = exchange['name']
                 
                 # Special case for CRCO
-                if code == 'CRCO':
+                if code == 'crco':
                     mappings[code] = 'Crypto.com'
                 else:
                     mappings[code] = name
         
-        debug_print(f"✅ Successfully fetched {len(mappings)} exchange mappings")
+        debug_print(f"✅ Successfully created {len(mappings)} exchange mappings")
         
         # Print some sample mappings for debugging
         sample_keys = list(mappings.keys())[:5] if len(mappings) > 5 else list(mappings.keys())
         for key in sample_keys:
             debug_print(f"Sample mapping: {key} -> {mappings[key]}")
+        
+        # Check specifically for common exchange codes
+        common_codes = ["cbse", "krkn", "crco", "stmp", "lmax", "itbi"]
+        for code in common_codes:
+            if code in mappings:
+                debug_print(f"✅ Found mapping for common exchange: {code} -> {mappings[code]}")
+            else:
+                debug_print(f"⚠️ Missing mapping for common exchange: {code}")
             
         return mappings
         
@@ -242,11 +229,11 @@ def fetch_historical_prices_data(ticker, asset_type, api_key, exchange_mappings=
     """
     debug_print(f"Fetching historical prices data for ticker: {ticker}, Type: {asset_type}")
 
-    # Load exchange mappings if not provided
-    if exchange_mappings is None:
-        debug_print("No exchange mappings provided, fetching new ones")
+    # Load exchange mappings if not provided or if empty
+    if exchange_mappings is None or len(exchange_mappings) == 0:
+        debug_print("Exchange mappings missing or empty, generating new mappings")
         exchange_mappings = get_exchange_name_mappings()
-        debug_print(f"Loaded {len(exchange_mappings)} exchange mappings on demand")
+        debug_print(f"Generated {len(exchange_mappings)} exchange mappings")
     else:
         debug_print(f"Using provided exchange mappings with {len(exchange_mappings)} items")
 
@@ -300,9 +287,12 @@ def fetch_historical_prices_data(ticker, asset_type, api_key, exchange_mappings=
                 # Map exchange codes to full names using our mappings
                 mapped_exchanges = []
                 for exchange_code in sorted(exchanges_list):
-                    # Map exchange code to full name, with special case for CRCO
-                    if exchange_code in exchange_mappings:
-                        mapped_name = exchange_mappings[exchange_code]
+                    # Normalize to lowercase for consistent lookup
+                    exchange_code_lower = exchange_code.lower()
+                    
+                    # Map exchange code to full name
+                    if exchange_code_lower in exchange_mappings:
+                        mapped_name = exchange_mappings[exchange_code_lower]
                         mapped_exchanges.append(mapped_name)
                         debug_print(f"Mapped exchange code {exchange_code} to {mapped_name}")
                     else:
@@ -323,87 +313,6 @@ def fetch_historical_prices_data(ticker, asset_type, api_key, exchange_mappings=
                 debug_print(f"No calculation window found in parameters for {ticker}")
         else:
             debug_print(f"No parameters found in response for {ticker}")
-        
-        debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
-        return exchanges, calc_window
-
-    except requests.exceptions.RequestException as e:
-        debug_print(f"🚨 RequestException: {e}")
-        return '-', '-'
-    except Exception as e:
-        debug_print(f"🚨 Unexpected error processing {ticker}: {str(e)}")
-        return '-', '-'    """
-    Fetch historical price data for Reference_Rate, Benchmark_Reference_Rate, and Single-Asset.
-    Uses exchange_mappings to convert exchange codes to full names.
-    """
-    debug_print(f"Fetching historical prices data for ticker: {ticker}, Type: {asset_type}")
-
-    # Load exchange mappings if not provided
-    if exchange_mappings is None:
-        exchange_mappings = get_exchange_name_mappings()
-        debug_print(f"Loaded {len(exchange_mappings)} exchange mappings on demand")
-
-    # If no API key provided, return default values
-    if not api_key:
-        debug_print(f"No API key provided, skipping historical data fetch for {ticker}")
-        return '-', '-'
-    
-    # Only process certain types
-    if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Single-Asset']:
-        debug_print(f"Skipping ticker {ticker} (type: {asset_type}) - Not a reference rate.")
-        return '-', '-'
-    
-    # Build URL with page_size=1, sort=desc and parameters=true - this gets the most recent data point efficiently
-    url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?page_size=1&parameters=true&sort=desc"
-    
-    headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
-    
-    try:
-        debug_print(f"Making API request to: {url}")
-        response = requests.get(url, headers=headers, timeout=15)
-
-        debug_print(f"Response Status Code: {response.status_code}")
-
-        if response.status_code != 200:
-            debug_print(f"❌ API call failed with status {response.status_code}: {response.text}")
-            return '-', '-'
-            
-        data = response.json()
-        
-        # Check if we have data
-        if not data.get('data') or len(data['data']) == 0:
-            debug_print(f"⚠️ No data found for ticker: {ticker}")
-            return '-', '-'
-        
-        # Get the first interval (should be the most recent one due to sort=desc)
-        first_interval = data['data'][0]
-        
-        # Extract exchanges and calc_window directly from parameters
-        exchanges = '-'
-        calc_window = '-'
-        
-        if 'parameters' in first_interval:
-            params = first_interval['parameters']
-            
-            # Get exchanges
-            if 'exchanges' in params and params['exchanges']:
-                exchanges_list = params['exchanges']
-                
-                # Map exchange codes to full names using our mappings
-                mapped_exchanges = []
-                for exchange_code in sorted(exchanges_list):
-                    # Map exchange code to full name, with special case for CRCO
-                    if exchange_code in exchange_mappings:
-                        mapped_exchanges.append(exchange_mappings[exchange_code])
-                    else:
-                        # If no mapping exists, use the code as is
-                        mapped_exchanges.append(exchange_code)
-                
-                exchanges = ', '.join(mapped_exchanges)
-            
-            # Get calculation window
-            if 'calc_window' in params:
-                calc_window = f"{params['calc_window']}s"
         
         debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
         return exchanges, calc_window
@@ -452,7 +361,15 @@ def pull_and_save_data_to_csv(api_url, api_key):
 
     # Get exchange name mappings upfront to reuse for all API calls
     exchange_mappings = get_exchange_name_mappings()
-    debug_print(f"Loaded {len(exchange_mappings)} exchange mappings")
+    debug_print(f"Loaded {len(exchange_mappings)} exchange mappings for all API calls")
+    
+    # Debug output the mappings for common exchange codes
+    common_codes = ["cbse", "krkn", "crco", "stmp", "lmax", "itbi"]
+    for code in common_codes:
+        if code in exchange_mappings:
+            debug_print(f"✓ Main mapping for {code}: {exchange_mappings[code]}")
+        else:
+            debug_print(f"✗ Missing mapping for {code}")
 
     headers = [
         'Brand', 'Benchmark Family', 'Name', 'Ticker', 'Base', 'Quote',
@@ -560,11 +477,11 @@ def pull_and_save_data_to_csv(api_url, api_key):
     else:
         debug_print(f"❌ Error fetching API data: {response.status_code}")
 
-# 🚀 Main Execution
+# Main execution
 if __name__ == "__main__":
     debug_print("Starting script execution...")
 
-    # Retrieve API key from environment - only needed for historical prices data
+    # Retrieve API key from environment
     api_key = os.environ.get('KAIKO_API_KEY') or os.environ.get('API_KEY')
     
     # Log environment variables for debugging (safely)
