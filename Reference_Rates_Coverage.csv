@@ -73,7 +73,7 @@ CBOE-KAIKO,Single-Asset,CBOE-KAIKO BTC Custom Rate ,CBOE-KAIKO_BTCUSD_RT,BTC,USD
 CBOE-KAIKO,Single-Asset,CBOE-KAIKO ETH Custom Rate ,CBOE-KAIKO_ETHUSD,ETH,USD,Daily Fixing Custom,"November 02, 2023","November 02, 2023","Itbit, LMAX, Bitstamp",3600s,
 CBOE-KAIKO,Single-Asset,CBOE-KAIKO ETH Custom Rate ,CBOE-KAIKO_ETHUSD_RT,ETH,USD,Real-time (5s),"January 22, 2024","January 22, 2024","Itbit, LMAX, Bitstamp",10s,
 Kaiko,Single-Asset,Kaiko AAVE Benchmark Reference Rate ,KK_BRR_AAVEUSD,AAVE,USD,Real-time (5s),"January 17, 2023","January 17, 2023","Coinbase, Crypto.com, Kraken, Bitstamp",60s,
-Kaiko,Single-Asset,Kaiko AAVE Benchmark Reference Rate LDN,KK_BRR_AAVEUSD_LDN,AAVE,USD,Daily Fixing LDN,"January 17, 2023","January 17, 2023","Coinbase, Crypto.com, Kraken, Bitstamp",300s,
+Kaiko,Single-Asset,Kaiko AAVE Benchmark Reference Rate LDN,KK_BRR_AAVEUSD_LDN,AAVE,USD,Daily Fixing LDN,"January 17, 2023","January 17, 2023",-,-,
 Kaiko,Single-Asset,Kaiko AAVE Benchmark Reference Rate NYC,KK_BRR_AAVEUSD_NYC,AAVE,USD,Daily Fixing NYC,"January 17, 2023","January 17, 2023","Coinbase, Crypto.com, Kraken, Bitstamp",300s,
 Kaiko,Single-Asset,Kaiko AAVE Benchmark Reference Rate SGP,KK_BRR_AAVEUSD_SGP,AAVE,USD,Daily Fixing SGP,"January 17, 2023","January 17, 2023","Coinbase, Crypto.com, Kraken, Bitstamp",300s,
 Kaiko,Single-Asset,Kaiko ADA Benchmark Reference Rate ,KK_BRR_ADAUSD,ADA,USD,Real-time (5s),"September 18, 2023","September 18, 2023","Coinbase, Crypto.com, Kraken, Bitstamp",30s,
