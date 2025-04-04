@@ -737,7 +737,7 @@ Kaiko,Single-Asset,Kaiko GALA Reference Rate ,KK_RFR_GALAUSD,GALA,USD,Real-time 
 Kaiko,Single-Asset,Kaiko GALA Reference Rate LDN,KK_RFR_GALAUSD_LDN,GALA,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024","Bitso, Crypto.com, Gemini, Kraken, Bitstamp",3600s,
 Kaiko,Single-Asset,Kaiko GALA Reference Rate NYC,KK_RFR_GALAUSD_NYC,GALA,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024","Bitso, Crypto.com, Gemini, Kraken, Bitstamp",3600s,
 Kaiko,Single-Asset,Kaiko GALA Reference Rate SGP,KK_RFR_GALAUSD_SGP,GALA,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","Bitfinex, Bitso, Crypto.com, Kraken, Bitstamp",3600s,
-Kaiko,Single-Asset,Kaiko GAL Reference Rate ,KK_RFR_GALUSD,GAL,USD,Real-time (5s),"March 04, 2024","March 04, 2024","Coinbase, Kraken",300s,
+Kaiko,Single-Asset,Kaiko GAL Reference Rate ,KK_RFR_GALUSD,GAL,USD,Real-time (5s),"March 04, 2024","March 04, 2024",-,-,
 Kaiko,Single-Asset,Kaiko GAL Reference Rate LDN,KK_RFR_GALUSD_LDN,GAL,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024","Coinbase, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko GAL Reference Rate NYC,KK_RFR_GALUSD_NYC,GAL,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024","Coinbase, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko GAL Reference Rate SGP,KK_RFR_GALUSD_SGP,GAL,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","Coinbase, Kraken",3600s,
