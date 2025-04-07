@@ -679,7 +679,7 @@ Kaiko,Single-Asset,Kaiko ETHW Reference Rate NYC,KK_RFR_ETHWUSD_NYC,ETHW,USD,Dai
 Kaiko,Single-Asset,Kaiko ETHW Reference Rate SGP,KK_RFR_ETHWUSD_SGP,ETHW,USD,Daily Fixing SGP,"February 27, 2024","February 27, 2024","Bitfinex, CEX.IO, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko FARM Reference Rate ,KK_RFR_FARMUSD,FARM,USD,Real-time (5s),"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",300s,
 Kaiko,Single-Asset,Kaiko FARM Reference Rate LDN,KK_RFR_FARMUSD_LDN,FARM,USD,Daily Fixing LDN,"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",3600s,
-Kaiko,Single-Asset,Kaiko FARM Reference Rate NYC,KK_RFR_FARMUSD_NYC,FARM,USD,Daily Fixing NYC,"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",3600s,
+Kaiko,Single-Asset,Kaiko FARM Reference Rate NYC,KK_RFR_FARMUSD_NYC,FARM,USD,Daily Fixing NYC,"February 27, 2024","February 27, 2024",-,-,
 Kaiko,Single-Asset,Kaiko FARM Reference Rate SGP,KK_RFR_FARMUSD_SGP,FARM,USD,Daily Fixing SGP,"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko FET Reference Rate ,KK_RFR_FETUSD,FET,USD,Real-time (5s),"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",300s,
 Kaiko,Single-Asset,Kaiko FET Reference Rate LDN,KK_RFR_FETUSD_LDN,FET,USD,Daily Fixing LDN,"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",3600s,
