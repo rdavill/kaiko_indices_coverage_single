@@ -80,7 +80,7 @@ Kaiko,Single-Asset,Kaiko ADA Benchmark Reference Rate ,KK_BRR_ADAUSD,ADA,USD,Rea
 Kaiko,Single-Asset,Kaiko ADA Benchmark Reference Rate LDN,KK_BRR_ADAUSD_LDN,ADA,USD,Daily Fixing LDN,"September 18, 2023","September 18, 2023","Coinbase, Crypto.com, Kraken, Bitstamp",300s,
 Kaiko,Single-Asset,Kaiko ADA Benchmark Reference Rate NYC,KK_BRR_ADAUSD_NYC,ADA,USD,Daily Fixing NYC,"September 18, 2023","September 18, 2023","Coinbase, Crypto.com, Kraken, Bitstamp",300s,
 Kaiko,Single-Asset,Kaiko ADA Benchmark Reference Rate SGP,KK_BRR_ADAUSD_SGP,ADA,USD,Daily Fixing SGP,"September 18, 2023","September 18, 2023","Coinbase, Crypto.com, Kraken, Bitstamp",300s,
-Kaiko,Single-Asset,Kaiko ALGO Benchmark Reference Rate ,KK_BRR_ALGOUSD,ALGO,USD,Real-time (5s),"February 13, 2024","February 13, 2024","Coinbase, Crypto.com, Kraken",120s,
+Kaiko,Single-Asset,Kaiko ALGO Benchmark Reference Rate ,KK_BRR_ALGOUSD,ALGO,USD,Real-time (5s),"February 13, 2024","February 13, 2024",-,-,
 Kaiko,Single-Asset,Kaiko ALGO Benchmark Reference Rate LDN,KK_BRR_ALGOUSD_LDN,ALGO,USD,Daily Fixing LDN,"February 13, 2024","February 13, 2024","Coinbase, Crypto.com, Kraken",300s,
 Kaiko,Single-Asset,Kaiko ALGO Benchmark Reference Rate NYC,KK_BRR_ALGOUSD_NYC,ALGO,USD,Daily Fixing NYC,"February 13, 2024","February 13, 2024","Coinbase, Crypto.com, Kraken",300s,
 Kaiko,Single-Asset,Kaiko ALGO Benchmark Reference Rate SGP,KK_BRR_ALGOUSD_SGP,ALGO,USD,Daily Fixing SGP,"February 13, 2024","February 13, 2024","Coinbase, Crypto.com, Kraken",300s,
