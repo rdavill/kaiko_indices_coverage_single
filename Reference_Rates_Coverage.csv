@@ -1218,7 +1218,7 @@ Kaiko,Single-Asset,Kaiko SAFE Reference Rate ,KK_RFR_SAFEUSD,SAFE,USD,Real-time 
 Kaiko,Single-Asset,Kaiko SAFE Reference Rate LDN,KK_RFR_SAFEUSD_LDN,SAFE,USD,Daily Fixing LDN,"June 24, 2024","June 24, 2024","Coinbase, Crypto.com, Kraken, OkEX",3600s,
 Kaiko,Single-Asset,Kaiko SAFE Reference Rate NYC,KK_RFR_SAFEUSD_NYC,SAFE,USD,Daily Fixing NYC,"June 24, 2024","June 24, 2024","Coinbase, Crypto.com, Kraken, OkEX",3600s,
 Kaiko,Single-Asset,Kaiko SAFE Reference Rate SGP,KK_RFR_SAFEUSD_SGP,SAFE,USD,Daily Fixing SGP,"June 24, 2024","June 24, 2024","Coinbase, Crypto.com, Kraken, OkEX",3600s,
-Kaiko,Single-Asset,Kaiko SAND Reference Rate ,KK_RFR_SANDUSD,SAND,USD,Real-time (5s),"September 20, 2022","September 20, 2022","Bitso, Coinbase, Crypto.com, Gemini, Kraken",300s,
+Kaiko,Single-Asset,Kaiko SAND Reference Rate ,KK_RFR_SANDUSD,SAND,USD,Real-time (5s),"September 20, 2022","September 20, 2022",-,-,
 Kaiko,Single-Asset,Kaiko SAND Reference Rate LDN,KK_RFR_SANDUSD_LDN,SAND,USD,Daily Fixing LDN,"September 20, 2022","September 20, 2022","Bitfinex, Bitso, Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko SAND Reference Rate NYC,KK_RFR_SANDUSD_NYC,SAND,USD,Daily Fixing NYC,"September 20, 2022","September 20, 2022","Bitso, Coinbase, Crypto.com, Gemini, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko SAND Reference Rate SGP,KK_RFR_SANDUSD_SGP,SAND,USD,Daily Fixing SGP,"September 20, 2022","September 20, 2022","Bitfinex, Coinbase, Crypto.com, Gemini, Kraken",3600s,
