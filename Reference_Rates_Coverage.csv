@@ -1433,7 +1433,7 @@ Kaiko,Single-Asset,Kaiko W Reference Rate SGP,KK_RFR_WUSD_SGP,W,USD,Daily Fixing
 Kaiko,Single-Asset,Kaiko XCN Reference Rate ,KK_RFR_XCNUSD,XCN,USD,Real-time (5s),"July 17, 2024","March 07, 2024","Coinbase, Kraken",300s,
 Kaiko,Single-Asset,Kaiko XCN Reference Rate LDN,KK_RFR_XCNUSD_LDN,XCN,USD,Daily Fixing LDN,"March 07, 2024","March 07, 2024","Coinbase, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko XCN Reference Rate NYC,KK_RFR_XCNUSD_NYC,XCN,USD,Daily Fixing NYC,"March 07, 2024","March 07, 2024","Coinbase, Kraken",3600s,
-Kaiko,Single-Asset,Kaiko XCN Reference Rate SGP,KK_RFR_XCNUSD_SGP,XCN,USD,Daily Fixing SGP,"March 07, 2024","March 07, 2024",-,-,
+Kaiko,Single-Asset,Kaiko XCN Reference Rate SGP,KK_RFR_XCNUSD_SGP,XCN,USD,Daily Fixing SGP,"March 07, 2024","March 07, 2024","Coinbase, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko XDC Reference Rate ,KK_RFR_XDCUSD,XDC,USD,Real-time (5s),"March 07, 2024","March 07, 2024","Bitfinex, Bitstamp",300s,
 Kaiko,Single-Asset,Kaiko XDC Reference Rate LDN,KK_RFR_XDCUSD_LDN,XDC,USD,Daily Fixing LDN,"March 07, 2024","March 07, 2024","Bitfinex, Bitstamp",3600s,
 Kaiko,Single-Asset,Kaiko XDC Reference Rate NYC,KK_RFR_XDCUSD_NYC,XDC,USD,Daily Fixing NYC,"March 07, 2024","March 07, 2024","Bitfinex, Bitstamp",3600s,
