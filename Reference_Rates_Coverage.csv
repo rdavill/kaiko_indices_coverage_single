@@ -980,7 +980,7 @@ Kaiko,Single-Asset,Kaiko MLN Reference Rate NYC,KK_RFR_MLNUSD_NYC,MLN,USD,Daily 
 Kaiko,Single-Asset,Kaiko MLN Reference Rate SGP,KK_RFR_MLNUSD_SGP,MLN,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko MNDE Reference Rate ,KK_RFR_MNDEUSD,MNDE,USD,Real-time (5s),"March 04, 2024","March 04, 2024","Coinbase, Crypto.com",300s,
 Kaiko,Single-Asset,Kaiko MNDE Reference Rate LDN,KK_RFR_MNDEUSD_LDN,MNDE,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com",3600s,
-Kaiko,Single-Asset,Kaiko MNDE Reference Rate NYC,KK_RFR_MNDEUSD_NYC,MNDE,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024",-,-,
+Kaiko,Single-Asset,Kaiko MNDE Reference Rate NYC,KK_RFR_MNDEUSD_NYC,MNDE,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com",3600s,
 Kaiko,Single-Asset,Kaiko MNDE Reference Rate SGP,KK_RFR_MNDEUSD_SGP,MNDE,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com",3600s,
 Kaiko,Single-Asset,Kaiko MOBILE Reference Rate ,KK_RFR_MOBILEUSD,MOBILE,USD,Real-time (5s),"September 23, 2024","September 23, 2024","Coinbase, Crypto.com",300s,
 Kaiko,Single-Asset,Kaiko MOBILE Reference Rate LDN,KK_RFR_MOBILEUSD_LDN,MOBILE,USD,Daily Fixing LDN,"September 23, 2024","September 23, 2024","Coinbase, Crypto.com",3600s,
