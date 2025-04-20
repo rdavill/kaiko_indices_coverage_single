@@ -1075,7 +1075,7 @@ Kaiko,Single-Asset,Kaiko OXT Reference Rate LDN,KK_RFR_OXTUSD_LDN,OXT,USD,Daily 
 Kaiko,Single-Asset,Kaiko OXT Reference Rate NYC,KK_RFR_OXTUSD_NYC,OXT,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko OXT Reference Rate SGP,KK_RFR_OXTUSD_SGP,OXT,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko PAXG Reference Rate ,KK_RFR_PAXGUSD,PAXG,USD,Real-time (5s),"July 17, 2024","March 04, 2024","Bitso, Crypto.com, Gemini, Kraken",300s,
-Kaiko,Single-Asset,Kaiko PAXG Reference Rate LDN,KK_RFR_PAXGUSD_LDN,PAXG,USD,Daily Fixing LDN,"July 17, 2024","March 04, 2024","Bitso, Crypto.com, Gemini, Kraken",3600s,
+Kaiko,Single-Asset,Kaiko PAXG Reference Rate LDN,KK_RFR_PAXGUSD_LDN,PAXG,USD,Daily Fixing LDN,"July 17, 2024","March 04, 2024",-,-,
 Kaiko,Single-Asset,Kaiko PAXG Reference Rate NYC,KK_RFR_PAXGUSD_NYC,PAXG,USD,Daily Fixing NYC,"July 17, 2024","March 04, 2024","Bitso, Crypto.com, Gemini, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko PAXG Reference Rate SGP,KK_RFR_PAXGUSD_SGP,PAXG,USD,Daily Fixing SGP,"July 17, 2024","March 04, 2024","Bitso, Crypto.com, Gemini, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko PENDLE Reference Rate ,KK_RFR_PENDLEUSD,PENDLE,USD,Real-time (5s),"September 23, 2024","September 23, 2024","Crypto.com, Kraken",300s,
