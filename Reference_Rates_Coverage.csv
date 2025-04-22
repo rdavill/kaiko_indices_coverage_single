@@ -996,7 +996,7 @@ Kaiko,Single-Asset,Kaiko MORPHO Reference Rate NYC,KK_RFR_MORPHOUSD_NYC,MORPHO,U
 Kaiko,Single-Asset,Kaiko MORPHO Reference Rate SGP,KK_RFR_MORPHOUSD_SGP,MORPHO,USD,Daily Fixing SGP,"December 13, 2024","December 13, 2024","Coinbase, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko MPL Reference Rate ,KK_RFR_MPLUSD,MPL,USD,Real-time (5s),"March 04, 2024","March 04, 2024",Coinbase,300s,
 Kaiko,Single-Asset,Kaiko MPL Reference Rate LDN,KK_RFR_MPLUSD_LDN,MPL,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024",Coinbase,3600s,
-Kaiko,Single-Asset,Kaiko MPL Reference Rate NYC,KK_RFR_MPLUSD_NYC,MPL,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024",Coinbase,3600s,
+Kaiko,Single-Asset,Kaiko MPL Reference Rate NYC,KK_RFR_MPLUSD_NYC,MPL,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024",-,-,
 Kaiko,Single-Asset,Kaiko MPL Reference Rate SGP,KK_RFR_MPLUSD_SGP,MPL,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024",Coinbase,3600s,
 Kaiko,Single-Asset,Kaiko MUSE Reference Rate ,KK_RFR_MUSEUSD,MUSE,USD,Real-time (5s),"March 04, 2024","March 04, 2024",Coinbase,300s,
 Kaiko,Single-Asset,Kaiko MUSE Reference Rate LDN,KK_RFR_MUSEUSD_LDN,MUSE,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024",Coinbase,3600s,
