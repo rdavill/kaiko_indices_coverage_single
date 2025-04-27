@@ -135,7 +135,7 @@ Kaiko,Single-Asset,Kaiko CTXF Benchmark Reference Rate NYC,KK_BRR_CTXFUSD_NYC,CT
 Kaiko,Single-Asset,Kaiko CTXF Benchmark Reference Rate SGP,KK_BRR_CTXFUSD_SGP,CTXF,USD,Daily Fixing SGP,"December 13, 2024","December 13, 2024","Coinbase, Gemini, Bitstamp",3600s,
 Kaiko,Single-Asset,Kaiko DAI Benchmark Reference Rate ,KK_BRR_DAIUSD,DAI,USD,Real-time (5s),"January 17, 2023","January 17, 2023","Coinbase, Gemini, Kraken",60s,
 Kaiko,Single-Asset,Kaiko DAI Benchmark Reference Rate LDN,KK_BRR_DAIUSD_LDN,DAI,USD,Daily Fixing LDN,"January 17, 2023","January 17, 2023","Coinbase, Gemini, Kraken",300s,
-Kaiko,Single-Asset,Kaiko DAI Benchmark Reference Rate NYC,KK_BRR_DAIUSD_NYC,DAI,USD,Daily Fixing NYC,"January 17, 2023","January 17, 2023","Coinbase, Gemini, Kraken",300s,
+Kaiko,Single-Asset,Kaiko DAI Benchmark Reference Rate NYC,KK_BRR_DAIUSD_NYC,DAI,USD,Daily Fixing NYC,"January 17, 2023","January 17, 2023",-,-,
 Kaiko,Single-Asset,Kaiko DAI Benchmark Reference Rate SGP,KK_BRR_DAIUSD_SGP,DAI,USD,Daily Fixing SGP,"January 17, 2023","January 17, 2023","Coinbase, Gemini, Kraken",600s,
 Kaiko,Single-Asset,Kaiko DOGE Benchmark Reference Rate ,KK_BRR_DOGEUSD,DOGE,USD,Real-time (5s),"June 19, 2023","June 19, 2023","Coinbase, Crypto.com, Gemini, Kraken, Bitstamp",15s,
 Kaiko,Single-Asset,Kaiko DOGE Benchmark Reference Rate LDN,KK_BRR_DOGEUSD_LDN,DOGE,USD,Daily Fixing LDN,"December 13, 2024","December 13, 2024","Coinbase, Crypto.com, Gemini, Kraken, Bitstamp",300s,
