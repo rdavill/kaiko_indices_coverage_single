@@ -1485,7 +1485,7 @@ Kaiko,Single-Asset,Kaiko ZEUS Reference Rate SGP,KK_RFR_ZEUSUSD_SGP,ZEUS,USD,Dai
 Kaiko,Single-Asset,Kaiko ZK Reference Rate ,KK_RFR_ZKUSD,ZK,USD,Real-time (5s),"September 23, 2024","September 23, 2024","Coinbase, Crypto.com, Kraken",300s,
 Kaiko,Single-Asset,Kaiko ZK Reference Rate LDN,KK_RFR_ZKUSD_LDN,ZK,USD,Daily Fixing LDN,"September 23, 2024","September 23, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko ZK Reference Rate NYC,KK_RFR_ZKUSD_NYC,ZK,USD,Daily Fixing NYC,"September 23, 2024","September 23, 2024","Coinbase, Crypto.com, Kraken",3600s,
-Kaiko,Single-Asset,Kaiko ZK Reference Rate SGP,KK_RFR_ZKUSD_SGP,ZK,USD,Daily Fixing SGP,"September 23, 2024","September 23, 2024",-,-,
+Kaiko,Single-Asset,Kaiko ZK Reference Rate SGP,KK_RFR_ZKUSD_SGP,ZK,USD,Daily Fixing SGP,"September 23, 2024","September 23, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko ZRO Reference Rate ,KK_RFR_ZROUSD,ZRO,USD,Real-time (5s),"September 23, 2024","September 23, 2024","Bitfinex, Coinbase, Crypto.com, Kraken",300s,
 Kaiko,Single-Asset,Kaiko ZRO Reference Rate LDN,KK_RFR_ZROUSD_LDN,ZRO,USD,Daily Fixing LDN,"September 23, 2024","September 23, 2024","Bitfinex, Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko ZRO Reference Rate NYC,KK_RFR_ZROUSD_NYC,ZRO,USD,Daily Fixing NYC,"September 23, 2024","September 23, 2024","Bitfinex, Coinbase, Crypto.com, Kraken",3600s,
