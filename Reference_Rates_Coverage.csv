@@ -575,7 +575,7 @@ Kaiko,Single-Asset,Kaiko CVX Reference Rate ,KK_RFR_CVXUSD,CVX,USD,Real-time (5s
 Kaiko,Single-Asset,Kaiko CVX Reference Rate LDN,KK_RFR_CVXUSD_LDN,CVX,USD,Daily Fixing LDN,"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko CVX Reference Rate NYC,KK_RFR_CVXUSD_NYC,CVX,USD,Daily Fixing NYC,"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko CVX Reference Rate SGP,KK_RFR_CVXUSD_SGP,CVX,USD,Daily Fixing SGP,"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",3600s,
-Kaiko,Single-Asset,Kaiko DAI Reference Rate ,KK_RFR_DAIUSD,DAI,USD,Real-time (5s),"September 20, 2022","September 20, 2022",-,-,
+Kaiko,Single-Asset,Kaiko DAI Reference Rate ,KK_RFR_DAIUSD,DAI,USD,Real-time (5s),"September 20, 2022","September 20, 2022","Coinbase, Gemini, Kraken",300s,
 Kaiko,Single-Asset,Kaiko DAI Reference Rate LDN,KK_RFR_DAIUSD_LDN,DAI,USD,Daily Fixing LDN,"September 20, 2022","September 20, 2022","Coinbase, Gemini, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko DAI Reference Rate NYC,KK_RFR_DAIUSD_NYC,DAI,USD,Daily Fixing NYC,"September 20, 2022","September 20, 2022","Coinbase, Gemini, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko DAI Reference Rate SGP,KK_RFR_DAIUSD_SGP,DAI,USD,Daily Fixing SGP,"September 20, 2022","September 20, 2022","Coinbase, Gemini, Kraken",3600s,
