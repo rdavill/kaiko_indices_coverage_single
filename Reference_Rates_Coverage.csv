@@ -1238,7 +1238,7 @@ Kaiko,Single-Asset,Kaiko SEAM Reference Rate ,KK_RFR_SEAMUSD,SEAM,USD,Real-time 
 Kaiko,Single-Asset,Kaiko SEAM Reference Rate LDN,KK_RFR_SEAMUSD_LDN,SEAM,USD,Daily Fixing LDN,"September 23, 2024","September 23, 2024",Coinbase,3600s,
 Kaiko,Single-Asset,Kaiko SEAM Reference Rate NYC,KK_RFR_SEAMUSD_NYC,SEAM,USD,Daily Fixing NYC,"September 23, 2024","September 23, 2024",Coinbase,3600s,
 Kaiko,Single-Asset,Kaiko SEAM Reference Rate SGP,KK_RFR_SEAMUSD_SGP,SEAM,USD,Daily Fixing SGP,"September 23, 2024","September 23, 2024",Coinbase,3600s,
-Kaiko,Single-Asset,Kaiko SEI Reference Rate ,KK_RFR_SEIUSD,SEI,USD,Real-time (5s),"March 07, 2024","March 07, 2024","Coinbase, Kraken",300s,
+Kaiko,Single-Asset,Kaiko SEI Reference Rate ,KK_RFR_SEIUSD,SEI,USD,Real-time (5s),"March 07, 2024","March 07, 2024",-,-,
 Kaiko,Single-Asset,Kaiko SEI Reference Rate LDN,KK_RFR_SEIUSD_LDN,SEI,USD,Daily Fixing LDN,"March 07, 2024","March 07, 2024","Coinbase, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko SEI Reference Rate NYC,KK_RFR_SEIUSD_NYC,SEI,USD,Daily Fixing NYC,"March 07, 2024","March 07, 2024","Coinbase, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko SEI Reference Rate SGP,KK_RFR_SEIUSD_SGP,SEI,USD,Daily Fixing SGP,"March 07, 2024","March 07, 2024","Coinbase, Kraken",3600s,
