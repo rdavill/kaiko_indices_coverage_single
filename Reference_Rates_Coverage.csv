@@ -1342,7 +1342,7 @@ Kaiko,Single-Asset,Kaiko TRB Reference Rate ,KK_RFR_TRBUSD,TRB,USD,Real-time (5s
 Kaiko,Single-Asset,Kaiko TRB Reference Rate LDN,KK_RFR_TRBUSD_LDN,TRB,USD,Daily Fixing LDN,"March 07, 2024","March 07, 2024","Coinbase, Crypto.com",3600s,
 Kaiko,Single-Asset,Kaiko TRB Reference Rate NYC,KK_RFR_TRBUSD_NYC,TRB,USD,Daily Fixing NYC,"March 07, 2024","March 07, 2024","Coinbase, Crypto.com",3600s,
 Kaiko,Single-Asset,Kaiko TRB Reference Rate SGP,KK_RFR_TRBUSD_SGP,TRB,USD,Daily Fixing SGP,"March 07, 2024","March 07, 2024","Coinbase, Crypto.com",3600s,
-Kaiko,Single-Asset,Kaiko TREMP Reference Rate ,KK_RFR_TREMPUSD,TREMP,USD,Real-time (5s),"September 23, 2024","September 23, 2024",Kraken,300s,
+Kaiko,Single-Asset,Kaiko TREMP Reference Rate ,KK_RFR_TREMPUSD,TREMP,USD,Real-time (5s),"September 23, 2024","September 23, 2024",-,-,
 Kaiko,Single-Asset,Kaiko TREMP Reference Rate LDN,KK_RFR_TREMPUSD_LDN,TREMP,USD,Daily Fixing LDN,"September 23, 2024","September 23, 2024",Kraken,3600s,
 Kaiko,Single-Asset,Kaiko TREMP Reference Rate NYC,KK_RFR_TREMPUSD_NYC,TREMP,USD,Daily Fixing NYC,"September 23, 2024","September 23, 2024",Kraken,3600s,
 Kaiko,Single-Asset,Kaiko TREMP Reference Rate SGP,KK_RFR_TREMPUSD_SGP,TREMP,USD,Daily Fixing SGP,"September 23, 2024","September 23, 2024",Kraken,3600s,
