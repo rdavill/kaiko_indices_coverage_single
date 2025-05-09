@@ -129,7 +129,7 @@ Kaiko,Single-Asset,Kaiko CRV Benchmark Reference Rate ,KK_BRR_CRVUSD,CRV,USD,Rea
 Kaiko,Single-Asset,Kaiko CRV Benchmark Reference Rate LDN,KK_BRR_CRVUSD_LDN,CRV,USD,Daily Fixing LDN,"January 17, 2023","January 17, 2023","Coinbase, Gemini, Kraken",300s,
 Kaiko,Single-Asset,Kaiko CRV Benchmark Reference Rate NYC,KK_BRR_CRVUSD_NYC,CRV,USD,Daily Fixing NYC,"January 17, 2023","January 17, 2023","Coinbase, Gemini, Kraken",300s,
 Kaiko,Single-Asset,Kaiko CRV Benchmark Reference Rate SGP,KK_BRR_CRVUSD_SGP,CRV,USD,Daily Fixing SGP,"January 17, 2023","January 17, 2023","Coinbase, Gemini, Kraken",300s,
-Kaiko,Single-Asset,Kaiko CTXF Benchmark Reference Rate ,KK_BRR_CTXFUSD,CTXF,USD,Real-time (5s),"December 24, 2024","December 24, 2024","Coinbase, Gemini, Bitstamp",300s,
+Kaiko,Single-Asset,Kaiko CTXF Benchmark Reference Rate ,KK_BRR_CTXFUSD,CTXF,USD,Real-time (5s),"December 24, 2024","December 24, 2024",-,-,
 Kaiko,Single-Asset,Kaiko CTXF Benchmark Reference Rate LDN,KK_BRR_CTXFUSD_LDN,CTXF,USD,Daily Fixing LDN,"December 13, 2024","December 13, 2024","Coinbase, Gemini, Bitstamp",1200s,
 Kaiko,Single-Asset,Kaiko CTXF Benchmark Reference Rate NYC,KK_BRR_CTXFUSD_NYC,CTXF,USD,Daily Fixing NYC,"December 13, 2024","December 13, 2024","Coinbase, Gemini, Bitstamp",900s,
 Kaiko,Single-Asset,Kaiko CTXF Benchmark Reference Rate SGP,KK_BRR_CTXFUSD_SGP,CTXF,USD,Daily Fixing SGP,"December 13, 2024","December 13, 2024","Coinbase, Gemini, Bitstamp",3600s,
