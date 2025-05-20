@@ -778,7 +778,7 @@ Kaiko,Single-Asset,Kaiko GTC Reference Rate LDN,KK_RFR_GTCUSD_LDN,GTC,USD,Daily 
 Kaiko,Single-Asset,Kaiko GTC Reference Rate NYC,KK_RFR_GTCUSD_NYC,GTC,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko GTC Reference Rate SGP,KK_RFR_GTCUSD_SGP,GTC,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko G Reference Rate ,KK_RFR_GUSD,G,USD,Real-time (5s),"September 23, 2024","September 23, 2024","Coinbase, Crypto.com",300s,
-Kaiko,Single-Asset,Kaiko G Reference Rate LDN,KK_RFR_GUSD_LDN,G,USD,Daily Fixing LDN,"September 23, 2024","September 23, 2024",-,-,
+Kaiko,Single-Asset,Kaiko G Reference Rate LDN,KK_RFR_GUSD_LDN,G,USD,Daily Fixing LDN,"September 23, 2024","September 23, 2024","Coinbase, Crypto.com",3600s,
 Kaiko,Single-Asset,Kaiko G Reference Rate NYC,KK_RFR_GUSD_NYC,G,USD,Daily Fixing NYC,"September 23, 2024","September 23, 2024","Coinbase, Crypto.com",3600s,
 Kaiko,Single-Asset,Kaiko G Reference Rate SGP,KK_RFR_GUSD_SGP,G,USD,Daily Fixing SGP,"September 23, 2024","September 23, 2024","Coinbase, Crypto.com",3600s,
 Kaiko,Single-Asset,Kaiko HBAR Reference Rate ,KK_RFR_HBARUSD,HBAR,USD,Real-time (5s),"September 20, 2022","September 20, 2022","Coinbase, Crypto.com, Bitstamp",300s,
