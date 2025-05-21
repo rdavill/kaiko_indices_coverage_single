@@ -290,7 +290,7 @@ Kaiko,Single-Asset,Kaiko ABT Reference Rate LDN,KK_RFR_ABTUSD_LDN,ABT,USD,Daily 
 Kaiko,Single-Asset,Kaiko ABT Reference Rate NYC,KK_RFR_ABTUSD_NYC,ABT,USD,Daily Fixing NYC,"February 27, 2024","February 27, 2024",Coinbase,3600s,
 Kaiko,Single-Asset,Kaiko ABT Reference Rate SGP,KK_RFR_ABTUSD_SGP,ABT,USD,Daily Fixing SGP,"February 27, 2024","February 27, 2024",Coinbase,3600s,
 Kaiko,Single-Asset,Kaiko ACH Reference Rate ,KK_RFR_ACHUSD,ACH,USD,Real-time (5s),"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",300s,
-Kaiko,Single-Asset,Kaiko ACH Reference Rate LDN,KK_RFR_ACHUSD_LDN,ACH,USD,Daily Fixing LDN,"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",3600s,
+Kaiko,Single-Asset,Kaiko ACH Reference Rate LDN,KK_RFR_ACHUSD_LDN,ACH,USD,Daily Fixing LDN,"February 27, 2024","February 27, 2024",-,-,
 Kaiko,Single-Asset,Kaiko ACH Reference Rate NYC,KK_RFR_ACHUSD_NYC,ACH,USD,Daily Fixing NYC,"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko ACH Reference Rate SGP,KK_RFR_ACHUSD_SGP,ACH,USD,Daily Fixing SGP,"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko ACS Reference Rate ,KK_RFR_ACSUSD,ACS,USD,Real-time (5s),"February 27, 2024","February 27, 2024","Coinbase, Crypto.com",300s,
