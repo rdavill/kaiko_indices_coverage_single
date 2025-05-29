@@ -871,7 +871,7 @@ Kaiko,Single-Asset,Kaiko KAVA Reference Rate NYC,KK_RFR_KAVAUSD_NYC,KAVA,USD,Dai
 Kaiko,Single-Asset,Kaiko KAVA Reference Rate SGP,KK_RFR_KAVAUSD_SGP,KAVA,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","Bitfinex, Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko KEY Reference Rate ,KK_RFR_KEYUSD,KEY,USD,Real-time (5s),"March 04, 2024","March 04, 2024",Kraken,300s,
 Kaiko,Single-Asset,Kaiko KEY Reference Rate LDN,KK_RFR_KEYUSD_LDN,KEY,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024",Kraken,3600s,
-Kaiko,Single-Asset,Kaiko KEY Reference Rate NYC,KK_RFR_KEYUSD_NYC,KEY,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024",Kraken,3600s,
+Kaiko,Single-Asset,Kaiko KEY Reference Rate NYC,KK_RFR_KEYUSD_NYC,KEY,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024",-,-,
 Kaiko,Single-Asset,Kaiko KEY Reference Rate SGP,KK_RFR_KEYUSD_SGP,KEY,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024",Kraken,3600s,
 Kaiko,Single-Asset,Kaiko KNC Reference Rate ,KK_RFR_KNCUSD,KNC,USD,Real-time (5s),"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",300s,
 Kaiko,Single-Asset,Kaiko KNC Reference Rate LDN,KK_RFR_KNCUSD_LDN,KNC,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",3600s,
