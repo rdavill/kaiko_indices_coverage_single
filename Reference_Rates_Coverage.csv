@@ -1042,7 +1042,7 @@ Kaiko,Single-Asset,Kaiko OGN Reference Rate ,KK_RFR_OGNUSD,OGN,USD,Real-time (5s
 Kaiko,Single-Asset,Kaiko OGN Reference Rate LDN,KK_RFR_OGNUSD_LDN,OGN,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko OGN Reference Rate NYC,KK_RFR_OGNUSD_NYC,OGN,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko OGN Reference Rate SGP,KK_RFR_OGNUSD_SGP,OGN,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",3600s,
-Kaiko,Single-Asset,Kaiko OMG Reference Rate ,KK_RFR_OMGUSD,OMG,USD,Real-time (5s),"July 17, 2024","March 04, 2024",-,-,
+Kaiko,Single-Asset,Kaiko OMG Reference Rate ,KK_RFR_OMGUSD,OMG,USD,Real-time (5s),"July 17, 2024","March 04, 2024","Bitfinex, Bitso",300s,
 Kaiko,Single-Asset,Kaiko OMG Reference Rate LDN,KK_RFR_OMGUSD_LDN,OMG,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024","Bitfinex, Bitso",3600s,
 Kaiko,Single-Asset,Kaiko OMG Reference Rate NYC,KK_RFR_OMGUSD_NYC,OMG,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024","Bitfinex, Bitso",3600s,
 Kaiko,Single-Asset,Kaiko OMG Reference Rate SGP,KK_RFR_OMGUSD_SGP,OMG,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","Bitfinex, Bitso",3600s,
