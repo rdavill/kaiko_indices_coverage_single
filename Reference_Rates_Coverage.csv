@@ -927,7 +927,7 @@ Kaiko,Single-Asset,Kaiko LRDS Reference Rate NYC,KK_RFR_LRDSUSD_NYC,LRDS,USD,Dai
 Kaiko,Single-Asset,Kaiko LRDS Reference Rate SGP,KK_RFR_LRDSUSD_SGP,LRDS,USD,Daily Fixing SGP,"September 23, 2024","September 23, 2024",Coinbase,3600s,
 Kaiko,Single-Asset,Kaiko LTC Reference Rate ,KK_RFR_LTCUSD,LTC,USD,Real-time (5s),"September 20, 2022","September 20, 2022","Coinbase, Crypto.com, Kraken, LMAX, Bitstamp",300s,
 Kaiko,Single-Asset,Kaiko LTC Reference Rate LDN,KK_RFR_LTCUSD_LDN,LTC,USD,Daily Fixing LDN,"September 20, 2022","September 20, 2022","Coinbase, Crypto.com, Kraken, LMAX, Bitstamp",3600s,
-Kaiko,Single-Asset,Kaiko LTC Reference Rate NYC,KK_RFR_LTCUSD_NYC,LTC,USD,Daily Fixing NYC,"September 20, 2022","September 20, 2022",-,-,
+Kaiko,Single-Asset,Kaiko LTC Reference Rate NYC,KK_RFR_LTCUSD_NYC,LTC,USD,Daily Fixing NYC,"September 20, 2022","September 20, 2022","Coinbase, Crypto.com, Kraken, LMAX, Bitstamp",3600s,
 Kaiko,Single-Asset,Kaiko LTC Reference Rate SGP,KK_RFR_LTCUSD_SGP,LTC,USD,Daily Fixing SGP,"September 20, 2022","September 20, 2022","Coinbase, Crypto.com, Kraken, LMAX, Bitstamp",3600s,
 Kaiko,Single-Asset,Kaiko LUNA2 Reference Rate ,KK_RFR_LUNA2USD,LUNA2,USD,Real-time (5s),"March 04, 2024","March 04, 2024","Bitfinex, Crypto.com, Kraken",300s,
 Kaiko,Single-Asset,Kaiko LUNA2 Reference Rate LDN,KK_RFR_LUNA2USD_LDN,LUNA2,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024","Bitfinex, Crypto.com, Kraken",3600s,
