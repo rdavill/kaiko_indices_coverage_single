@@ -93,7 +93,7 @@ Kaiko,Single-Asset,Kaiko API3 Benchmark Reference Rate LDN,KK_BRR_API3USD_LDN,AP
 Kaiko,Single-Asset,Kaiko API3 Benchmark Reference Rate NYC,KK_BRR_API3USD_NYC,API3,USD,Daily Fixing NYC,"February 13, 2024","February 13, 2024","Coinbase, Crypto.com, Gemini, Kraken",300s,
 Kaiko,Single-Asset,Kaiko API3 Benchmark Reference Rate SGP,KK_BRR_API3USD_SGP,API3,USD,Daily Fixing SGP,"February 13, 2024","February 13, 2024","Coinbase, Crypto.com, Gemini, Kraken",300s,
 Kaiko,Single-Asset,Kaiko AUDIO Benchmark Reference Rate ,KK_BRR_AUDIOUSD,AUDIO,USD,Real-time (5s),"February 13, 2024","February 13, 2024","Coinbase, Crypto.com, Kraken, Bitstamp",300s,
-Kaiko,Single-Asset,Kaiko AUDIO Benchmark Reference Rate LDN,KK_BRR_AUDIOUSD_LDN,AUDIO,USD,Daily Fixing LDN,"February 13, 2024","February 13, 2024","Coinbase, Crypto.com, Kraken, Bitstamp",300s,
+Kaiko,Single-Asset,Kaiko AUDIO Benchmark Reference Rate LDN,KK_BRR_AUDIOUSD_LDN,AUDIO,USD,Daily Fixing LDN,"February 13, 2024","February 13, 2024",-,-,
 Kaiko,Single-Asset,Kaiko AUDIO Benchmark Reference Rate NYC,KK_BRR_AUDIOUSD_NYC,AUDIO,USD,Daily Fixing NYC,"February 13, 2024","February 13, 2024","Coinbase, Crypto.com, Kraken, Bitstamp",600s,
 Kaiko,Single-Asset,Kaiko AUDIO Benchmark Reference Rate SGP,KK_BRR_AUDIOUSD_SGP,AUDIO,USD,Daily Fixing SGP,"February 13, 2024","February 13, 2024","Coinbase, Crypto.com, Kraken, Bitstamp",1200s,
 Kaiko,Single-Asset,Kaiko AVAX Benchmark Reference Rate ,KK_BRR_AVAXUSD,AVAX,USD,Real-time (5s),"June 19, 2023","June 19, 2023","Coinbase, Crypto.com, Kraken, Bitstamp",30s,
