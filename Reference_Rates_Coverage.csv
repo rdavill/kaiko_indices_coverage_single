@@ -971,7 +971,7 @@ Kaiko,Single-Asset,Kaiko MINA Reference Rate LDN,KK_RFR_MINAUSD_LDN,MINA,USD,Dai
 Kaiko,Single-Asset,Kaiko MINA Reference Rate NYC,KK_RFR_MINAUSD_NYC,MINA,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko MINA Reference Rate SGP,KK_RFR_MINAUSD_SGP,MINA,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko MKR Reference Rate ,KK_RFR_MKRUSD,MKR,USD,Real-time (5s),"September 20, 2022","September 20, 2022","BeQuant, Bitfinex, Coinbase, Crypto.com, Kraken",300s,
-Kaiko,Single-Asset,Kaiko MKR Reference Rate LDN,KK_RFR_MKRUSD_LDN,MKR,USD,Daily Fixing LDN,"September 20, 2022","September 20, 2022",-,-,
+Kaiko,Single-Asset,Kaiko MKR Reference Rate LDN,KK_RFR_MKRUSD_LDN,MKR,USD,Daily Fixing LDN,"September 20, 2022","September 20, 2022","BeQuant, Bitfinex, Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko MKR Reference Rate NYC,KK_RFR_MKRUSD_NYC,MKR,USD,Daily Fixing NYC,"September 20, 2022","September 20, 2022","BeQuant, Bitfinex, Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko MKR Reference Rate SGP,KK_RFR_MKRUSD_SGP,MKR,USD,Daily Fixing SGP,"September 20, 2022","September 20, 2022","BeQuant, Bitfinex, Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko MLN Reference Rate ,KK_RFR_MLNUSD,MLN,USD,Real-time (5s),"July 17, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",300s,
