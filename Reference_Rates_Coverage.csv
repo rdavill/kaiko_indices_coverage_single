@@ -1327,7 +1327,7 @@ Kaiko,Single-Asset,Kaiko TIA Reference Rate LDN,KK_RFR_TIAUSD_LDN,TIA,USD,Daily 
 Kaiko,Single-Asset,Kaiko TIA Reference Rate NYC,KK_RFR_TIAUSD_NYC,TIA,USD,Daily Fixing NYC,"March 07, 2024","March 07, 2024","Coinbase, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko TIA Reference Rate SGP,KK_RFR_TIAUSD_SGP,TIA,USD,Daily Fixing SGP,"March 07, 2024","March 07, 2024","Coinbase, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko TNSR Reference Rate ,KK_RFR_TNSRUSD,TNSR,USD,Real-time (5s),"June 24, 2024","June 24, 2024","Coinbase, Crypto.com, Kraken",300s,
-Kaiko,Single-Asset,Kaiko TNSR Reference Rate LDN,KK_RFR_TNSRUSD_LDN,TNSR,USD,Daily Fixing LDN,"June 24, 2024","June 24, 2024",-,-,
+Kaiko,Single-Asset,Kaiko TNSR Reference Rate LDN,KK_RFR_TNSRUSD_LDN,TNSR,USD,Daily Fixing LDN,"June 24, 2024","June 24, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko TNSR Reference Rate NYC,KK_RFR_TNSRUSD_NYC,TNSR,USD,Daily Fixing NYC,"June 24, 2024","June 24, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko TNSR Reference Rate SGP,KK_RFR_TNSRUSD_SGP,TNSR,USD,Daily Fixing SGP,"June 24, 2024","June 24, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko TON Reference Rate ,KK_RFR_TONUSD,TON,USD,Real-time (5s),"July 17, 2024","February 28, 2024","Bitfinex, Crypto.com, Kraken",300s,
