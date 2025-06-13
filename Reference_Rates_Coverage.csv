@@ -893,7 +893,7 @@ Kaiko,Single-Asset,Kaiko LCX Reference Rate ,KK_RFR_LCXUSD,LCX,USD,Real-time (5s
 Kaiko,Single-Asset,Kaiko LCX Reference Rate LDN,KK_RFR_LCXUSD_LDN,LCX,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024","Coinbase, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko LCX Reference Rate NYC,KK_RFR_LCXUSD_NYC,LCX,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024","Coinbase, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko LCX Reference Rate SGP,KK_RFR_LCXUSD_SGP,LCX,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","Coinbase, Kraken",3600s,
-Kaiko,Single-Asset,Kaiko LDO Reference Rate ,KK_RFR_LDOUSD,LDO,USD,Real-time (5s),"March 04, 2024","March 04, 2024",-,-,
+Kaiko,Single-Asset,Kaiko LDO Reference Rate ,KK_RFR_LDOUSD,LDO,USD,Real-time (5s),"March 04, 2024","March 04, 2024","Bitso, Coinbase, Crypto.com, Kraken",300s,
 Kaiko,Single-Asset,Kaiko LDO Reference Rate LDN,KK_RFR_LDOUSD_LDN,LDO,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024","Bitso, Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko LDO Reference Rate NYC,KK_RFR_LDOUSD_NYC,LDO,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024","Bitso, Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko LDO Reference Rate SGP,KK_RFR_LDOUSD_SGP,LDO,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","Bitso, Coinbase, Crypto.com, Kraken",3600s,
