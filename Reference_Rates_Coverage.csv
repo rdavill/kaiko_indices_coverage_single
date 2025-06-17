@@ -393,7 +393,7 @@ Kaiko,Single-Asset,Kaiko ATH Reference Rate ,KK_RFR_ATHUSD,ATH,USD,Real-time (5s
 Kaiko,Single-Asset,Kaiko ATH Reference Rate LDN,KK_RFR_ATHUSD_LDN,ATH,USD,Daily Fixing LDN,"September 23, 2024","September 23, 2024","Bitfinex, Crypto.com, Kraken, OkEX",3600s,
 Kaiko,Single-Asset,Kaiko ATH Reference Rate NYC,KK_RFR_ATHUSD_NYC,ATH,USD,Daily Fixing NYC,"September 23, 2024","September 23, 2024","Bitfinex, Crypto.com, Kraken, OkEX",3600s,
 Kaiko,Single-Asset,Kaiko ATH Reference Rate SGP,KK_RFR_ATHUSD_SGP,ATH,USD,Daily Fixing SGP,"September 23, 2024","September 23, 2024","Bitfinex, Crypto.com, Kraken, OkEX",3600s,
-Kaiko,Single-Asset,Kaiko ATOM Reference Rate ,KK_RFR_ATOMUSD,ATOM,USD,Real-time (5s),"September 20, 2022","September 20, 2022",-,-,
+Kaiko,Single-Asset,Kaiko ATOM Reference Rate ,KK_RFR_ATOMUSD,ATOM,USD,Real-time (5s),"September 20, 2022","September 20, 2022","Bitfinex, Bitso, Coinbase, Crypto.com, Kraken",300s,
 Kaiko,Single-Asset,Kaiko ATOM Reference Rate LDN,KK_RFR_ATOMUSD_LDN,ATOM,USD,Daily Fixing LDN,"September 20, 2022","September 20, 2022","Bitfinex, Bitso, Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko ATOM Reference Rate NYC,KK_RFR_ATOMUSD_NYC,ATOM,USD,Daily Fixing NYC,"September 20, 2022","September 20, 2022","Bitfinex, Bitso, Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko ATOM Reference Rate SGP,KK_RFR_ATOMUSD_SGP,ATOM,USD,Daily Fixing SGP,"September 20, 2022","September 20, 2022","Bitfinex, Bitso, Coinbase, Crypto.com, Kraken",3600s,
