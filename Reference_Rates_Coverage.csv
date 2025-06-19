@@ -469,7 +469,7 @@ Kaiko,Single-Asset,Kaiko BLAST Reference Rate ,KK_RFR_BLASTUSD,BLAST,USD,Real-ti
 Kaiko,Single-Asset,Kaiko BLAST Reference Rate LDN,KK_RFR_BLASTUSD_LDN,BLAST,USD,Daily Fixing LDN,"September 23, 2024","September 23, 2024","Coinbase, Crypto.com",3600s,
 Kaiko,Single-Asset,Kaiko BLAST Reference Rate NYC,KK_RFR_BLASTUSD_NYC,BLAST,USD,Daily Fixing NYC,"September 23, 2024","September 23, 2024","Coinbase, Crypto.com",3600s,
 Kaiko,Single-Asset,Kaiko BLAST Reference Rate SGP,KK_RFR_BLASTUSD_SGP,BLAST,USD,Daily Fixing SGP,"September 23, 2024","September 23, 2024","Coinbase, Crypto.com",3600s,
-Kaiko,Single-Asset,Kaiko BLUR Reference Rate ,KK_RFR_BLURUSD,BLUR,USD,Real-time (5s),"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",300s,
+Kaiko,Single-Asset,Kaiko BLUR Reference Rate ,KK_RFR_BLURUSD,BLUR,USD,Real-time (5s),"February 27, 2024","February 27, 2024",-,-,
 Kaiko,Single-Asset,Kaiko BLUR Reference Rate LDN,KK_RFR_BLURUSD_LDN,BLUR,USD,Daily Fixing LDN,"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko BLUR Reference Rate NYC,KK_RFR_BLURUSD_NYC,BLUR,USD,Daily Fixing NYC,"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko BLUR Reference Rate SGP,KK_RFR_BLURUSD_SGP,BLUR,USD,Daily Fixing SGP,"February 27, 2024","February 27, 2024","Coinbase, Crypto.com, Kraken",3600s,
