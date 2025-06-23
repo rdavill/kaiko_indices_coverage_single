@@ -826,7 +826,7 @@ Kaiko,Single-Asset,Kaiko IMX Reference Rate LDN,KK_RFR_IMXUSD_LDN,IMX,USD,Daily 
 Kaiko,Single-Asset,Kaiko IMX Reference Rate NYC,KK_RFR_IMXUSD_NYC,IMX,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko IMX Reference Rate SGP,KK_RFR_IMXUSD_SGP,IMX,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko INDEX Reference Rate ,KK_RFR_INDEXUSD,INDEX,USD,Real-time (5s),"March 04, 2024","March 04, 2024",Coinbase,300s,
-Kaiko,Single-Asset,Kaiko INDEX Reference Rate LDN,KK_RFR_INDEXUSD_LDN,INDEX,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024",-,-,
+Kaiko,Single-Asset,Kaiko INDEX Reference Rate LDN,KK_RFR_INDEXUSD_LDN,INDEX,USD,Daily Fixing LDN,"March 04, 2024","March 04, 2024",Coinbase,3600s,
 Kaiko,Single-Asset,Kaiko INDEX Reference Rate NYC,KK_RFR_INDEXUSD_NYC,INDEX,USD,Daily Fixing NYC,"March 04, 2024","March 04, 2024",Coinbase,3600s,
 Kaiko,Single-Asset,Kaiko INDEX Reference Rate SGP,KK_RFR_INDEXUSD_SGP,INDEX,USD,Daily Fixing SGP,"March 04, 2024","March 04, 2024",Coinbase,3600s,
 Kaiko,Single-Asset,Kaiko INJ Reference Rate ,KK_RFR_INJUSD,INJ,USD,Real-time (5s),"March 04, 2024","March 04, 2024","Coinbase, Crypto.com, Gemini, Kraken",300s,
