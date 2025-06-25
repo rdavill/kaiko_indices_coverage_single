@@ -373,12 +373,11 @@ def write_filtered_csv(items, headers):
     debug_print(f"Benchmark families in the data: {families}")
 
 def pull_and_save_data_to_csv(api_url, api_key):
-    """Fetch reference rates and save them to CSV."""
+    """Fetch reference rates and save them to CSV, excluding entries with Coinbase in exchanges."""
     debug_print("Starting data pull and save process")
-
     existing_fact_sheets = get_existing_fact_sheets()
     fixed_items = get_fixed_entries()
-
+    
     # Get exchange name mappings upfront to reuse for all API calls
     exchange_mappings = get_exchange_name_mappings()
     debug_print(f"Loaded {len(exchange_mappings)} exchange mappings for all API calls")
@@ -401,11 +400,10 @@ def pull_and_save_data_to_csv(api_url, api_key):
     
     # Don't need API key for reference data
     response = requests.get(api_url)
-
     if response.status_code == 200:
         data = json.loads(response.text)
         api_items = []
-
+        
         # Log item types for debugging
         item_types = {}
         for item in data['data']:
@@ -413,7 +411,7 @@ def pull_and_save_data_to_csv(api_url, api_key):
             item_types[item_type] = item_types.get(item_type, 0) + 1
         
         debug_print(f"Item types in API response: {item_types}")
-
+        
         # Filter for USD quote items only
         usd_items = []
         for item in data['data']:
@@ -422,7 +420,7 @@ def pull_and_save_data_to_csv(api_url, api_key):
                 usd_items.append(item)
         
         debug_print(f"Filtered {len(data['data'])} items to {len(usd_items)} USD quote items")
-
+        
         # Count of reference rate types after filtering
         reference_rate_count = 0
         
@@ -451,21 +449,17 @@ def pull_and_save_data_to_csv(api_url, api_key):
             # Remove any trailing commas from factsheet
             if fact_sheet.endswith(','):
                 fact_sheet = fact_sheet[:-1]
-
+            
             # Fetch exchanges & calculation window using the exchange mappings
             exchanges, calc_window = fetch_historical_prices_data(ticker, asset_type, api_key, exchange_mappings)
             
-            if exchanges == 'EXCLUDE' and calc_window == 'EXCLUDE':
-                debug_print(f"Skipping {ticker} due to old publication time")
-                continue 
-
             api_items.append((
                 brand, normalized_family, short_name, ticker, base_short_name, quote_short_name,
                 dissemination, launch_date, inception, exchanges, calc_window, fact_sheet
             ))
         
         debug_print(f"Found {reference_rate_count} reference rate items after USD filtering")
-
+        
         # Process fixed items - already normalized in get_fixed_entries
         fixed_items_with_fact_sheets = []
         for entry in fixed_items:
@@ -480,24 +474,36 @@ def pull_and_save_data_to_csv(api_url, api_key):
             fixed_items_with_fact_sheets.append(entry[:11] + (factsheet,))
         
         all_items = fixed_items_with_fact_sheets + sorted(api_items, key=lambda row: row[3])
-
+        
+        # Filter out items with Coinbase in exchanges before saving
+        filtered_items = []
+        coinbase_count = 0
+        for item in all_items:
+            exchanges_column = item[9]  # Exchanges is the 10th column (index 9)
+            if "Coinbase" not in exchanges_column:
+                filtered_items.append(item)
+            else:
+                coinbase_count += 1
+                debug_print(f"Excluding {item[3]} due to Coinbase in exchanges: {exchanges_column}")
+        
+        debug_print(f"Filtered from {len(all_items)} to {len(filtered_items)} items (removed {coinbase_count} Coinbase entries)")
+        
         # Check for items with non-default exchanges and calculation windows
-        non_default_count = sum(1 for item in all_items if item[9] != '-' or item[10] != '-')
+        non_default_count = sum(1 for item in filtered_items if item[9] != '-' or item[10] != '-')
         debug_print(f"Items with non-default exchanges or calculation windows: {non_default_count}")
-
-        # Save to CSV
+        
+        # Save to CSV with filtered items
         main_csv_path = "Reference_Rates_Coverage.csv"
         debug_print(f"Saving main CSV to {os.path.abspath(main_csv_path)}")
-
         with open(main_csv_path, "w", newline='') as csv_file:
             writer = csv.writer(csv_file, quoting=csv.QUOTE_MINIMAL)
             writer.writerow(headers)
-            writer.writerows(all_items)
+            writer.writerows(filtered_items)
         
-        # Write the filtered CSV with only entries that have factsheets
-        write_filtered_csv(all_items, headers)
-
+        # Write the filtered CSV with only entries that have factsheets (also excluding Coinbase)
+        write_filtered_csv(filtered_items, headers)
         debug_print("Process complete")
+        
     else:
         debug_print(f"❌ Error fetching API data: {response.status_code}")
 
