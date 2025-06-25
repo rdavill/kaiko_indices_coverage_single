@@ -226,9 +226,15 @@ def fetch_historical_prices_data(ticker, asset_type, api_key, exchange_mappings=
     """
     Fetch historical price data for Reference_Rate, Benchmark_Reference_Rate, and Single-Asset.
     Uses exchange_mappings to convert exchange codes to full names.
+    Filters out rates with publication time before 9pm UTC yesterday.
     """
     debug_print(f"Fetching historical prices data for ticker: {ticker}, Type: {asset_type}")
-
+    
+    # Calculate 9pm UTC yesterday
+    yesterday_9pm_utc = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=1)
+    yesterday_9pm_utc = yesterday_9pm_utc.replace(hour=21)  # 9pm UTC
+    debug_print(f"Filtering cutoff time: {yesterday_9pm_utc.isoformat()}Z")
+    
     # Load exchange mappings if not provided or if empty
     if exchange_mappings is None or len(exchange_mappings) == 0:
         debug_print("Exchange mappings missing or empty, generating new mappings")
@@ -236,7 +242,7 @@ def fetch_historical_prices_data(ticker, asset_type, api_key, exchange_mappings=
         debug_print(f"Generated {len(exchange_mappings)} exchange mappings")
     else:
         debug_print(f"Using provided exchange mappings with {len(exchange_mappings)} items")
-
+    
     # If no API key provided, return default values
     if not api_key:
         debug_print(f"No API key provided, skipping historical data fetch for {ticker}")
@@ -255,14 +261,28 @@ def fetch_historical_prices_data(ticker, asset_type, api_key, exchange_mappings=
     try:
         debug_print(f"Making API request to: {url}")
         response = requests.get(url, headers=headers, timeout=15)
-
         debug_print(f"Response Status Code: {response.status_code}")
-
         if response.status_code != 200:
             debug_print(f"❌ API call failed with status {response.status_code}: {response.text}")
             return '-', '-'
             
         data = response.json()
+        
+        # Check the publication time and filter if before 9pm UTC yesterday
+        if 'time' in data:
+            try:
+                # Parse the time field
+                publication_time = datetime.strptime(data['time'], '%Y-%m-%dT%H:%M:%S.%fZ')
+                debug_print(f"Publication time for {ticker}: {publication_time.isoformat()}Z")
+                
+                if publication_time < yesterday_9pm_utc:
+                    debug_print(f"🚫 Excluding {ticker} - publication time {publication_time.isoformat()}Z is before cutoff {yesterday_9pm_utc.isoformat()}Z")
+                    return 'EXCLUDE', 'EXCLUDE'  # Special return value to indicate exclusion
+                    
+            except ValueError as e:
+                debug_print(f"⚠️ Could not parse time field for {ticker}: {data.get('time', 'N/A')} - {e}")
+        else:
+            debug_print(f"⚠️ No 'time' field found in response for {ticker}")
         
         # Check if we have data
         if not data.get('data') or len(data['data']) == 0:
@@ -316,7 +336,7 @@ def fetch_historical_prices_data(ticker, asset_type, api_key, exchange_mappings=
         
         debug_print(f"✅ Success: {ticker} - Exchanges: {exchanges}, Calculation Window: {calc_window}")
         return exchanges, calc_window
-
+        
     except requests.exceptions.RequestException as e:
         debug_print(f"🚨 RequestException: {e}")
         return '-', '-'
@@ -434,6 +454,10 @@ def pull_and_save_data_to_csv(api_url, api_key):
 
             # Fetch exchanges & calculation window using the exchange mappings
             exchanges, calc_window = fetch_historical_prices_data(ticker, asset_type, api_key, exchange_mappings)
+            
+            if exchanges == 'EXCLUDE' and calc_window == 'EXCLUDE':
+                debug_print(f"Skipping {ticker} due to old publication time")
+                continue 
 
             api_items.append((
                 brand, normalized_family, short_name, ticker, base_short_name, quote_short_name,
