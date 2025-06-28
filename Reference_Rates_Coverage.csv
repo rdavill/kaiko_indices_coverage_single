@@ -1203,6 +1203,7 @@ Kaiko,Single-Asset,Kaiko VARA Reference Rate SGP,KK_RFR_VARAUSD_SGP,VARA,USD,Dai
 Kaiko,Single-Asset,Kaiko VELODROME Reference Rate ,KK_RFR_VELODROMEUSD,VELODROME,USD,Real-time (5s),"September 23, 2024","September 23, 2024","Kraken, OkEX",300s,
 Kaiko,Single-Asset,Kaiko VELODROME Reference Rate LDN,KK_RFR_VELODROMEUSD_LDN,VELODROME,USD,Daily Fixing LDN,"September 23, 2024","September 23, 2024","Kraken, OkEX",3600s,
 Kaiko,Single-Asset,Kaiko VELODROME Reference Rate NYC,KK_RFR_VELODROMEUSD_NYC,VELODROME,USD,Daily Fixing NYC,"September 23, 2024","September 23, 2024","Kraken, OkEX",3600s,
+Kaiko,Single-Asset,Kaiko VELODROME Reference Rate SGP,KK_RFR_VELODROMEUSD_SGP,VELODROME,USD,Daily Fixing SGP,"September 23, 2024","September 23, 2024","Kraken, OkEX",3600s,
 Kaiko,Single-Asset,Kaiko VET Reference Rate ,KK_RFR_VETUSD,VET,USD,Real-time (5s),"September 20, 2022","September 20, 2022","BinanceUS, Crypto.com",300s,
 Kaiko,Single-Asset,Kaiko VET Reference Rate LDN,KK_RFR_VETUSD_LDN,VET,USD,Daily Fixing LDN,"September 20, 2022","September 20, 2022","BinanceUS, Crypto.com",3600s,
 Kaiko,Single-Asset,Kaiko VET Reference Rate NYC,KK_RFR_VETUSD_NYC,VET,USD,Daily Fixing NYC,"September 20, 2022","September 20, 2022","BinanceUS, Crypto.com",3600s,
