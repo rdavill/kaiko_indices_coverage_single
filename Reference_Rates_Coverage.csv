@@ -590,6 +590,7 @@ Kaiko,Single-Asset,Kaiko EOS Reference Rate LDN,KK_RFR_EOSUSD_LDN,EOS,USD,Daily 
 Kaiko,Single-Asset,Kaiko EOS Reference Rate NYC,KK_RFR_EOSUSD_NYC,EOS,USD,Daily Fixing NYC,"September 20, 2022","September 20, 2022","BeQuant, Bitfinex, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko EOS Reference Rate SGP,KK_RFR_EOSUSD_SGP,EOS,USD,Daily Fixing SGP,"September 20, 2022","September 20, 2022","BeQuant, Bitfinex, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko ERN Reference Rate ,KK_RFR_ERNUSD,ERN,USD,Real-time (5s),"February 27, 2024","February 27, 2024","Crypto.com, OkEX",300s,
+Kaiko,Single-Asset,Kaiko ERN Reference Rate LDN,KK_RFR_ERNUSD_LDN,ERN,USD,Daily Fixing LDN,"February 27, 2024","February 27, 2024","Crypto.com, OkEX",3600s,
 Kaiko,Single-Asset,Kaiko ETC Reference Rate ,KK_RFR_ETCUSD,ETC,USD,Real-time (5s),"September 20, 2022","September 20, 2022","Bitfinex, Crypto.com, Kraken",300s,
 Kaiko,Single-Asset,Kaiko ETC Reference Rate LDN,KK_RFR_ETCUSD_LDN,ETC,USD,Daily Fixing LDN,"September 20, 2022","September 20, 2022","Bitfinex, Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko ETC Reference Rate NYC,KK_RFR_ETCUSD_NYC,ETC,USD,Daily Fixing NYC,"September 20, 2022","September 20, 2022","Bitfinex, Crypto.com, Kraken",3600s,
