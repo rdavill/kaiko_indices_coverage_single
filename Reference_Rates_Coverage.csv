@@ -974,6 +974,7 @@ Kaiko,Single-Asset,Kaiko PNUT Reference Rate SGP,KK_RFR_PNUTUSD_SGP,PNUT,USD,Dai
 Kaiko,Single-Asset,Kaiko POLS Reference Rate ,KK_RFR_POLSUSD,POLS,USD,Real-time (5s),"March 07, 2024","March 07, 2024",Kraken,300s,
 Kaiko,Single-Asset,Kaiko POLS Reference Rate LDN,KK_RFR_POLSUSD_LDN,POLS,USD,Daily Fixing LDN,"March 07, 2024","March 07, 2024",Kraken,3600s,
 Kaiko,Single-Asset,Kaiko POLS Reference Rate NYC,KK_RFR_POLSUSD_NYC,POLS,USD,Daily Fixing NYC,"March 07, 2024","March 07, 2024",Kraken,3600s,
+Kaiko,Single-Asset,Kaiko POLS Reference Rate SGP,KK_RFR_POLSUSD_SGP,POLS,USD,Daily Fixing SGP,"March 07, 2024","March 07, 2024",Kraken,3600s,
 Kaiko,Single-Asset,Kaiko POL Reference Rate ,KK_RFR_POLUSD,POL,USD,Real-time (5s),"September 23, 2024","September 23, 2024","Bitfinex, Bitso, Crypto.com, Kraken, OkEX",300s,
 Kaiko,Single-Asset,Kaiko POL Reference Rate LDN,KK_RFR_POLUSD_LDN,POL,USD,Daily Fixing LDN,"September 23, 2024","September 23, 2024","Bitfinex, Bitso, Crypto.com, Kraken, OkEX",3600s,
 Kaiko,Single-Asset,Kaiko POL Reference Rate NYC,KK_RFR_POLUSD_NYC,POL,USD,Daily Fixing NYC,"September 23, 2024","September 23, 2024","Bitfinex, Bitso, Crypto.com, Kraken, OkEX",3600s,
