@@ -1066,6 +1066,7 @@ Kaiko,Single-Asset,Kaiko SC Reference Rate LDN,KK_RFR_SCUSD_LDN,SC,USD,Daily Fix
 Kaiko,Single-Asset,Kaiko SC Reference Rate NYC,KK_RFR_SCUSD_NYC,SC,USD,Daily Fixing NYC,"March 07, 2024","March 07, 2024","Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko SC Reference Rate SGP,KK_RFR_SCUSD_SGP,SC,USD,Daily Fixing SGP,"March 07, 2024","March 07, 2024","Crypto.com, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko SD Reference Rate ,KK_RFR_SDUSD,SD,USD,Real-time (5s),"September 23, 2024","September 23, 2024","Crypto.com, OkEX",300s,
+Kaiko,Single-Asset,Kaiko SD Reference Rate LDN,KK_RFR_SDUSD_LDN,SD,USD,Daily Fixing LDN,"September 23, 2024","September 23, 2024","Crypto.com, OkEX",3600s,
 Kaiko,Single-Asset,Kaiko SD Reference Rate NYC,KK_RFR_SDUSD_NYC,SD,USD,Daily Fixing NYC,"September 23, 2024","September 23, 2024","Crypto.com, OkEX",3600s,
 Kaiko,Single-Asset,Kaiko SD Reference Rate SGP,KK_RFR_SDUSD_SGP,SD,USD,Daily Fixing SGP,"September 23, 2024","September 23, 2024","Crypto.com, OkEX",3600s,
 Kaiko,Single-Asset,Kaiko SEI Reference Rate ,KK_RFR_SEIUSD,SEI,USD,Real-time (5s),"March 07, 2024","March 07, 2024","Bitfinex, Crypto.com, Kraken, Bitstamp",300s,
