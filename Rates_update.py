@@ -142,7 +142,7 @@ def fetch_historical_prices_data(ticker, asset_type, api_key, exchange_mappings=
     # Build URL with page_size=1, sort=desc and parameters=true
     url = f"https://us.market-api.kaiko.io/v2/data/index.v1/digital_asset_rates_price/{ticker}?page_size=1&parameters=true&sort=desc"
     
-    headers = {'X-API-KEY': api_key, 'Accept': 'application/json'}
+    headers = {'X-Api-Key': api_key, 'Accept': 'application/json'}
     
     try:
         debug_print(f"Making API request to: {url}")
@@ -285,12 +285,15 @@ def merge_location_variants(items):
         # Clean the name by removing location suffixes
         cleaned_name = clean_name(base_variant[2])
         
+        # Ensure base_ticker has no trailing underscores
+        clean_base_ticker = base_ticker.rstrip('_')
+        
         # Create merged entry using base variant's data
         merged_entry = (
             base_variant[0],  # Brand
             base_variant[1],  # Type (raw, no normalization)
             cleaned_name,     # Cleaned name (no location suffixes)
-            base_ticker,      # Use base ticker (cleaned)
+            clean_base_ticker,  # Use cleaned base ticker
             base_variant[4],  # Base
             base_variant[5],  # Quote
             combined_disseminations,  # Combined disseminations
@@ -300,7 +303,7 @@ def merge_location_variants(items):
         )
         
         merged_items.append(merged_entry)
-        debug_print(f"Merged {base_ticker}: {cleaned_name} -> {combined_disseminations}")
+        debug_print(f"Merged {clean_base_ticker}: {cleaned_name} -> {combined_disseminations}")
     
     debug_print(f"Merged {len(items)} items into {len(merged_items)} entries")
     return merged_items
@@ -431,20 +434,13 @@ if __name__ == "__main__":
     debug_print("Repository: https://github.com/rdavill/kaiko_indices_coverage_single")
     debug_print("Processing single-asset rates only")
     
-    # Retrieve API key from environment
-    api_key = os.environ.get('KAIKO_API_KEY') or os.environ.get('API_KEY')
+    # Retrieve API key from environment or set directly
+    api_key = "your_actual_api_key_here"  # Replace with your actual API key
     
-    # Log environment variables for debugging (safely)
-    debug_print("Environment variables related to API key:")
-    for key in os.environ:
-        if 'KEY' in key or 'API' in key:
-            debug_print(f"Found environment variable: {key} (value hidden)")
-    
-    if not api_key:
-        debug_print("⚠️ Warning: API key is missing! Exchanges column will show '-'.")
-        api_key = ""  # Use empty string instead of None to avoid errors
+    if not api_key or api_key == "your_actual_api_key_here":
+        debug_print("⚠️ Warning: API key is missing! Please set your actual API key.")
+        api_key = ""
     else:
-        # Log partial key for debugging
         debug_print(f"API key found with length: {len(api_key)}")
     
     pull_and_save_data_to_csv("https://us.market-api.kaiko.io/v2/data/index_reference_data.v1/rates", api_key)
