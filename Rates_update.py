@@ -18,12 +18,23 @@ def parse_date(date_string):
         return datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ').strftime('%B %d, %Y')
 
 def get_base_ticker(ticker):
-    """Extract base ticker from location-based variants."""
+    """Extract base ticker from location-based variants and remove trailing underscores."""
+    # Remove trailing underscores first
+    cleaned_ticker = ticker.rstrip('_')
+    
     # Remove location suffixes
     for suffix in ['NYC', 'LDN', 'SGP']:
-        if ticker.endswith(suffix):
-            return ticker[:-len(suffix)]
-    return ticker
+        if cleaned_ticker.endswith(suffix):
+            return cleaned_ticker[:-len(suffix)]
+    return cleaned_ticker
+
+def clean_name(name):
+    """Remove location suffixes from name."""
+    # Remove location suffixes from the end of names
+    for suffix in [' NYC', ' LDN', ' SGP']:
+        if name.endswith(suffix):
+            return name[:-len(suffix)]
+    return name
 
 def get_exchange_name_mappings():
     """
@@ -220,8 +231,8 @@ def merge_location_variants(items):
     ticker_order = []  # Track the order in which base tickers first appear
     
     for item in items:
-        ticker = item[3]  # Ticker is at index 3
-        base_ticker = get_base_ticker(ticker)
+        original_ticker = item[3]  # Original ticker is at index 3
+        base_ticker = get_base_ticker(original_ticker)
         
         if base_ticker not in ticker_groups:
             ticker_groups[base_ticker] = []
@@ -241,8 +252,9 @@ def merge_location_variants(items):
         location_variants = []
         
         for variant in variants:
-            ticker = variant[3]
-            if ticker == base_ticker:
+            original_ticker = variant[3]
+            cleaned_ticker = original_ticker.rstrip('_')
+            if get_base_ticker(original_ticker) == base_ticker and not any(cleaned_ticker.endswith(suffix) for suffix in ['NYC', 'LDN', 'SGP']):
                 base_variant = variant
             else:
                 location_variants.append(variant)
@@ -259,8 +271,9 @@ def merge_location_variants(items):
         locations_found = []
         for location in ['NYC', 'LDN', 'SGP']:
             for variant in location_variants:
-                ticker = variant[3]
-                if ticker.endswith(location):
+                original_ticker = variant[3]
+                cleaned_ticker = original_ticker.rstrip('_')
+                if cleaned_ticker.endswith(location):
                     locations_found.append(location)
                     break
         
@@ -269,12 +282,15 @@ def merge_location_variants(items):
         
         combined_disseminations = ', '.join(disseminations)
         
+        # Clean the name by removing location suffixes
+        cleaned_name = clean_name(base_variant[2])
+        
         # Create merged entry using base variant's data
         merged_entry = (
             base_variant[0],  # Brand
             base_variant[1],  # Type (raw, no normalization)
-            base_variant[2],  # Name
-            base_ticker,      # Use base ticker
+            cleaned_name,     # Cleaned name (no location suffixes)
+            base_ticker,      # Use base ticker (cleaned)
             base_variant[4],  # Base
             base_variant[5],  # Quote
             combined_disseminations,  # Combined disseminations
@@ -284,7 +300,7 @@ def merge_location_variants(items):
         )
         
         merged_items.append(merged_entry)
-        debug_print(f"Merged {base_ticker}: {combined_disseminations}")
+        debug_print(f"Merged {base_ticker}: {cleaned_name} -> {combined_disseminations}")
     
     debug_print(f"Merged {len(items)} items into {len(merged_items)} entries")
     return merged_items
