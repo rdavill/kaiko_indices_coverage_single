@@ -970,6 +970,7 @@ Kaiko,Single-Asset,Kaiko PERP Reference Rate SGP,KK_RFR_PERPUSD_SGP,PERP,USD,Dai
 Kaiko,Single-Asset,Kaiko PIRATE Reference Rate ,KK_RFR_PIRATEUSD,PIRATE,USD,Real-time (5s),"September 23, 2024","September 23, 2024",Crypto.com,300s,
 Kaiko,Single-Asset,Kaiko PIRATE Reference Rate LDN,KK_RFR_PIRATEUSD_LDN,PIRATE,USD,Daily Fixing LDN,"September 23, 2024","September 23, 2024",Crypto.com,3600s,
 Kaiko,Single-Asset,Kaiko PIRATE Reference Rate NYC,KK_RFR_PIRATEUSD_NYC,PIRATE,USD,Daily Fixing NYC,"September 23, 2024","September 23, 2024",Crypto.com,3600s,
+Kaiko,Single-Asset,Kaiko PIRATE Reference Rate SGP,KK_RFR_PIRATEUSD_SGP,PIRATE,USD,Daily Fixing SGP,"September 23, 2024","September 23, 2024",Crypto.com,3600s,
 Kaiko,Single-Asset,Kaiko PNUT Reference Rate ,KK_RFR_PNUTUSD,PNUT,USD,Real-time (5s),"March 24, 2025","March 24, 2025","Crypto.com, Gemini, Kraken",300s,
 Kaiko,Single-Asset,Kaiko PNUT Reference Rate LDN,KK_RFR_PNUTUSD_LDN,PNUT,USD,Daily Fixing LDN,"March 24, 2025","March 24, 2025","Crypto.com, Gemini, Kraken",3600s,
 Kaiko,Single-Asset,Kaiko PNUT Reference Rate NYC,KK_RFR_PNUTUSD_NYC,PNUT,USD,Daily Fixing NYC,"March 24, 2025","March 24, 2025","Crypto.com, Gemini, Kraken",3600s,
