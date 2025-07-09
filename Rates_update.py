@@ -435,7 +435,7 @@ if __name__ == "__main__":
     debug_print("Processing single-asset rates only")
     
     # Retrieve API key from environment or set directly
-    api_key = "your_actual_api_key_here"  # Replace with your actual API key
+    api_key = os.environ.get("KAIKO_API_KEY", "")
     
     if not api_key or api_key == "your_actual_api_key_here":
         debug_print("⚠️ Warning: API key is missing! Please set your actual API key.")
