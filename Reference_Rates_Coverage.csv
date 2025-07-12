@@ -12,6 +12,7 @@ Kaiko,Reference Rate,Kaiko AUCTION Reference Rate,KK_RFR_AUCTIONUSD,AUCTION,USD,
 Kaiko,Reference Rate,Kaiko CELO Reference Rate,KK_RFR_CELOUSD,CELO,USD,"Daily Fixing NYC, LDN, SGP","February 27, 2024","February 27, 2024","Bitfinex, Kraken, OkEX"
 Kaiko,Reference Rate,Kaiko CLV Reference Rate,KK_RFR_CLVUSD,CLV,USD,"Daily Fixing LDN, NYC, SGP","February 27, 2024","February 27, 2024","Kraken, OkEX"
 Kaiko,Reference Rate,Kaiko COMP Reference Rate,KK_RFR_COMPUSD,COMP,USD,"Daily Fixing NYC, LDN, SGP","February 27, 2024","February 27, 2024","Bitfinex, Bitso, Crypto.com, Gemini, Kraken"
+Kaiko,Reference Rate,Kaiko ERN Reference Rate,KK_RFR_ERNUSD,ERN,USD,"Daily Fixing SGP, NYC, LDN","February 27, 2024","February 27, 2024","Crypto.com, OkEX"
 Kaiko,Reference Rate,Kaiko GODS Reference Rate,KK_RFR_GODSUSD,GODS,USD,"Daily Fixing LDN, NYC, SGP","July 17, 2024","October 06, 2023","Crypto.com, OkEX"
 Kaiko,Reference Rate,Kaiko JUP Reference Rate,KK_RFR_JUPUSD,JUP,USD,"Daily Fixing NYC, LDN, SGP","July 17, 2024","March 18, 2024","Bitfinex, Crypto.com, Kraken, Bitstamp"
 Kaiko,Reference Rate,Kaiko RAD Reference Rate,KK_RFR_RADUSD,RAD,USD,"Daily Fixing NYC, LDN, SGP","March 07, 2024","March 07, 2024","Crypto.com, Kraken"
