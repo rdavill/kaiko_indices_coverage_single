@@ -332,7 +332,6 @@ Kaiko,Reference Rate,Kaiko SC Reference Rate ,KK_RFR_SCUSD,SC,USD,Real-time (5s)
 Kaiko,Reference Rate,Kaiko STX Reference Rate ,KK_RFR_STXUSD,STX,USD,Real-time (5s),"September 20, 2022","September 20, 2022","Crypto.com, Kraken"
 Kaiko,Reference Rate,Kaiko KAVA Reference Rate,KK_RFR_KAVAUSD,KAVA,USD,"Daily Fixing NYC, LDN, SGP","March 04, 2024","March 04, 2024","Bitfinex, CEX.IO, Crypto.com, Kraken"
 Kaiko,Reference Rate,Kaiko LCX Reference Rate ,KK_RFR_LCXUSD,LCX,USD,Real-time (5s),"March 04, 2024","March 04, 2024",Kraken
-Kaiko,Reference Rate,Kaiko BNB Reference Rate ,KK_RFR_BNBUSD_1S,BNB,USD,Real-time (1s),"April 21, 2023","April 21, 2023",-
 Kaiko,Reference Rate,Kaiko APT Reference Rate ,KK_RFR_APTUSD,APT,USD,Real-time (5s),"February 27, 2024","February 27, 2024","Bitfinex, Crypto.com, Kraken"
 Kaiko,Reference Rate,Kaiko CTSI Reference Rate ,KK_RFR_CTSIUSD,CTSI,USD,Real-time (5s),"February 27, 2024","February 27, 2024","Crypto.com, Kraken, Bitstamp"
 Kaiko,Reference Rate,Kaiko ETC Reference Rate ,KK_RFR_ETCUSD,ETC,USD,Real-time (5s),"September 20, 2022","September 20, 2022","Bitfinex, Crypto.com, Kraken"
@@ -343,6 +342,7 @@ Kaiko,Benchmark Reference Rate,Kaiko BCH Benchmark Reference Rate,KK_BRR_BCHUSD,
 Kaiko,Reference Rate,Kaiko FIDA Reference Rate ,KK_RFR_FIDAUSD,FIDA,USD,Real-time (5s),"February 27, 2024","February 27, 2024",Kraken
 Kaiko,Reference Rate,Kaiko ALCX Reference Rate ,KK_RFR_ALCXUSD,ALCX,USD,Real-time (5s),"February 27, 2024","February 27, 2024","Crypto.com, Kraken"
 Kaiko,Reference Rate,Kaiko COTI Reference Rate ,KK_RFR_COTIUSD,COTI,USD,Real-time (5s),"February 27, 2024","February 27, 2024","CEX.IO, Crypto.com, Kraken"
+Kaiko,Reference Rate,Kaiko BNB Reference Rate ,KK_RFR_BNBUSD,BNB,USD,Real-time (5s),"September 20, 2022","September 20, 2022","BinanceUS, CEX.IO, Kraken, OkEX"
 Kaiko,Reference Rate,Kaiko FTM Reference Rate ,KK_RFR_FTMUSD,FTM,USD,Real-time (5s),"September 20, 2022","September 20, 2022","Gemini, Kraken, Bitstamp"
 Kaiko,Reference Rate,Kaiko GFI Reference Rate ,KK_RFR_GFIUSD,GFI,USD,Real-time (5s),"March 04, 2024","March 04, 2024",Kraken
 Kaiko,Reference Rate,Kaiko HFT Reference Rate ,KK_RFR_HFTUSD,HFT,USD,Real-time (5s),"March 04, 2024","March 04, 2024","Crypto.com, Kraken"
