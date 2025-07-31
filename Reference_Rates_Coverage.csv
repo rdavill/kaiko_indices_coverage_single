@@ -5,7 +5,7 @@ Kaiko,Reference Rate,Kaiko OXT Reference Rate,KK_RFR_OXTUSD,OXT,USD,"Daily Fixin
 Kaiko,Reference Rate,Kaiko RAD Reference Rate,KK_RFR_RADUSD,RAD,USD,"Daily Fixing NYC, LDN, SGP","March 07, 2024","December 20, 2021","Crypto.com, Kraken"
 Kaiko,Reference Rate,Kaiko SGB Reference Rate,KK_RFR_SGBUSD,SGB,USD,"Daily Fixing NYC, LDN, SGP","March 07, 2024","December 20, 2021","CEX.IO, Kraken, Bitstamp"
 Kaiko,Benchmark Reference Rate,Kaiko SNX Benchmark Reference Rate,KK_BRR_SNXUSD,SNX,USD,"Daily Fixing SGP, NYC, LDN","February 13, 2024","March 22, 2021","Crypto.com, Kraken, Bitstamp"
-Kaiko,Reference Rate,Kaiko ADA Reference Rate ,KK_RFR_ADAUSD,ADA,USD,Real-time (5s),"September 20, 2022","December 17, 2018","Bitfinex, Bitso, Crypto.com, Kraken, Bitstamp"
+Kaiko,Reference Rate,Kaiko ADA Reference Rate ,KK_RFR_ADAUSD,ADA,USD,Real-time (5s),"September 20, 2022","December 17, 2018",-
 Kaiko,Reference Rate,Kaiko AUCTION Reference Rate,KK_RFR_AUCTIONUSD,AUCTION,USD,"Daily Fixing NYC, LDN, SGP","February 27, 2024","December 20, 2021","Kraken, OkEX"
 Kaiko,Reference Rate,Kaiko AUDIO Reference Rate ,KK_RFR_AUDIOUSD,AUDIO,USD,Real-time (5s),"February 27, 2024","December 21, 2020","Crypto.com, Kraken, Bitstamp"
 Kaiko,Reference Rate,Kaiko CLV Reference Rate,KK_RFR_CLVUSD,CLV,USD,"Daily Fixing LDN, NYC, SGP","February 27, 2024","September 20, 2021","Kraken, OkEX"
@@ -122,7 +122,7 @@ Kaiko,Reference Rate,Kaiko APE Reference Rate,KK_RFR_APEUSD,APE,USD,"Daily Fixin
 Kaiko,Reference Rate,Kaiko BCH Reference Rate ,KK_RFR_BCHUSD,BCH,USD,Real-time (5s),"September 20, 2022","September 18, 2017","Bitso, Crypto.com, Itbit, Kraken, Bitstamp"
 Kaiko,Reference Rate,Kaiko CTSI Reference Rate,KK_RFR_CTSIUSD,CTSI,USD,"Daily Fixing LDN, NYC, SGP","February 27, 2024","June 21, 2021","Crypto.com, Kraken, Bitstamp"
 Kaiko,Reference Rate,Kaiko TRX Reference Rate,KK_RFR_TRXUSD,TRX,USD,"Daily Fixing SGP, NYC, LDN","September 20, 2022","March 19, 2018","BeQuant, Bullish, Kraken, Poloniex"
-Kaiko,Reference Rate,Kaiko VOXEL Reference Rate,KK_RFR_VOXELUSD,VOXEL,USD,"Daily Fixing LDN, NYC, SGP","March 07, 2024","June 20, 2022",Crypto.com
+Kaiko,Reference Rate,Kaiko VOXEL Reference Rate,KK_RFR_VOXELUSD,VOXEL,USD,"Daily Fixing LDN, NYC, SGP","March 07, 2024","June 20, 2022",-
 Kaiko,Reference Rate,Kaiko XRP Reference Rate,KK_RFR_XRPUSD,XRP,USD,"Daily Fixing NYC, LDN, SGP","September 20, 2022","June 19, 2017","Crypto.com, Gemini, Kraken, LMAX, Bitstamp"
 Kaiko,Reference Rate,Kaiko ZEC Reference Rate ,KK_RFR_ZECUSD,ZEC,USD,Real-time (5s),"July 17, 2024","December 19, 2016","Bitfinex, Gemini, Kraken"
 Kaiko,Reference Rate,Kaiko AERGO Reference Rate,KK_RFR_AERGOUSD,AERGO,USD,"Daily Fixing SGP, NYC, LDN","February 27, 2024","June 20, 2022","Crypto.com, OkEX"
@@ -166,7 +166,7 @@ Kaiko,Reference Rate,Kaiko AVAX Reference Rate,KK_RFR_AVAXUSD,AVAX,USD,"Daily Fi
 Kaiko,Reference Rate,Kaiko BLZ Reference Rate,KK_RFR_BLZUSD,BLZ,USD,"Daily Fixing SGP, NYC, LDN","February 27, 2024","March 21, 2022",Kraken
 Kaiko,Reference Rate,Kaiko CELR Reference Rate,KK_RFR_CELRUSD,CELR,USD,"Daily Fixing NYC, LDN, SGP","February 27, 2024","June 20, 2022","Crypto.com, Kraken"
 Kaiko,Reference Rate,Kaiko DOGE Reference Rate ,KK_RFR_DOGEUSD,DOGE,USD,Real-time (5s),"September 20, 2022","December 18, 2017","Bitfinex, Crypto.com, Gemini, Kraken, Bitstamp"
-Kaiko,Reference Rate,Kaiko IMX Reference Rate,KK_RFR_IMXUSD,IMX,USD,"Daily Fixing LDN, NYC, SGP","March 04, 2024","December 20, 2021","Crypto.com, Gemini, Kraken"
+Kaiko,Reference Rate,Kaiko IMX Reference Rate,KK_RFR_IMXUSD,IMX,USD,"Daily Fixing LDN, NYC, SGP","March 04, 2024","December 20, 2021",-
 Kaiko,Reference Rate,Kaiko QNT Reference Rate ,KK_RFR_QNTUSD,QNT,USD,Real-time (5s),"March 07, 2024","September 20, 2021","Bitso, Crypto.com, Gemini, Kraken"
 Kaiko,Reference Rate,Kaiko ROSE Reference Rate ,KK_RFR_ROSEUSD,ROSE,USD,Real-time (5s),"March 07, 2024","December 20, 2021",CEX.IO
 Kaiko,Reference Rate,Kaiko SYN Reference Rate,KK_RFR_SYNUSD,SYN,USD,"Daily Fixing SGP, NYC, LDN","March 07, 2024","June 20, 2022",Kraken
@@ -564,7 +564,7 @@ Kaiko,Reference Rate,Kaiko BEAT Reference Rate ,KK_RFR_BEATUSD,BEAT,USD,Real-tim
 Kaiko,Benchmark Reference Rate,Kaiko SAND Benchmark Reference Rate ,KK_BRR_SANDUSD,SAND,USD,Real-time (5s),"January 17, 2023","December 20, 2021","Crypto.com, Gemini, Kraken, Bitstamp"
 Kaiko,Benchmark Reference Rate,Kaiko USDT Benchmark Reference Rate ,KK_BRR_USDTUSD,USDT,USD,Real-time (5s),"January 17, 2023","December 17, 2018","Crypto.com, Gemini, Kraken, Bitstamp"
 Kaiko,Reference Rate,Kaiko DGB Reference Rate ,KK_RFR_DGBUSD,DGB,USD,Real-time (5s),"February 27, 2024","December 17, 2018","Crypto.com, OkEX"
-Kaiko,Reference Rate,Kaiko AMP Reference Rate ,KK_RFR_AMPUSD,AMP,USD,Real-time (5s),"February 27, 2024","December 21, 2020","Crypto.com, Gemini"
+Kaiko,Reference Rate,Kaiko AMP Reference Rate ,KK_RFR_AMPUSD,AMP,USD,Real-time (5s),"February 27, 2024","December 21, 2020",-
 Kaiko,Benchmark Reference Rate,Kaiko GALA Benchmark Reference Rate ,KK_BRR_GALAUSD,GALA,USD,Real-time (5s),"February 13, 2024","September 18, 2023","Crypto.com, Gemini, Kraken, Bitstamp"
 Kaiko,Benchmark Reference Rate,Kaiko PEPE Benchmark Reference Rate ,KK_BRR_PEPEUSD,PEPE,USD,Real-time (5s),"May 02, 2024","December 09, 2024","Crypto.com, Gemini, Kraken, Bitstamp"
 Kaiko,Benchmark Reference Rate,Kaiko YFI Benchmark Reference Rate ,KK_BRR_YFIUSD,YFI,USD,Real-time (5s),"February 13, 2024","December 21, 2020","Crypto.com, Gemini, Kraken"
