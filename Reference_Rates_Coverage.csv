@@ -12,13 +12,13 @@ Kaiko,Reference Rate,Kaiko CLV Reference Rate,KK_RFR_CLVUSD,CLV,USD,"Daily Fixin
 Kaiko,Reference Rate,Kaiko COMP Reference Rate,KK_RFR_COMPUSD,COMP,USD,"Daily Fixing NYC, LDN, SGP","February 27, 2024","September 21, 2020","Bitfinex, Bitso, Crypto.com, Gemini, Kraken"
 Kaiko,Reference Rate,Kaiko GODS Reference Rate,KK_RFR_GODSUSD,GODS,USD,"Daily Fixing LDN, NYC, SGP","July 17, 2024","December 20, 2021","Crypto.com, OkEX"
 Kaiko,Reference Rate,Kaiko LTC Reference Rate,KK_RFR_LTCUSD,LTC,USD,"Daily Fixing SGP, NYC, LDN","September 20, 2022","June 17, 2013","Bitfinex, Crypto.com, Kraken, LMAX, Bitstamp"
-Kaiko,Reference Rate,Kaiko PYTH Reference Rate ,KK_RFR_PYTHUSD,PYTH,USD,Real-time (5s),"July 17, 2024","December 18, 2023",-
-Kaiko,Reference Rate,Kaiko RNDR Reference Rate,KK_RFR_RNDRUSD,RNDR,USD,"Daily Fixing LDN, NYC, SGP","March 07, 2024","March 21, 2022",-
+Kaiko,Reference Rate,Kaiko PYTH Reference Rate ,KK_RFR_PYTHUSD,PYTH,USD,Real-time (5s),"July 17, 2024","December 18, 2023","Crypto.com, Gemini, Kraken, LMAX, Bitstamp"
+Kaiko,Reference Rate,Kaiko RNDR Reference Rate,KK_RFR_RNDRUSD,RNDR,USD,"Daily Fixing LDN, NYC, SGP","March 07, 2024","March 21, 2022","Gemini, Bitstamp"
 Kaiko,Reference Rate,Kaiko SGB Reference Rate ,KK_RFR_SGBUSD,SGB,USD,Real-time (5s),"March 07, 2024","December 20, 2021","CEX.IO, Kraken, Bitstamp"
 Kaiko,Reference Rate,Kaiko T Reference Rate,KK_RFR_TUSD,T,USD,"Daily Fixing NYC, LDN, SGP","March 07, 2024","June 20, 2022","Crypto.com, Kraken, OkEX"
 Kaiko,Reference Rate,Kaiko UMA Reference Rate ,KK_RFR_UMAUSD,UMA,USD,Real-time (5s),"March 07, 2024","December 21, 2020","CEX.IO, Crypto.com, Gemini, Kraken, Bitstamp"
 Kaiko,Reference Rate,Kaiko XTZ Reference Rate,KK_RFR_XTZUSD,XTZ,USD,"Daily Fixing NYC, LDN, SGP","September 20, 2022","September 17, 2018","BeQuant, Bitfinex, Crypto.com, Gemini, Kraken"
-Kaiko,Reference Rate,Kaiko ZEC Reference Rate,KK_RFR_ZECUSD,ZEC,USD,"Daily Fixing NYC, LDN, SGP","September 20, 2022","December 19, 2016",-
+Kaiko,Reference Rate,Kaiko ZEC Reference Rate,KK_RFR_ZECUSD,ZEC,USD,"Daily Fixing NYC, LDN, SGP","September 20, 2022","December 19, 2016","Bitfinex, Gemini, Kraken"
 Kaiko,Reference Rate,Kaiko ARB Reference Rate,KK_RFR_ARBUSD,ARB,USD,"Daily Fixing SGP, NYC, LDN","February 27, 2024","June 19, 2023","Bitfinex, Bitso, Crypto.com, Kraken, Bitstamp"
 Kaiko,Reference Rate,Kaiko MAGIC Reference Rate ,KK_RFR_MAGICUSD,MAGIC,USD,Real-time (5s),"March 04, 2024","March 20, 2023","Crypto.com, OkEX"
 Kaiko,Benchmark Reference Rate,Kaiko ETH Benchmark Reference Rate,KK_BRR_ETHUSD,ETH,USD,"Daily Fixing NYC, LDN, SGP","January 17, 2023","June 20, 2016","Crypto.com, Gemini, Kraken, LMAX, Bitstamp"
