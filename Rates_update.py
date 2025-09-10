@@ -299,7 +299,8 @@ def merge_location_variants(items):
             combined_disseminations,  # Combined disseminations
             base_variant[7],  # Launch Date
             base_variant[8],  # Inception Date
-            base_variant[9]   # Exchanges
+            base_variant[9],  # Exchanges
+            base_variant[10]  # Methodology
         )
         
         merged_items.append(merged_entry)
@@ -324,10 +325,10 @@ def pull_and_save_data_to_csv(api_url, api_key):
         else:
             debug_print(f"✗ Missing mapping for {code}")
     
-    # Headers for single-asset rates (Type instead of Benchmark Family)
+    # Headers for single-asset rates (Type instead of Benchmark Family) - Added Methodology column
     headers = [
         'Brand', 'Type', 'Name', 'Ticker', 'Base', 'Quote',
-        'Dissemination(s)', 'Launch Date', 'Inception Date', 'Exchanges'
+        'Dissemination(s)', 'Launch Date', 'Inception Date', 'Exchanges', 'Methodology'
     ]
     
     # Fetch API data
@@ -362,8 +363,13 @@ def pull_and_save_data_to_csv(api_url, api_key):
             ticker = item['ticker']
             asset_type = item['type']
             
-            # Only process single-asset types
-            if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate', 'Custom_Rate']:
+            # Filter out Custom_Rate types
+            if asset_type == 'Custom_Rate':
+                debug_print(f"Excluding {ticker} - type is Custom Rate")
+                continue
+            
+            # Only process single-asset types (excluding Custom_Rate)
+            if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate']:
                 continue
             
             single_asset_count += 1
@@ -387,9 +393,12 @@ def pull_and_save_data_to_csv(api_url, api_key):
                 debug_print(f"Excluding {ticker} due to time filtering")
                 continue
             
+            # Add default value for Methodology column
+            methodology = '-'
+            
             api_items.append((
                 brand, type_display, short_name, ticker, base_short_name, quote_short_name,
-                dissemination, launch_date, inception, exchanges
+                dissemination, launch_date, inception, exchanges, methodology
             ))
         
         debug_print(f"Found {single_asset_count} single-asset items after USD filtering")
