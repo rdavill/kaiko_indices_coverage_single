@@ -394,7 +394,7 @@ def pull_and_save_data_to_csv(api_url, api_key):
                 continue
             
             # Create 'Learn more' link for all rows
-            learn_more_link = f'<a href="https://explorer.kaiko.com/rates/{ticker}" target="_blank">explore performance</a>'
+            learn_more_link = f'<a href="https://explorer.kaiko.com/rates/{ticker}" target="_blank">Explore performance</a>'
             
             api_items.append((
                 brand, type_display, short_name, ticker, base_short_name, quote_short_name,
