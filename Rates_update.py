@@ -288,19 +288,22 @@ def merge_location_variants(items):
         # Ensure base_ticker has no trailing underscores
         clean_base_ticker = base_ticker.rstrip('_')
         
+        # Create the 'Learn more' link using the clean_base_ticker
+        learn_more_link = f'<a href="https://explorer.kaiko.com/rates/{clean_base_ticker}" target="_blank">Explore performance</a>'
+
         # Create merged entry using base variant's data
         merged_entry = (
             base_variant[0],  # Brand
             base_variant[1],  # Type (raw, no normalization)
             cleaned_name,     # Cleaned name (no location suffixes)
-            clean_base_ticker,  # Use cleaned base ticker
+            clean_base_ticker,  # Use cleaned base ticker (index 3)
             base_variant[4],  # Base
             base_variant[5],  # Quote
             combined_disseminations,  # Combined disseminations
             base_variant[7],  # Launch Date
             base_variant[8],  # Inception Date
             base_variant[9],  # Exchanges
-            base_variant[10]  # Learn more link (previously Rulebook)
+            learn_more_link   # New 'Learn more' link (index 10)
         )
         
         merged_items.append(merged_entry)
@@ -393,12 +396,11 @@ def pull_and_save_data_to_csv(api_url, api_key):
                 debug_print(f"Excluding {ticker} due to time filtering")
                 continue
             
-            # Create 'Learn more' link for all rows
-            learn_more_link = f'<a href="https://explorer.kaiko.com/rates/{ticker}" target="_blank">Explore performance</a>'
-            
+            # Pass the raw ticker as a placeholder for the 'Learn more' column.
+            # The actual link will be generated in merge_location_variants using the base ticker.
             api_items.append((
                 brand, type_display, short_name, ticker, base_short_name, quote_short_name,
-                dissemination, launch_date, inception, exchanges, learn_more_link
+                dissemination, launch_date, inception, exchanges, ticker # Placeholder for 'Learn more'
             ))
         
         debug_print(f"Found {single_asset_count} single-asset items after USD filtering")
