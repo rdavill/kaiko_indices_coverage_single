@@ -1,86 +1,21 @@
-name: "Update Reference Rates Coverage"
-on:
-  schedule:
-    - cron: '0 */8 * * *'  # Fixed syntax error here - was missing a digit
-  workflow_dispatch:
-jobs:
-  update-csv:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-      
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'
-      
-      - name: Install Pipenv
-        run: |
-          python3 -m pip install --user pipenv
-      
-      - name: Install dependencies
-        run: |
-          pipenv install
-          pipenv --version  # Debug: verify pipenv installation
-      
-      - name: Check for API Key
-        run: |
-          if [ -z "$KAIKO_API_KEY" ]; then
-            echo "::warning::KAIKO_API_KEY is not set or is empty"
-          else
-            echo "KAIKO_API_KEY is set (value not shown for security)"
-          fi
-        env:
-          KAIKO_API_KEY: ${{ secrets.KAIKO_API_KEY }}
-      
-      - name: Run Python Script
-        run: |
-          echo "Running Python script..."
-          pipenv run python Rates_update.py
-          echo "Script completed. Checking files:"
-          ls -l Reference_Rates_Coverage.csv Reference_Rates_With_Factsheets.csv || true
-          echo "Preview of main CSV:"
-          head -n 5 Reference_Rates_Coverage.csv
-          echo "Preview of filtered CSV (if exists):"
-          head -n 5 Reference_Rates_With_Factsheets.csv || true
-        env:
-          KAIKO_API_KEY: ${{ secrets.KAIKO_API_KEY }}
-      
-      - name: Commit and push changes
+- name: Commit and push changes
         run: |
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           
-          # Ensure we have the latest changes
-          git fetch --all
-          
-          # Stash any uncommitted changes
-          git stash
-          
-          # Reset to match remote
-          git reset --hard origin/main
-          
-          # Pop any stashed changes
-          git stash pop || true
-          
           # Add the changed files
-          git add Reference_Rates_Coverage.csv Reference_Rates_With_Factsheets.csv Pipfile.lock || echo "Some files not found"
+          git add Reference_Rates_Coverage.csv || echo "CSV file not found"
           
-          # Show status for debugging
+          # Show what we're about to commit
           echo "Git status:"
           git status
+          echo "Git diff:"
+          git diff --staged
           
           # Commit and push if there are changes
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update Reference_Rates_Coverage.csv and filtered version"
-            # Force push with lease for safety
-            git push --force-with-lease
+            git commit -m "Update Reference_Rates_Coverage.csv - $(date)"
+            git push origin main
           fi
