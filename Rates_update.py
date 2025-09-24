@@ -36,6 +36,35 @@ def clean_name(name):
             return name[:-len(suffix)]
     return name
 
+def check_learn_more_url(ticker):
+    """
+    Checks if the 'Learn more' URL for a given ticker returns a 200 status code.
+    Returns True if the URL is valid (200 OK), False otherwise.
+    """
+    url = f"https://explorer.kaiko.com/rates/{ticker}"
+    try:
+        debug_print(f"Checking URL status for {url}")
+        # Use HEAD request for efficiency as we only need the status code
+        response = requests.head(url, timeout=10) 
+        if response.status_code == 200:
+            debug_print(f"✅ URL {url} is valid (200 OK)")
+            return True
+        else:
+            debug_print(f"❌ URL {url} returned status code {response.status_code}")
+            return False
+    except requests.exceptions.ConnectionError:
+        debug_print(f"🚨 Connection error checking URL {url}")
+        return False
+    except requests.exceptions.Timeout:
+        debug_print(f"🚨 Timeout (10s) checking URL {url}")
+        return False
+    except requests.exceptions.RequestException as e:
+        debug_print(f"🚨 Request error checking URL {url}: {e}")
+        return False
+    except Exception as e:
+        debug_print(f"🚨 Unexpected error checking URL {url}: {e}")
+        return False
+
 def get_exchange_name_mappings():
     """
     Fetch exchange codes and names from the reference API and create a mapping.
@@ -223,7 +252,10 @@ def fetch_historical_prices_data(ticker, asset_type, api_key, exchange_mappings=
         return '-'
 
 def merge_location_variants(items):
-    """Merge location-based variants into single rows with combined disseminations, preserving original order."""
+    """
+    Merge location-based variants into single rows with combined disseminations,
+    preserving original order, and filtering out rows with invalid 'Learn more' URLs.
+    """
     debug_print("Starting merge of location variants for single assets")
     
     # Use OrderedDict to preserve insertion order
@@ -288,6 +320,12 @@ def merge_location_variants(items):
         # Ensure base_ticker has no trailing underscores
         clean_base_ticker = base_ticker.rstrip('_')
         
+        # --- NEW LOGIC: Check the 'Learn more' URL for 404 ---
+        if not check_learn_more_url(clean_base_ticker):
+            debug_print(f"🚫 Excluding {clean_base_ticker} - Learn more URL check failed (404 or error).")
+            continue # Skip this item if the URL is not valid
+        # --- END NEW LOGIC ---
+
         # Create the 'Learn more' link using the clean_base_ticker
         learn_more_link = f'<a href="https://explorer.kaiko.com/rates/{clean_base_ticker}" target="_blank">Explore performance</a>'
 
@@ -309,7 +347,7 @@ def merge_location_variants(items):
         merged_items.append(merged_entry)
         debug_print(f"Merged {clean_base_ticker}: {cleaned_name} -> {combined_disseminations}")
     
-    debug_print(f"Merged {len(items)} items into {len(merged_items)} entries")
+    debug_print(f"Merged {len(items)} initial items into {len(merged_items)} final entries after URL validation")
     return merged_items
 
 def pull_and_save_data_to_csv(api_url, api_key):
@@ -406,7 +444,7 @@ def pull_and_save_data_to_csv(api_url, api_key):
         debug_print(f"Found {single_asset_count} single-asset items after USD filtering")
         debug_print(f"Processing {len(api_items)} items after time filtering")
         
-        # Merge location variants
+        # Merge location variants and apply URL filtering
         merged_items = merge_location_variants(api_items)
         
         # Filter out items with Coinbase in exchanges before saving
