@@ -300,7 +300,7 @@ def merge_location_variants(items):
             base_variant[7],  # Launch Date
             base_variant[8],  # Inception Date
             base_variant[9],  # Exchanges
-            base_variant[10]  # Rulebook
+            base_variant[10]  # Learn more (was Rulebook)
         )
         
         merged_items.append(merged_entry)
@@ -325,10 +325,10 @@ def pull_and_save_data_to_csv(api_url, api_key):
         else:
             debug_print(f"✗ Missing mapping for {code}")
     
-    # Headers for single-asset rates (Type instead of Benchmark Family) - Added Rulebook column
+    # Headers for single-asset rates (Type instead of Benchmark Family) - Changed Rulebook to Learn more
     headers = [
         'Brand', 'Type', 'Name', 'Ticker', 'Base', 'Quote',
-        'Dissemination(s)', 'Launch Date', 'Inception Date', 'Exchanges', 'Rulebook'
+        'Dissemination(s)', 'Launch Date', 'Inception Date', 'Exchanges', 'Learn more'
     ]
     
     # Fetch API data
@@ -393,12 +393,12 @@ def pull_and_save_data_to_csv(api_url, api_key):
                 debug_print(f"Excluding {ticker} due to time filtering")
                 continue
             
-            # Add Rulebook link for all rows
-            rulebook = '<a href="https://marketing.kaiko.com/hubfs/Factsheets%2c%20Rulebooks%2c%20Methodologies%20(Resources)/Kaiko%20Indices/Rulebooks%20and%20methodologies/Kaiko%20Indices%20rulebooks/Kaiko%20Digital%20Asset%20Rates%20Rulebook.pdf" target="_blank">View Rulebook</a>'
+            # Add Learn more link with explorer URL using the ticker
+            learn_more = f'<a href="https://explorer.kaiko.com/rates/{ticker}" target="_blank">explore performance</a>'
             
             api_items.append((
                 brand, type_display, short_name, ticker, base_short_name, quote_short_name,
-                dissemination, launch_date, inception, exchanges, rulebook
+                dissemination, launch_date, inception, exchanges, learn_more
             ))
         
         debug_print(f"Found {single_asset_count} single-asset items after USD filtering")
@@ -438,7 +438,7 @@ def pull_and_save_data_to_csv(api_url, api_key):
         debug_print(f"❌ Error fetching API data: {response.status_code}")
 
 # Main execution
-if __name__ == "__main__":
+if __name__ == "____main__":
     debug_print("Starting script execution...")
     debug_print("Repository: https://github.com/rdavill/kaiko_indices_coverage_single")
     debug_print("Processing single-asset rates only")
