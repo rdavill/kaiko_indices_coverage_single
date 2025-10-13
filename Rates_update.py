@@ -22,10 +22,14 @@ def get_base_ticker(ticker):
     # Remove trailing underscores first
     cleaned_ticker = ticker.rstrip('_')
     
-    # Remove location suffixes
-    for suffix in ['NYC', 'LDN', 'SGP']:
-        if cleaned_ticker.endswith(suffix):
-            return cleaned_ticker[:-len(suffix)]
+    # Remove location suffixes - need to check for _NYC, _LDN, _SGP
+    if cleaned_ticker.endswith('_NYC'):
+        return cleaned_ticker[:-4]  # Remove '_NYC'
+    elif cleaned_ticker.endswith('_LDN'):
+        return cleaned_ticker[:-4]  # Remove '_LDN'  
+    elif cleaned_ticker.endswith('_SGP'):
+        return cleaned_ticker[:-4]  # Remove '_SGP'
+    
     return cleaned_ticker
 
 def clean_name(name):
@@ -36,6 +40,26 @@ def clean_name(name):
             return name[:-len(suffix)]
     return name
 
+def get_dissemination_type_from_ticker(ticker):
+    """
+    Determine dissemination type based on ticker suffix:
+    - No suffix (base ticker) = Real-time
+    - _NYC suffix = Daily Fixing NYC
+    - _LDN suffix = Daily Fixing LDN  
+    - _SGP suffix = Daily Fixing SGP
+    """
+    cleaned_ticker = ticker.rstrip('_')
+    
+    if cleaned_ticker.endswith('_NYC'):
+        return 'daily_fixing', 'NYC'
+    elif cleaned_ticker.endswith('_LDN'):
+        return 'daily_fixing', 'LDN'
+    elif cleaned_ticker.endswith('_SGP'):
+        return 'daily_fixing', 'SGP'
+    else:
+        # Base ticker (no location suffix) = Real-time
+        return 'realtime', None
+
 def check_learn_more_url(ticker):
     """
     Checks if the 'Learn more' URL for a given ticker returns a 200 status code.
@@ -44,7 +68,6 @@ def check_learn_more_url(ticker):
     url = f"https://explorer.kaiko.com/rates/{ticker}"
     try:
         debug_print(f"Checking URL status for {url}")
-        # Use HEAD request for efficiency as we only need the status code
         response = requests.head(url, timeout=10) 
         if response.status_code == 200:
             debug_print(f"✅ URL {url} is valid (200 OK)")
@@ -52,112 +75,98 @@ def check_learn_more_url(ticker):
         else:
             debug_print(f"❌ URL {url} returned status code {response.status_code}")
             return False
-    except requests.exceptions.ConnectionError:
-        debug_print(f"🚨 Connection error checking URL {url}")
-        return False
-    except requests.exceptions.Timeout:
-        debug_print(f"🚨 Timeout (10s) checking URL {url}")
-        return False
-    except requests.exceptions.RequestException as e:
-        debug_print(f"🚨 Request error checking URL {url}: {e}")
-        return False
     except Exception as e:
-        debug_print(f"🚨 Unexpected error checking URL {url}: {e}")
+        debug_print(f"🚨 Error checking URL {url}: {e}")
         return False
 
 def merge_location_variants(items):
     """
-    Merge location-based variants into single rows with combined disseminations,
-    preserving original order, and filtering out rows with invalid 'Learn more' URLs.
-    Group real-time rates with daily fixings.
+    Merge location-based variants into single rows with combined disseminations.
+    Uses ticker suffix to determine dissemination type:
+    - Base ticker (no suffix) = Real-time
+    - _NYC/_LDN/_SGP suffix = Daily Fixing for that location
     """
     debug_print("Starting merge of location variants for single assets")
     
-    # Use OrderedDict to preserve insertion order
+    # Group items by base ticker
     ticker_groups = OrderedDict()
-    ticker_order = []  # Track the order in which base tickers first appear
     
     for item in items:
         original_ticker = item[2]  # Original ticker is at index 2
         base_ticker = get_base_ticker(original_ticker)
         
+        debug_print(f"GROUPING: {original_ticker} -> base: {base_ticker}")
+        
         if base_ticker not in ticker_groups:
             ticker_groups[base_ticker] = []
-            ticker_order.append(base_ticker)
         
         ticker_groups[base_ticker].append(item)
     
+    debug_print(f"\nGROUPING SUMMARY:")
+    for base_ticker, variants in ticker_groups.items():
+        debug_print(f"  Base: {base_ticker} has {len(variants)} variants:")
+        for variant in variants:
+            debug_print(f"    - {variant[2]}")
+    
     merged_items = []
     
-    # Process in the original order
-    for base_ticker in ticker_order:
-        variants = ticker_groups[base_ticker]
-        debug_print(f"Processing base ticker: {base_ticker} with {len(variants)} variants")
+    # Process each group
+    for base_ticker, variants in ticker_groups.items():
+        debug_print(f"\n=== PROCESSING: {base_ticker} with {len(variants)} variants ===")
         
-        # Find the base variant (without location suffix)
-        base_variant = None
-        location_variants = []
+        # If only one variant, check if it should be merged anyway
+        if len(variants) == 1:
+            debug_print(f"  Only one variant for {base_ticker}: {variants[0][2]}")
+        
+        # Use first variant as template for name
+        base_variant = variants[0]
+        cleaned_name = clean_name(base_variant[1])
+        clean_base_ticker = base_ticker.rstrip('_')
+        
+        # Collect dissemination info from ALL variants based on ticker suffix
+        daily_fixing_locations = set()
+        has_realtime = False
         
         for variant in variants:
             original_ticker = variant[2]
-            cleaned_ticker = original_ticker.rstrip('_')
-            if get_base_ticker(original_ticker) == base_ticker and not any(cleaned_ticker.endswith(suffix) for suffix in ['NYC', 'LDN', 'SGP']):
-                base_variant = variant
-            else:
-                location_variants.append(variant)
+            dissem_type, location = get_dissemination_type_from_ticker(original_ticker)
+            
+            debug_print(f"  Analyzing {original_ticker}: {dissem_type} {location or '(none)'}")
+            
+            if dissem_type == 'realtime':
+                has_realtime = True
+                debug_print(f"    -> Real-time found")
+            elif dissem_type == 'daily_fixing' and location:
+                daily_fixing_locations.add(location)
+                debug_print(f"    -> Daily fixing {location} found")
         
-        if base_variant is None:
-            # If no base variant found, use the first one as base
-            base_variant = variants[0]
-            location_variants = variants[1:]
+        # Build dissemination string
+        dissemination_parts = []
         
-        # Build disseminations string - group real-time with daily fixings
-        disseminations = []
+        if daily_fixing_locations:
+            # Sort locations in preferred order
+            location_order = ['SGP', 'LDN', 'NYC']
+            sorted_locations = [loc for loc in location_order if loc in daily_fixing_locations]
+            dissemination_parts.append(f"Daily Fixing {', '.join(sorted_locations)}")
         
-        # Check base variant dissemination
-        base_dissemination = base_variant[3]  # Dissemination is at index 3
-        if base_dissemination == "Real-time (5s)":
-            disseminations.append("Daily Fixing SGP, NYC, LDN")
-        else:
-            disseminations.append(base_dissemination)
+        if has_realtime:
+            dissemination_parts.append("Real-time (5s)")
         
-        # Add location disseminations in order: NYC, LDN, SGP
-        locations_found = []
-        for location in ['NYC', 'LDN', 'SGP']:
-            for variant in location_variants:
-                original_ticker = variant[2]
-                cleaned_ticker = original_ticker.rstrip('_')
-                if cleaned_ticker.endswith(location):
-                    variant_dissem = variant[3]
-                    if variant_dissem == "Real-time (5s)":
-                        # Real-time variants are already grouped above
-                        pass
-                    else:
-                        locations_found.append(location)
-                    break
+        combined_disseminations = ', '.join(dissemination_parts)
         
-        if locations_found:
-            disseminations.extend(locations_found)
+        debug_print(f"    FINAL DISSEMINATION: {combined_disseminations}")
         
-        combined_disseminations = ', '.join(disseminations)
-        
-        # Clean the name by removing location suffixes
-        cleaned_name = clean_name(base_variant[1])
-        
-        # Ensure base_ticker has no trailing underscores
-        clean_base_ticker = base_ticker.rstrip('_')
-        
-        # Check the 'Learn more' URL for 404
+        # Check the 'Learn more' URL
         if not check_learn_more_url(clean_base_ticker):
-            debug_print(f"🚫 Excluding {clean_base_ticker} - Learn more URL check failed (404 or error).")
-            continue # Skip this item if the URL is not valid
-
-        # Create the 'Learn more' link using the clean_base_ticker
+            debug_print(f"🚫 Excluding {clean_base_ticker} - Learn more URL check failed")
+            continue
+        
+        # Create the 'Learn more' link
         learn_more_link = f'<a href="https://explorer.kaiko.com/rates/{clean_base_ticker}" target="_blank">Explore performance</a>'
-
-        # Create merged entry with only the columns from the screenshot
+        
+        # Create merged entry
         merged_entry = (
-            "Benchmark Reference Rate",  # Family (hardcoded based on screenshot)
+            "Benchmark Reference Rate",  # Family
             cleaned_name,               # Name
             clean_base_ticker,          # Base Ticker
             combined_disseminations,    # Dissemination(s)
@@ -165,106 +174,71 @@ def merge_location_variants(items):
         )
         
         merged_items.append(merged_entry)
-        debug_print(f"Merged {clean_base_ticker}: {cleaned_name} -> {combined_disseminations}")
+        debug_print(f"✅ CREATED ENTRY: {clean_base_ticker} -> {combined_disseminations}")
     
-    debug_print(f"Merged {len(items)} initial items into {len(merged_items)} final entries after URL validation")
+    debug_print(f"\nFINAL RESULT: {len(merged_items)} merged entries from {len(items)} original items")
     return merged_items
 
 def pull_and_save_data_to_csv(api_url, api_key):
     """Fetch single-asset reference rates and save them to CSV with screenshot columns only."""
-    debug_print("Starting data pull and save process for single-asset rates")
+    debug_print("Starting data pull and save process (processing all records)")
     
-    # Headers matching the screenshot
     headers = [
         'Family', 'Name', 'Base Ticker', 'Dissemination(s)', 'Learn more'
     ]
-    
-    # Fetch API data
-    debug_print(f"Fetching API data from: {api_url}")
     
     response = requests.get(api_url)
     if response.status_code == 200:
         data = json.loads(response.text)
         api_items = []
         
-        # Log item types for debugging
-        item_types = {}
-        for item in data['data']:
-            item_type = item.get('type', 'Unknown')
-            item_types[item_type] = item_types.get(item_type, 0) + 1
-        
-        debug_print(f"Item types in API response: {item_types}")
-        
         # Filter for USD quote items only
-        usd_items = []
-        for item in data['data']:
-            quote_short_name = item['quote']['short_name'].upper()
-            if quote_short_name == 'USD':
-                usd_items.append(item)
-        
-        debug_print(f"Filtered {len(data['data'])} items to {len(usd_items)} USD quote items")
-        
-        # Count of single-asset types after filtering
-        single_asset_count = 0
+        usd_items = [item for item in data['data'] if item['quote']['short_name'].upper() == 'USD']
+        debug_print(f"Filtered to {len(usd_items)} USD quote items")
         
         for item in usd_items:
             ticker = item['ticker']
             asset_type = item['type']
             
-            # Filter out Custom_Rate types
-            if asset_type == 'Custom_Rate':
-                debug_print(f"Excluding {ticker} - type is Custom Rate")
-                continue
-            
-            # Only process single-asset types (excluding Custom_Rate)
+            # Only process Reference_Rate and Benchmark_Reference_Rate
             if asset_type not in ['Reference_Rate', 'Benchmark_Reference_Rate']:
                 continue
             
-            single_asset_count += 1
-            
             short_name = item['short_name'].replace('_', ' ')
-            dissemination = item['dissemination']
+            dissemination = item['dissemination']  # We'll ignore this and use ticker suffix instead
             
-            # Store only the data we need for the final columns
+            debug_print(f"COLLECTING: {ticker} (API says: {dissemination})")
+            
             api_items.append((
-                asset_type,      # Will be mapped to Family
-                short_name,      # Name
-                ticker,          # Base Ticker (will be cleaned)
-                dissemination    # Dissemination(s)
+                asset_type,
+                short_name,
+                ticker,
+                dissemination  # This will be ignored in favor of ticker-based logic
             ))
         
-        debug_print(f"Found {single_asset_count} single-asset items after USD filtering")
-        debug_print(f"Processing {len(api_items)} items")
+        debug_print(f"COLLECTED {len(api_items)} items for processing")
         
-        # Merge location variants and apply URL filtering
+        # Merge location variants
         merged_items = merge_location_variants(api_items)
         
-        # Save to CSV with merged items
+        # Save to CSV
         main_csv_path = "Reference_Rates_Coverage.csv"
-        debug_print(f"Saving main CSV to {os.path.abspath(main_csv_path)}")
         with open(main_csv_path, "w", newline='') as csv_file:
             writer = csv.writer(csv_file, quoting=csv.QUOTE_MINIMAL)
             writer.writerow(headers)
             writer.writerows(merged_items)
         
-        debug_print("Process complete")
+        print(f"\nSaved {len(merged_items)} merged records to {main_csv_path}")
+        
+        # Print first few rows for verification
+        print("\nFirst 5 rows:")
+        for i, row in enumerate(merged_items[:5]):
+            print(f"{i+1}: {row[1]} ({row[2]}) -> {row[3]}")
         
     else:
         debug_print(f"❌ Error fetching API data: {response.status_code}")
 
 # Main execution
 if __name__ == "__main__":
-    debug_print("Starting script execution...")
-    debug_print("Repository: https://github.com/rdavill/kaiko_indices_coverage_single")
-    debug_print("Processing single-asset rates only")
-    
-    # Retrieve API key from environment or set directly
     api_key = os.environ.get("KAIKO_API_KEY", "")
-    
-    if not api_key or api_key == "your_actual_api_key_here":
-        debug_print("⚠️ Warning: API key is missing! Please set your actual API key.")
-        api_key = ""
-    else:
-        debug_print(f"API key found with length: {len(api_key)}")
-    
     pull_and_save_data_to_csv("https://us.market-api.kaiko.io/v2/data/index_reference_data.v1/rates", api_key)
